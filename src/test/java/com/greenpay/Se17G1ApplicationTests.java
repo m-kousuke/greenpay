@@ -1,4 +1,4 @@
-package com.grennpay;
+package com.greenpay;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
