@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name="purchase_history_details")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Purchase_history_detail {
+public class PurchaseHistoryDetail {
 	@Id
 	@GeneratedValue
 	@Column(name="id")
