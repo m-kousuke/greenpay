@@ -5,7 +5,6 @@ import java.security.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,11 +22,11 @@ public class Money {
 	@Column(name="id",nullable=false)
 	private String id;
 	@Column(name="user_id",nullable=false)
-	private String user_id;
+	private String userId;
 	@Column(name="credit",nullable=false)
 	private BigDecimal credit;
 	@Column(name="credit_at",nullable=false)
-	private Timestamp credit_at;
+	private Timestamp creditAt;
 	@Column(name="updated_at",nullable=false)
-	private Timestamp updated_at;	
+	private Timestamp updatedAt;	
 }

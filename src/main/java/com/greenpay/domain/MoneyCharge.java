@@ -24,9 +24,9 @@ public class MoneyCharge {
 	@Column(name="id",nullable=false)
 	private int id;
 	@Column(name="money_id",nullable=false)
-	private String money_id = null;
+	private String moneyId = null;
 	@Column(name="charged_amount",nullable=false)
-	private BigDecimal charged_amount = null;
+	private BigDecimal chargedAmount = null;
 	@Column(name="charged_at",nullable=false)
-	private Timestamp charged_at = null;
+	private Timestamp chargedAt = null;
 }
