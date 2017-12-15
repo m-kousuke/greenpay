@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class PurchaseHistoryDetail {
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name="id",nullable=false)
 	private int id;
 	@Column(name="purchase_id",nullable=false)
 	private int purchase_id;
