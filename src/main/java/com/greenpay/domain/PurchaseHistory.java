@@ -22,7 +22,7 @@ public class PurchaseHistory {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
+	@Column(name = "id", nullable = false)
 	private int id;
 
 	@Column(name = "money_id", nullable = false)
