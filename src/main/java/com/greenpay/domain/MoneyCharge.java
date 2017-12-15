@@ -15,19 +15,18 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="money")
+@Table(name="money_charges")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Money {
+public class MoneyCharge {
 	@Id
+	@GeneratedValue
 	@Column(name="id",nullable=false)
-	private String id;
-	@Column(name="user_id",nullable=false)
-	private String user_id;
-	@Column(name="credit",nullable=false)
-	private BigDecimal credit;
-	@Column(name="credit_at",nullable=false)
-	private Timestamp credit_at;
-	@Column(name="updated_at",nullable=false)
-	private Timestamp updated_at;	
+	private int id;
+	@Column(name="money_id",nullable=false)
+	private String money_id = null;
+	@Column(name="charged_amount",nullable=false)
+	private BigDecimal charged_amount = null;
+	@Column(name="charged_at",nullable=false)
+	private Timestamp charged_at = null;
 }
