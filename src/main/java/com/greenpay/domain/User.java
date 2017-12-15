@@ -19,11 +19,11 @@ public class User {
 	@Column(name="email",nullable=false)
 	private String email;
 	@Column(name="last_name_kana",nullable=false)
-	private String last_name_kana;
+	private String lastnameKana;
 	@Column(name="first_name",nullable=false)
-	private String first_name;
+	private String firstname;
 	@Column(name="first_name_kana",nullable=false)
-	private String first_name_kana;
+	private String firstnameKana;
 	@Column(name="password",nullable=false)
 	private String password;
 	@Id
