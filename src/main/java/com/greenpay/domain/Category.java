@@ -1,6 +1,5 @@
 package com.greenpay.domain;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -14,26 +13,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "purchase_history")
-public class PurchaseHistory {
+@Table(name = "categories")
+public class Category {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id", nullable = false)
+	@Column(name = "id")
 	private int id;
 
-	@Column(name = "money_id", nullable = false)
-	private String moneyId;
-
-	@Column(name = "store_id", nullable = false)
-	private String storeId;
-
-	@Column(name = "amount", nullable = false)
-	private BigDecimal amount;
+	@Column(name = "name", nullable = false)
+	private String name;
 
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
+
+	@Column(name = "updated_at", nullable = false)
+	private LocalDateTime updatedAt;
 }
