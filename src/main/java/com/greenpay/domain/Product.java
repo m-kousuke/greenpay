@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "category")
+@Table(name = "products")
 public class Product {
 
 	@Id
@@ -28,10 +28,10 @@ public class Product {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "created_store_id", nullable = false)
+	@Column(name = "store_id", nullable = false)
 	private String createdStroreId;
 
-	@Column(name = "cvategory_id", nullable = false)
+	@Column(name = "category_id", nullable = false)
 	private int categoryId;
 
 	@Column(name = "price", nullable = false)
