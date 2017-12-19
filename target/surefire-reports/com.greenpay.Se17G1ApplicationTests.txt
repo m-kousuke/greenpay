@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.greenpay.Se17G1ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.978 sec <<< FAILURE! - in com.greenpay.Se17G1ApplicationTests
-contextLoads(com.greenpay.Se17G1ApplicationTests)  Time elapsed: 0.064 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 11.5 sec <<< FAILURE! - in com.greenpay.Se17G1ApplicationTests
+contextLoads(com.greenpay.Se17G1ApplicationTests)  Time elapsed: 0.013 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
