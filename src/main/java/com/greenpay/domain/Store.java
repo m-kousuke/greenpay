@@ -24,6 +24,7 @@ public class Store {
 	private String name;
 	@Column(name="password",nullable=false)
 	private String password;
+
 	@Column(name="activated",nullable=false)
 	private int activated;
 	@Column(name="created_at",nullable=false)
