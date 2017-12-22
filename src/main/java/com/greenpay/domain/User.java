@@ -2,7 +2,10 @@ package com.greenpay.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+	@Id
 	@Column(name="email",nullable=false)
 	private String email;
 	@Column(name="last_name",nullable=false)
