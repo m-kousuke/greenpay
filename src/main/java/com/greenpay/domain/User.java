@@ -1,11 +1,11 @@
 package com.greenpay.domain;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,8 +33,9 @@ public class User {
 
 	@Column(name="activated",nullable=false)
 	private int activated;
+	//@DateTimeFormat(pattern = "yyyyMMdd")
 	@Column(name="created_at",nullable=false)
-	private String createdAt;
+	private LocalDateTime createdAt;
 	@Column(name="updated_at",nullable=false)
-	private String updatedAt;
+	private LocalDateTime updatedAt;
 }
