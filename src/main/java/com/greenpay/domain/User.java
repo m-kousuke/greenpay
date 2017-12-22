@@ -13,29 +13,28 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 	@Id
-	@Column(name="email",nullable=false)
+	@Column(name = "email", nullable = false)
 	private String email;
-	@Column(name="last_name",nullable=false)
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
-	@Column(name="last_name_kana",nullable=false)
+	@Column(name = "last_name_kana", nullable = false)
 	private String lastNameKana;
-	@Column(name="first_name",nullable=false)
-	private String firstname;
-	@Column(name="first_name_kana",nullable=false)
-	private String firstnameKana;
-	@Column(name="password",nullable=false)
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
+	@Column(name = "first_name_kana", nullable = false)
+	private String firstNameKana;
+	@Column(name = "password", nullable = false)
 	private String password;
 
-	@Column(name="activated",nullable=false)
+	@Column(name = "activated", nullable = false)
 	private int activated;
-	//@DateTimeFormat(pattern = "yyyyMMdd")
-	@Column(name="created_at",nullable=false)
+	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
-	@Column(name="updated_at",nullable=false)
+	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
 }
