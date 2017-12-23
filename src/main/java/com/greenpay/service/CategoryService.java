@@ -1,0 +1,34 @@
+package com.greenpay.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.greenpay.repository.CategoryRepository;
+
+@Service
+@Transactional
+public class CategoryService {
+	@Autowired
+	CategoryRepository categoryRepository;
+
+	// public void create(Category category) {
+	// 	categoryRepository.save(category);
+	// }
+
+	// public Category findOne(Integer id) {
+	// 	return categoryRepository.findOne(id);
+	// }
+
+	// public List<Category> findAll() {
+	// 	return categoryRepository.findAll();
+	// }
+
+	// public void update(Category category) {
+	// 	categoryRepository.save(category);
+	// }
+
+	// public void delete(Integer id) {
+	// 	categoryRepository.delete(id);
+	// }
+}
