@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +32,6 @@ public class User {
 	private String firstNameKana;
 	@Column(name = "password", nullable = false)
 	private String password;
-
 	@Column(name = "activated", nullable = false)
 	private int activated;
 	@Column(name = "created_at", nullable = false)
