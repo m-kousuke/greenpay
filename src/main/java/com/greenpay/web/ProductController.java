@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenpay.domain.Category;
 import com.greenpay.domain.Product;
@@ -62,6 +63,40 @@ public class ProductController {
 		BeanUtils.copyProperties(productForm,  product);
 		// productService.create(product, storeDetails.getName());
 		productService.create(product);
+
+		return "redirect:/product";
+	}
+
+	// 商品編集フォーム
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	String updateForm(@RequestParam Integer id, Model model) {
+		// カテゴリーリストを生成
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories", categories);
+
+		Product product = productService.findOne(id);
+		model.addAttribute("product", product);
+
+		return "product/update";
+	}
+
+	// 商品編集
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	String update(@RequestParam Integer activated, @RequestParam Integer id, @RequestParam String storeId, @RequestParam String createdAt, @Validated ProductForm productForm,
+			BindingResult result) {
+		// 入力チェック
+		if (result.hasErrors()) {
+			return updateForm(id, null);
+		}
+
+		// 商品編集
+		Product product = new Product();
+		BeanUtils.copyProperties(productForm, product);
+		product.setActivated(activated);
+		product.setId(id);
+		product.setStoreId(storeId);
+		product.setCreatedAt(createdAt);
+		productService.update(product);
 
 		return "redirect:/product";
 	}

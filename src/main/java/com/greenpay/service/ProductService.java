@@ -27,19 +27,19 @@ public class ProductService {
 		productRepository.save(product);
 	}
 
-	// public Product findOne(Integer id) {
-	// 	return productRepository.findOne(id);
-	// }
+	public Product findOne(Integer id) {
+		return productRepository.findOne(id);
+	}
 
 	public List<Product> findAll() {
 		return productRepository.findAll();
 	}
 
-	// public void update(Product product) {
-	// 	String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
-	// 	product.setUpdatedAt(date);
-	// 	productRepository.save(product);
-	// }
+	public void update(Product product) {
+		String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
+		product.setUpdatedAt(date);
+		productRepository.save(product);
+	}
 
 	// public void delete(Integer id) {
 	// 	productRepository.delete(id);

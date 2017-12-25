@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>greenpay</title>
+</head>
+<body>
+		<form th:action="@{/product/update}" method="post">
+		<div>
+			<label for="name">商品名</label>
+			<input type="text" id="name" name="name" maxlength="64" th:value="${product.name}" />
+		</div>
+
+		<div>
+			<label for="category">カテゴリー</label>
+			<select id="category" name="categoryId">
+				<option th:each="category : ${categories}" th:value="${category.id}" th:inline="text">[[${category.name}]]</option>
+			</select>
+		</div>
+
+		<div>
+			<label for="price">単価</label>
+			<input type="number" id="price" name="price" th:value="${product.price}" min="1" max="20000"/>円
+		</div>
+
+		<div>
+			<label for="activated">状態</label>
+			<select id="activated" name="activated">
+				<option value="2" selected="selected">有効</option>
+				<option value="1">現在取り扱いなし</option>
+				<option value="0">無効</option>
+			</select>
+		</div>
+
+		<input type="hidden" name="id" th:value="${product.id}"/>
+		<input type="hidden" name="storeId" th:value="${product.storeId}"/>
+		<input type="hidden" name="createdAt" th:value="${product.createdAt}"/>
+
+		<div>
+			<input type="submit" value="更新" />
+		</div>
+	</form>
+</body>
+</html>

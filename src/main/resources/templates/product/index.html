@@ -27,6 +27,12 @@
 				<td th:text="${product.activated}"/>
 				<td th:text="${product.createdAt}"/>
 				<td th:text="${product.updatedAt}"/>
+				<td>
+					<form th:action="@{/product/update}" method="get">
+						<input type="hidden" name="id" th:value="${product.id}"/>
+						<input type="submit" value="編集"/>
+					</form>
+				</td>
 			</tr>
 		</table>
 
