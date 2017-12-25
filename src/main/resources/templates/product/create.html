@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>greenpay</title>
+</head>
+<body>
+	<form th:action="@{/product/create}" method="post">
+		<div>
+			<label for="name">商品名</label>
+			<input type="text" id="name" name="name" maxlength="64"/>
+		</div>
+
+		<div>
+			<label for="category">カテゴリー</label>
+			<select id="category" name="categoryId">
+				<option value="0" selected="selected">未指定</option>
+				<option th:each="category : ${categories}" th:value="${category.id}" th:inline="text">[[${category.name}]]</option>
+			</select>
+		</div>
+
+		<div>
+			<label for="price">単価</label>
+			<input type="number" name="price" value="100" min="1" max="20000"/>円
+		</div>
+	</form>
+</body>
+</html>
