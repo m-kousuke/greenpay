@@ -1,13 +1,9 @@
 package com.greenpay.domain;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +31,7 @@ public class User {
 	@Column(name = "activated", nullable = false)
 	private int activated;
 	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
+	private String createdAt;
 	@Column(name = "updated_at", nullable = false)
-	private LocalDateTime updatedAt;
+	private String updatedAt;
 }

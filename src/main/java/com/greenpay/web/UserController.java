@@ -32,11 +32,12 @@ public class UserController {
 	@PostMapping("/registuser")
 	String create(@Validated UserForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) { // エラーがおきたら返す場所
-			return "/registUserForm";
+			return "/registuserForm";
 		}
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
 		userservice.create(user);
+		userservice.sendMail(user);
 		return "/registuserSuccess";
 	}
 }
