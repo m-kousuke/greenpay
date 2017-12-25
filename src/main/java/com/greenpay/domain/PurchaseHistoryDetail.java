@@ -20,10 +20,13 @@ public class PurchaseHistoryDetail {
 	@GeneratedValue
 	@Column(name="id",nullable=false)
 	private int id;
+
 	@Column(name="purchase_id",nullable=false)
 	private int purchaseId;
+
 	@Column(name="product_id",nullable=false)
 	private int productId;
+
 	@Column(name="quanity",nullable=false)
 	private int quanity;
 }
