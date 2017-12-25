@@ -1,9 +1,12 @@
 package com.greenpay.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.greenpay.domain.Product;
 import com.greenpay.repository.ProductRepository;
 
 @Service
@@ -23,9 +26,9 @@ public class ProductService {
 	// 	return productRepository.findOne(id);
 	// }
 
-	// public List<Product> findAll() {
-	// 	return productRepository.findAll();
-	// }
+	public List<Product> findAll() {
+		return productRepository.findAll();
+	}
 
 	// public void update(Product product) {
 	// 	String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
