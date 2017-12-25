@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenpay.domain.Category;
 import com.greenpay.service.CategoryService;
@@ -51,6 +52,32 @@ public class CategoryController {
 		Category category = new Category();
 		BeanUtils.copyProperties(categoryForm, category);
 		categoryService.create(category);
+
+		return "redirect:/category";
+	}
+
+	// カテゴリー編集フォーム
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	String updateForm(@RequestParam Integer id, Model model) {
+		Category category = categoryService.findOne(id);
+		model.addAttribute("category", category);
+		return "category/update";
+	}
+
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	String update(@RequestParam Integer id, @RequestParam String createdAt, @Validated CategoryForm categoryForm,
+			BindingResult result) {
+		// 入力チェック
+		if (result.hasErrors()) {
+			return updateForm(id, null);
+		}
+
+		// カテゴリー編集
+		Category category = new Category();
+		BeanUtils.copyProperties(categoryForm, category);
+		category.setId(id);
+		category.setCreatedAt(createdAt);
+		categoryService.update(category);
 
 		return "redirect:/category";
 	}

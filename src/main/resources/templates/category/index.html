@@ -27,6 +27,12 @@
 				<td th:text="${category.name}"/>
 				<td th:text="${category.createdAt}"/>
 				<td th:text="${category.updatedAt}"/>
+				<td>
+					<form th:action="@{/category/update}" method="get">
+						<input type="hidden" name="id" th:value="${category.id}"/>
+						<input type="submit" value="編集"/>
+					</form>
+				</td>
 			</tr>
 		</table>
 

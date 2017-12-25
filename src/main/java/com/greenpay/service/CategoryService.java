@@ -24,17 +24,19 @@ public class CategoryService {
 		categoryRepository.save(category);
 	}
 
-	// public Category findOne(Integer id) {
-	// 	return categoryRepository.findOne(id);
-	// }
+	public Category findOne(Integer id) {
+		return categoryRepository.findOne(id);
+	}
 
 	public List<Category> findAll() {
 		return categoryRepository.findAll();
 	}
 
-	// public void update(Category category) {
-	// 	categoryRepository.save(category);
-	// }
+	public void update(Category category) {
+		String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
+		category.setUpdatedAt(date);
+		categoryRepository.save(category);
+	}
 
 	// public void delete(Integer id) {
 	// 	categoryRepository.delete(id);
