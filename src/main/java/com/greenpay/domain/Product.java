@@ -1,7 +1,6 @@
 package com.greenpay.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "products")
 public class Product {
-
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
@@ -41,8 +39,8 @@ public class Product {
 	private int activated;
 
 	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
+	private String createdAt;
 
 	@Column(name = "updated_at", nullable = false)
-	private LocalDateTime updatedAt;
+	private String updatedAt;
 }
