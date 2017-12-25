@@ -64,6 +64,7 @@ public class CategoryController {
 		return "category/update";
 	}
 
+	// カテゴリー編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	String update(@RequestParam Integer id, @RequestParam String createdAt, @Validated CategoryForm categoryForm,
 			BindingResult result) {
@@ -78,6 +79,14 @@ public class CategoryController {
 		category.setId(id);
 		category.setCreatedAt(createdAt);
 		categoryService.update(category);
+
+		return "redirect:/category";
+	}
+
+	// カテゴリー削除
+	@RequestMapping(path = "delete", method = RequestMethod.POST)
+	String delete(@RequestParam Integer id) {
+		categoryService.delete(id);;
 
 		return "redirect:/category";
 	}
