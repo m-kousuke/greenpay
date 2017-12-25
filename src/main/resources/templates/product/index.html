@@ -33,6 +33,12 @@
 						<input type="submit" value="編集"/>
 					</form>
 				</td>
+				<td>
+					<form th:action="@{/product/delete}" method="post">
+						<input type="hidden" name="id" th:value="${product.id}"/>
+						<input type="submit" value="削除"/>
+					</form>
+				</td>
 			</tr>
 		</table>
 

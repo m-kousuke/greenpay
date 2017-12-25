@@ -100,4 +100,12 @@ public class ProductController {
 
 		return "redirect:/product";
 	}
+
+	// 商品削除
+	@RequestMapping(path = "delete", method = RequestMethod.POST)
+	String delete(@RequestParam Integer id) {
+		productService.delete(id);;
+
+		return "redirect:/product";
+	}
 }
