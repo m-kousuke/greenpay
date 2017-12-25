@@ -24,6 +24,7 @@ public class UserController {
 		return new UserForm();
 	}
 
+	//ユーザー仮登録画面
 	@GetMapping("/registuserForm")
 	String registuserForm() {
 		return "registuserForm";
@@ -40,4 +41,11 @@ public class UserController {
 		userservice.sendMail(user);
 		return "/registuserSuccess";
 	}
+
+	//ユーザー本登録画面
+		@GetMapping("/registUserFinishForm")
+		String registUserFinishForm() {
+			return "registUserFinishForm";
+		}
+
 }

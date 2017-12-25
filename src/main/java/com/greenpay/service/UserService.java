@@ -29,11 +29,11 @@ public class UserService {
 	}
 
 	public void sendMail(User user) {
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom("greenpayroot@gmail.com");
-        msg.setTo(user.getEmail());
-        msg.setSubject("本登録");//タイトルの設定
-        msg.setText("以下のURLから本登録をおこなってください¥n"); //本文の設定
-        this.sender.send(msg);
-    }
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setFrom("greenpayroot@gmail.com");
+		msg.setTo(user.getEmail());
+		msg.setSubject("本登録");// タイトルの設定
+		msg.setText("以下のURLから本登録を行ってください\n\r" + "http://localhost:8080/greenpay/registUserFinishForm"); // 本文の設定
+		this.sender.send(msg);
+	}
 }
