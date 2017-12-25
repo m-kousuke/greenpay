@@ -17,8 +17,11 @@ public class ProductService {
 	@Autowired
 	ProductRepository productRepository;
 
-	public void create(Product product) {
+	public void create(Product product/*, String storeId*/) {
 		String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
+		// product.setStoreId(storeId);
+		product.setStoreId("root");
+		product.setActivated(2);
 		product.setCreatedAt(date);
 		product.setUpdatedAt(date);
 		productRepository.save(product);
