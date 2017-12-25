@@ -1,11 +1,18 @@
 package com.greenpay.web;
 
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.greenpay.domain.Category;
 import com.greenpay.service.CategoryService;
 
 @Controller
@@ -20,7 +27,31 @@ public class CategoryController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	String index() {
+	String index(Model model) {
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories", categories);
 		return "category/index";
+	}
+
+	// カテゴリー登録フォーム
+	@RequestMapping(value = "create", method = RequestMethod.GET)
+	String createForm() {
+		return "category/create";
+	}
+
+	// カテゴリー登録
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	String create(@Validated CategoryForm categoryForm, BindingResult result) {
+		// 入力チェック
+		if (result.hasErrors()) {
+			return "category/create";
+		}
+
+		// カテゴリー登録
+		Category category = new Category();
+		BeanUtils.copyProperties(categoryForm, category);
+		categoryService.create(category);
+
+		return "redirect:/category";
 	}
 }
