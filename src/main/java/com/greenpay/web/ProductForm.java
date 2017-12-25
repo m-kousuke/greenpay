@@ -2,6 +2,8 @@ package com.greenpay.web;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,6 +19,7 @@ public class ProductForm {
 	private Integer categoryId;
 
 	@NotNull
-	@Size(min = 1, max = 20000)
+	@DecimalMin("1")
+	@DecimalMax("20000")
 	private BigDecimal price;
 }
