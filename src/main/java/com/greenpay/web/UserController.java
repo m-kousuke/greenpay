@@ -43,7 +43,7 @@ public class UserController {
 	}
 
 	//ユーザー本登録画面
-		@GetMapping("/registUserFinishForm")
+		@GetMapping("/registuserFinishForm")
 		String registUserFinishForm() {
 			return "registUserFinishForm";
 		}
