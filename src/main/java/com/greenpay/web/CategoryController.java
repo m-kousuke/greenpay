@@ -17,7 +17,7 @@ import com.greenpay.domain.Category;
 import com.greenpay.service.CategoryService;
 
 @Controller
-@RequestMapping("category")
+@RequestMapping("store/category")
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
