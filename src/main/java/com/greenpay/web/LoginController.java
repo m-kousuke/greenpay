@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginController {
 	@RequestMapping(value="/user/loginForm",method=RequestMethod.GET)
-	String userloginform(){
+	String UserLoginForm(){
 		return "user/loginForm";
 	}
 	
 	@RequestMapping(value="/store/loginForm",method=RequestMethod.GET)
-	String storeloginform(){
+	String StoreLoginForm(){
 		return "store/loginForm";
 	}
 }
