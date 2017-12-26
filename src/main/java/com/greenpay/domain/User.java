@@ -33,7 +33,6 @@ public class User {
 
 	@Column(name = "password", nullable = false)
 	private String password;
-
 	@Column(name = "activated", nullable = false)
 	private int activated;
 

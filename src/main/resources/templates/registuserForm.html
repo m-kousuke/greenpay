@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>新規ユーザー仮登録フォーム</title>
+</head>
+<body>
+
+	<form th:action="@{/registuser}" method="post">
+	    姓<input type="text" name="lastName" >
+	    名<input type="text" name="firstName" >
+	    <br>
+	    姓かな<input type="text" name="lastNameKana" >
+	    名かな<input type="text" name="firstNameKana" >
+		<br>
+		アドレス<input type="text" name="email" >
+		<br>
+		パスワード<input type="password" name="password" >
+		<br>
+		<input type="submit" value="登録">
+	</form>
+	<BR>
+</body>
+</html>
