@@ -1,7 +1,5 @@
 package com.greenpay.domain;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,14 +20,19 @@ public class Store {
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
 	private String id;
+
 	@Column(name = "name", nullable = false)
 	private String name;
+
 	@Column(name = "password", nullable = false)
 	private String password;
+
 	@Column(name = "activated", nullable = false)
 	private int activated;
+
 	@Column(name = "created_at", nullable = false)
-	private LocalDateTime createdAt;
+	private String createdAt;
+
 	@Column(name = "updated_at", nullable = false)
-	private LocalDateTime updatedAt;
+	private String updatedAt;
 }
