@@ -19,7 +19,7 @@ import com.greenpay.service.CategoryService;
 import com.greenpay.service.ProductService;
 
 @Controller
-@RequestMapping("product")
+@RequestMapping("store/product")
 public class ProductController {
 	@Autowired
 	ProductService productService;
