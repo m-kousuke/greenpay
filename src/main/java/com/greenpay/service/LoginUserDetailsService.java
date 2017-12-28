@@ -16,14 +16,12 @@ public class LoginUserDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		System.out.println("ユーザー情報を参照中...");
 		User user = userRepository.findOne(email);
 		if(user == null){
 			throw new UsernameNotFoundException("The requested user is not found.");
 		} else if(user.getActivated() != 1){
 			throw new UsernameNotFoundException("The requested user is not found.");
 		}
-		System.out.println("ユーザー情報発見");
 		return new LoginUserDetails(user);
 	}
 }
