@@ -39,6 +39,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 			.usernameParameter("email").passwordParameter("password")
 			.and()
 			.logout()
+				.logoutUrl("/**/logout")
 				.logoutSuccessUrl("/index");
 	}
 	

@@ -38,6 +38,7 @@ public class StoreSecurityConfig extends WebSecurityConfigurerAdapter {
 			.usernameParameter("id").passwordParameter("password")
 			.and()
 			.logout()
+				.logoutUrl("/**/logout")
 				.logoutSuccessUrl("/index");
 	}
 	
