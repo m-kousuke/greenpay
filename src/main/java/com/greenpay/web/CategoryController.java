@@ -31,13 +31,13 @@ public class CategoryController {
 	String index(Model model) {
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
-		return "category/index";
+		return "store/category/index";
 	}
 
 	// カテゴリー登録フォーム
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	String createForm() {
-		return "category/create";
+		return "store/category/create";
 	}
 
 	// カテゴリー登録
@@ -45,7 +45,7 @@ public class CategoryController {
 	String create(@Validated CategoryForm categoryForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return "category/create";
+			return "store/category/create";
 		}
 
 		// カテゴリー登録
@@ -53,7 +53,7 @@ public class CategoryController {
 		BeanUtils.copyProperties(categoryForm, category);
 		categoryService.create(category);
 
-		return "redirect:/category";
+		return "redirect:/store/category";
 	}
 
 	// カテゴリー編集フォーム
@@ -61,7 +61,7 @@ public class CategoryController {
 	String updateForm(@RequestParam Integer id, Model model) {
 		Category category = categoryService.findOne(id);
 		model.addAttribute("category", category);
-		return "category/update";
+		return "store/category/update";
 	}
 
 	// カテゴリー編集
@@ -80,7 +80,7 @@ public class CategoryController {
 		category.setCreatedAt(createdAt);
 		categoryService.update(category);
 
-		return "redirect:/category";
+		return "redirect:/store/category";
 	}
 
 	// カテゴリー削除
@@ -88,6 +88,6 @@ public class CategoryController {
 	String delete(@RequestParam Integer id) {
 		categoryService.delete(id);;
 
-		return "redirect:/category";
+		return "redirect:/store/category";
 	}
 }

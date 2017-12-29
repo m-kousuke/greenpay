@@ -28,13 +28,13 @@
 				<td th:text="${product.createdAt}"/>
 				<td th:text="${product.updatedAt}"/>
 				<td>
-					<form th:action="@{/product/update}" method="get">
+					<form th:action="@{/store/product/update}" method="get">
 						<input type="hidden" name="id" th:value="${product.id}"/>
 						<input type="submit" value="編集"/>
 					</form>
 				</td>
 				<td>
-					<form th:action="@{/product/delete}" method="post">
+					<form th:action="@{/store/product/delete}" method="post">
 						<input type="hidden" name="id" th:value="${product.id}"/>
 						<input type="submit" value="削除"/>
 					</form>
@@ -43,7 +43,7 @@
 		</table>
 
 		<div>
-			<form th:action="@{/product/create}" method="get">
+			<form th:action="@{/store/product/create}" method="get">
 				<input type="submit" value="登録"/>
 			</form>
 		</div>

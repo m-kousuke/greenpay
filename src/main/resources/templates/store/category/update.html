@@ -7,7 +7,7 @@
 <title>greenpay</title>
 </head>
 <body>
-	<form th:action="@{/category/update}" method="post">
+	<form th:action="@{/store/category/update}" method="post">
 		<div>
 			<label for="name">カテゴリー名</label>
 			<input type="text" name="name" maxlength="64" th:value="${category.name}" />

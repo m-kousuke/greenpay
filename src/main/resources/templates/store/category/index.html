@@ -28,13 +28,13 @@
 				<td th:text="${category.createdAt}"/>
 				<td th:text="${category.updatedAt}"/>
 				<td>
-					<form th:action="@{/category/update}" method="get">
+					<form th:action="@{/store/category/update}" method="get">
 						<input type="hidden" name="id" th:value="${category.id}"/>
 						<input type="submit" value="編集"/>
 					</form>
 				</td>
 				<td>
-					<form th:action="@{/category/delete}" method="post">
+					<form th:action="@{/store/category/delete}" method="post">
 						<input type="hidden" name="id" th:value="${category.id}"/>
 						<input type="submit" value="削除"/>
 					</form>
@@ -43,7 +43,7 @@
 		</table>
 
 		<div>
-			<form th:action="@{/category/create}" method="get">
+			<form th:action="@{/store/category/create}" method="get">
 				<input type="submit" value="登録"/>
 			</form>
 		</div>
