@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenpay.domain.Category;
 import com.greenpay.domain.Product;
+import com.greenpay.domain.Store;
 import com.greenpay.service.CategoryService;
 import com.greenpay.service.LoginStoreUserDetails;
 import com.greenpay.service.ProductService;
@@ -35,9 +36,10 @@ public class ProductController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	String index(Model model) {
+	String index(Model model, @AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
 		List<Product> products = productService.findAll();
 		model.addAttribute("products", products);
+		model.addAttribute("store", storeDetails.getStore());
 
 		return "store/product/index";
 	}
@@ -71,29 +73,37 @@ public class ProductController {
 
 	// 商品編集フォーム
 	@RequestMapping(value = "update", method = RequestMethod.GET)
-	String updateForm(@RequestParam Integer id, Model model) {
+	String updateForm(@RequestParam Integer id, Model model,
+			@AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
+		// storeIdのチェック
+		Product product = productService.findOne(id);
+		Store store = storeDetails.getStore();
+		if (!(product.getStoreId()).equals(store.getId())) {
+			return "redirect:/store/product";
+		}
+		model.addAttribute("product", product);
+
 		// カテゴリーリストを生成
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
-
-		Product product = productService.findOne(id);
-		model.addAttribute("product", product);
 
 		return "store/product/update";
 	}
 
 	// 商品編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	String update(@RequestParam Integer id, @RequestParam String createdAt,
+	String update(@RequestParam Integer id, @RequestParam String storeId, @RequestParam String createdAt,
 			@Validated ProductForm productForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return updateForm(id, null);
+			return updateForm(id, null, null);
 		}
 
 		// 商品編集
 		Product product = new Product();
 		BeanUtils.copyProperties(productForm, product);
+		product.setId(id);
+		product.setStoreId(storeId);
 		product.setCreatedAt(createdAt);
 		productService.update(product);
 
