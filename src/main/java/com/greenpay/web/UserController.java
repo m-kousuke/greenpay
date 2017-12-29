@@ -9,6 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.greenpay.domain.User;
 import com.greenpay.service.UserService;
@@ -43,9 +45,13 @@ public class UserController {
 	}
 
 	//ユーザー本登録画面
-		@GetMapping("/registuserFinishForm")
-		String registUserFinishForm() {
-			return "registUserFinishForm";
-		}
-
+	@GetMapping("/registuserFinishForm")
+	String registUserFinishForm() {
+		return "registUserFinishForm";
+	}
+	
+	@RequestMapping(value="user/top" , method=RequestMethod.GET)
+	String usertop() {
+		return "user/top";
+	}
 }
