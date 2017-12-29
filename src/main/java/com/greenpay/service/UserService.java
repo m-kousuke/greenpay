@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +21,14 @@ public class UserService {
 	UserRepository userRepository;
 	@Autowired
 	private MailSender sender;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	public void create(User user) {
 		String dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
 		user.setCreatedAt(dateTime);
 		user.setUpdatedAt(dateTime);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 	}
 
@@ -34,6 +38,7 @@ public class UserService {
 		msg.setTo(user.getEmail());
 		msg.setSubject("本登録");// タイトルの設定
 		msg.setText("以下のURLから本登録を行ってください\n\r" + "http://localhost:8080/greenpay/registUserFinishForm"); // 本文の設定
+		
 		this.sender.send(msg);
 	}
 }
