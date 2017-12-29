@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.greenpay.domain.Category;
 import com.greenpay.domain.Product;
 import com.greenpay.service.CategoryService;
+import com.greenpay.service.LoginStoreUserDetails;
 import com.greenpay.service.ProductService;
 
 @Controller
@@ -28,7 +30,7 @@ public class ProductController {
 	CategoryService categoryService;
 
 	@ModelAttribute
-	ProductForm sertUpForm() {
+	ProductForm productForm() {
 		return new ProductForm();
 	}
 
@@ -37,7 +39,7 @@ public class ProductController {
 		List<Product> products = productService.findAll();
 		model.addAttribute("products", products);
 
-		return "product/index";
+		return "store/product/index";
 	}
 
 	// 商品登録フォーム
@@ -47,24 +49,24 @@ public class ProductController {
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
 
-		return "product/create";
+		return "store/product/create";
 	}
 
 	// 商品登録
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	String create(@Validated ProductForm productForm, BindingResult result/*, @AuthenticationPrincipal LoginStoreDetails storeDetails*/) {
+	String create(@Validated ProductForm productForm, BindingResult result,
+			@AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return "product/create";
+			return "store/product/create";
 		}
 
 		// 商品登録
 		Product product = new Product();
-		BeanUtils.copyProperties(productForm,  product);
-		// productService.create(product, storeDetails.getName());
-		productService.create(product);
+		BeanUtils.copyProperties(productForm, product);
+		productService.create(product, storeDetails.getStore());
 
-		return "redirect:/product";
+		return "redirect:/store/product";
 	}
 
 	// 商品編集フォーム
@@ -77,13 +79,13 @@ public class ProductController {
 		Product product = productService.findOne(id);
 		model.addAttribute("product", product);
 
-		return "product/update";
+		return "store/product/update";
 	}
 
 	// 商品編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	String update(@RequestParam Integer activated, @RequestParam Integer id, @RequestParam String storeId, @RequestParam String createdAt, @Validated ProductForm productForm,
-			BindingResult result) {
+	String update(@RequestParam Integer id, @RequestParam String createdAt,
+			@Validated ProductForm productForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
 			return updateForm(id, null);
@@ -92,20 +94,18 @@ public class ProductController {
 		// 商品編集
 		Product product = new Product();
 		BeanUtils.copyProperties(productForm, product);
-		product.setActivated(activated);
-		product.setId(id);
-		product.setStoreId(storeId);
 		product.setCreatedAt(createdAt);
 		productService.update(product);
 
-		return "redirect:/product";
+		return "redirect:/store/product";
 	}
 
 	// 商品削除
 	@RequestMapping(path = "delete", method = RequestMethod.POST)
 	String delete(@RequestParam Integer id) {
-		productService.delete(id);;
+		productService.delete(id);
+		;
 
-		return "redirect:/product";
+		return "redirect:/store/product";
 	}
 }

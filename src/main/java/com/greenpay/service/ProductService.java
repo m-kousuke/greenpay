@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.greenpay.domain.Product;
+import com.greenpay.domain.Store;
 import com.greenpay.repository.ProductRepository;
 
 @Service
@@ -17,11 +18,9 @@ public class ProductService {
 	@Autowired
 	ProductRepository productRepository;
 
-	public void create(Product product/*, String storeId*/) {
+	public void create(Product product, Store store) {
 		String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
-		// product.setStoreId(storeId);
-		product.setStoreId("root");
-		product.setActivated(2);
+		product.setStoreId(store.getId());
 		product.setCreatedAt(date);
 		product.setUpdatedAt(date);
 		productRepository.save(product);

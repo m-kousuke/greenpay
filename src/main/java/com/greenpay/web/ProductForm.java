@@ -22,4 +22,7 @@ public class ProductForm {
 	@DecimalMin("1")
 	@DecimalMax("20000")
 	private BigDecimal price;
+
+	@NotNull
+	private Integer activated;
 }
