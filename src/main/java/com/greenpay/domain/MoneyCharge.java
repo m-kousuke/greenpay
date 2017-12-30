@@ -41,6 +41,6 @@ public class MoneyCharge {
 	private LocalDateTime chargedAt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="moneyId",insertable=false,updatable=false)
+	@JoinColumn(name="money_id",insertable=false,updatable=false)
 	private Money money;
 }
