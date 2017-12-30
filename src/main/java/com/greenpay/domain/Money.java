@@ -37,7 +37,7 @@ public class Money {
 	@Column(name = "credit", nullable = false)
 	private BigDecimal credit;
 
-	@Column(name = "credit_at", nullable = false)
+	@Column(name = "created_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	private LocalDateTime createdAt;
 
