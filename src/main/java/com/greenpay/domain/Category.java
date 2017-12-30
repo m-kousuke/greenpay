@@ -1,10 +1,19 @@
 package com.greenpay.domain;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,8 +34,13 @@ public class Category {
 	private String name;
 
 	@Column(name = "created_at", nullable = false)
-	private String createdAt;
+	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
+	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at", nullable = false)
-	private String updatedAt;
+	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
+	private LocalDateTime updatedAt;
+	
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="category")
+	private List<Product> products;
 }
