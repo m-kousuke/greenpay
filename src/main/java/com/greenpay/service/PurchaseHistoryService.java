@@ -1,0 +1,38 @@
+package com.greenpay.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.greenpay.domain.PurchaseHistory;
+import com.greenpay.domain.PurchaseHistoryDetail;
+import com.greenpay.domain.SalesVolume;
+import com.greenpay.repository.PurchaseHistoryRepository;
+
+@Service
+public class PurchaseHistoryService {
+
+	@Autowired
+	PurchaseHistoryRepository purchaseHistoryRepository;
+	
+	public List<SalesVolume> GetPurchaseHistory(String storeId){
+		List<PurchaseHistory> purchaseHistory = purchaseHistoryRepository.findByStoreId(storeId);
+		List<SalesVolume> salesVolumes = new ArrayList();
+		for (int i = 0; i < purchaseHistory.size(); i++) {
+			PurchaseHistory purchaseHistoryNode = purchaseHistory.get(i);
+			List<PurchaseHistoryDetail> purchaseHistoryDetails = purchaseHistoryNode.getPurchaseHistoryDetail();
+			for (int j = 0; j < purchaseHistoryDetails.size(); j++) {
+				PurchaseHistoryDetail purchaseHistoryDetail = purchaseHistoryDetails.get(j);
+				SalesVolume salesVolume = new SalesVolume();
+				salesVolume.setPurchaseHistory(purchaseHistoryNode);
+				salesVolume.setPurchaseHistoryDetail(purchaseHistoryDetail);
+				salesVolume.setProduct(purchaseHistoryDetail.getProduct());
+				salesVolume.setCategory(purchaseHistoryDetail.getProduct().getCategory());
+				salesVolumes.add(salesVolume);
+			}
+		}
+		return salesVolumes;
+	}
+}
