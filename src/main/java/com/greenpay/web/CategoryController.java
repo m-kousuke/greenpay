@@ -1,5 +1,6 @@
 package com.greenpay.web;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -66,8 +67,8 @@ public class CategoryController {
 
 	// カテゴリー編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	String update(@RequestParam Integer id, @RequestParam String createdAt, @Validated CategoryForm categoryForm,
-			BindingResult result) {
+	String update(@RequestParam Integer id, @RequestParam LocalDateTime createdAt,
+			@Validated CategoryForm categoryForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
 			return updateForm(id, null);

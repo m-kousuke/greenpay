@@ -1,5 +1,6 @@
 package com.greenpay.web;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -75,12 +76,14 @@ public class ProductController {
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	String updateForm(@RequestParam Integer id, Model model,
 			@AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
-		// storeIdのチェック
 		Product product = productService.findOne(id);
 		Store store = storeDetails.getStore();
+
+		// storeIdのチェック
 		if (!(product.getStoreId()).equals(store.getId())) {
 			return "redirect:/store/product";
 		}
+
 		model.addAttribute("product", product);
 
 		// カテゴリーリストを生成
@@ -92,8 +95,9 @@ public class ProductController {
 
 	// 商品編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	String update(@RequestParam Integer id, @RequestParam String storeId, @RequestParam String createdAt,
-			@Validated ProductForm productForm, BindingResult result) {
+	String update(@RequestParam Integer id, @RequestParam String storeId,
+			@RequestParam LocalDateTime createdAt, @Validated ProductForm productForm,
+			BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
 			return updateForm(id, null, null);
@@ -112,9 +116,16 @@ public class ProductController {
 
 	// 商品削除
 	@RequestMapping(path = "delete", method = RequestMethod.POST)
-	String delete(@RequestParam Integer id) {
+	String delete(@RequestParam Integer id, @AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
+		Product product = productService.findOne(id);
+		Store store = storeDetails.getStore();
+
+		// storeIdのチェック
+		if (!(product.getStoreId()).equals(store.getId())) {
+			return "redirect:/store/product";
+		}
+
 		productService.delete(id);
-		;
 
 		return "redirect:/store/product";
 	}

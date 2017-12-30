@@ -1,7 +1,6 @@
 package com.greenpay.service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +16,11 @@ public class CategoryService {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+	LocalDateTime dateTime = LocalDateTime.now();
+
 	public void create(Category category) {
-		String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
-		category.setCreatedAt(date);
-		category.setUpdatedAt(date);
+		category.setCreatedAt(dateTime);
+		category.setUpdatedAt(dateTime);
 		categoryRepository.save(category);
 	}
 
@@ -33,8 +33,7 @@ public class CategoryService {
 	}
 
 	public void update(Category category) {
-		String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
-		category.setUpdatedAt(date);
+		category.setUpdatedAt(dateTime);
 		categoryRepository.save(category);
 	}
 

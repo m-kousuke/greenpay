@@ -24,9 +24,13 @@
 				<td th:text="${product.id}"/>
 				<td th:text="${product.name}"/>
 				<td th:text="${product.storeId}"/>
-				<td th:text="${product.categoryId}"/>
+				<td th:text="${product.category.name}"/>
 				<td th:text="${product.price}"/>
-				<td th:text="${product.activated}"/>
+				<td th:switch="${product.activated}">
+				    <th:block th:case="2">有効</th:block>
+				    <th:block th:case="1">現在取り扱いなし</th:block>
+				    <th:block th:case="0">無効</th:block>
+				</td>
 				<td th:text="${product.createdAt}"/>
 				<td th:text="${product.updatedAt}"/>
 				<td th:if="${product.storeId == store.id}">
