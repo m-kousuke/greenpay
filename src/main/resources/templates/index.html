@@ -8,9 +8,63 @@
 <title>トップ</title>
 </head>
 <body>
+
 <div layout:fragment="contents">
 <br>
-<button class="ui big green basic button">新規登録</button>
+
+<div style="margin-left:20px;margin-right:20px;">
+
+	<div class="ui two column grid">
+ 	 <div class="column">
+    		<div class="ui raised segment">
+    	  	<a class="ui big green tag label">GreenPayとは？</a>
+      	<br><br>
+      	<span>GreenPayは、東京学芸大学内にあるお店でのお買い物の支払いの際にご利用いただける電子マネーです。
+      	<br><br>
+      	<div class="ui green pointing below label">
+      	メリット
+    		</div><br>
+    		①繰り返し使える入金(チャージ)機能<br><font size="-2">
+    		入金（チャージ）機能が搭載されているので、残額が少なくなった場合も現金により入金（チャージ）が可能です。<br></font>
+    		②残高確認機能<br><font size="-2">
+    		読み取り機にタッチするだけでGreenPayの残高を確認することが可能です。<br></font>
+    		③利用履歴閲覧機能<br><font size="-2">
+    		GreenPayの利用履歴(チャージ履歴、支出履歴)を見ることが可能です。
+    		利用した金額だけでなく購入した商品の詳細も見ることが可能です。<br></font>
+    		④ずっと3%割引き機能<br><font size="-2">
+    		GreenPayを使用して支払いした場合、支払い金額が常に3%割引きになります。<br></font>
+    		</span><br>
+      	<p></p>
+    		</div>
+  	  </div>
+  	<div class="column">
+    	 <div class="ui raised segment"><br>
+     <center>
+     <a th:href="@{/user/loginForm.html}">
+    	 <button class="ui large green basic button">　　　　GreenPay　　　　<br>▶ログイン︎</button></a>
+    	 <br><br>
+    	 <a th:href="@{/user/money.html}">
+    	 <button class="ui large green basic button">　　　　GreenPay　　　　<br>▶残高確認</button></a>
+    	 <br><br>
+    	 <a th:href="@{/registuserForm.html}">
+	  <button class="ui large green basic button">　　　　GreenPay　　　　<br>▶新規登録</button></a>
+	  </center>
+	  <br><br>
+      <a class="ui big green tag label">使えるお店</a>
+      <br><br>
+      <span>
+      <ol class="ui list">
+  		<li value="*">note cafe</li>
+  		<li value="*">大生(第１むさしのホール)</li>
+  		<li value="*">小生(２階の書店を含む)</li>
+  		<li value="*">コパン(第２むさしのホール)</li>
+		</ol>
+	  </span>
+      <p></p><br>
+    </div>
+  </div>
+</div>
+ </div>
  </div>
 </body>
 </html>
