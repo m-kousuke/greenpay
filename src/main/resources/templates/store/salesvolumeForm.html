@@ -3,26 +3,22 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/calendar.min.css}" />
 <title>売上データ</title>
 </head>
 <body>
 	<h2 th:text="${store.name} + の売上">大生の売上</h2>
-	<form th:action="@{/}" method="POST">
-		<select name="mounth" required>
-		<option value="">選択してください</option>
-		<option value="1">1月</option>
-		<option value="2">2月</option>
-		<option value="3">3月</option>
-		<option value="4">4月</option>
-		<option value="5">5月</option>
-		<option value="6">6月</option>
-		<option value="7">7月</option>
-		<option value="8">8月</option>
-		<option value="9">9月</option>
-		<option value="10">10月</option>
-		<option value="11">11月</option>
-		<option value="12">12月</option>
-		</select>
+	
+	<h3>Month and year</h3>
+	<form th:action="@{/store/salesvolumeForm}" method="GET">
+	<div class="ui calendar" id="example7">
+	<div class="ui input left icon">
+	<i class="time icon"></i>
+	<input type="text" name="month" placeholder="Month and Year">
+	</div>
+	</div>
+	<input type="submit" value="送信">
 	</form>
 	<table>
 		<tr>
@@ -41,4 +37,11 @@
 		</tr>
 	</table>
 </body>
+<!-- javascript -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/semantic.min.js}"></script>
+<script th:src="@{/js/calendar.min.js}"></script>
+<script th:src="@{/js/datetimesetting.js}"></script>
+
+
 </html>

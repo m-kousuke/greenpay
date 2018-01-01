@@ -1,5 +1,7 @@
 package com.greenpay.service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class PurchaseHistoryService {
 	PurchaseHistoryRepository purchaseHistoryRepository;
 	
 	public List<SalesVolume> GetPurchaseHistory(String storeId){
+		LocalDateTime start = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
+		LocalDateTime end = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth());
 		List<PurchaseHistory> purchaseHistory = purchaseHistoryRepository.findByStoreId(storeId);
 		List<SalesVolume> salesVolumes = new ArrayList();
 		for (int i = 0; i < purchaseHistory.size(); i++) {
