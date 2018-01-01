@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ユーザートップ</title>
+</head>
+<body>
+	ユーザーのトップページです．
+	<form action="#" th:action="@{/user/logout}" method="POST">
+		<input type="submit" value="ログアウト" />
+	</form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>greenpay</title>
+</head>
+<body>
+	<div>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>名前</th>
+				<th>登録日時</th>
+				<th>更新日時</th>
+			</tr>
+
+			<tr>
+				<th>0</th>
+				<th>未指定</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+
+			<tr th:each="category : ${categories}">
+				<td th:text="${category.id}"/>
+				<td th:text="${category.name}"/>
+				<td th:text="${category.createdAt}"/>
+				<td th:text="${category.updatedAt}"/>
+				<td>
+					<form th:action="@{/category/update}" method="get">
+						<input type="hidden" name="id" th:value="${category.id}"/>
+						<input type="submit" value="編集"/>
+					</form>
+				</td>
+				<td>
+					<form th:action="@{/category/delete}" method="post">
+						<input type="hidden" name="id" th:value="${category.id}"/>
+						<input type="submit" value="削除"/>
+					</form>
+				</td>
+			</tr>
+		</table>
+
+		<div>
+			<form th:action="@{/category/create}" method="get">
+				<input type="submit" value="登録"/>
+			</form>
+		</div>
+	</div>
+</html>
