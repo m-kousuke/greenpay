@@ -1,24 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
-<meta charset="UTF-8">
-<title>greenpay</title>
+	<title>greenpay | カテゴリー編集</title>
 </head>
 <body>
-	<form th:action="@{/store/category/update}" method="post">
-		<div>
-			<label for="name">カテゴリー名</label>
-			<input type="text" name="name" maxlength="64" th:value="${category.name}" />
-		</div>
+	<div layout:fragment="contents">
+		<br>
+		<div class="ui raised segment" style="margin-left: 60px; margin-right: 60px;">
+			<div class="ui green inverted segment">
+				<h3 class="ui center aligned inverted header">カテゴリー編集</h3>
+			</div>
 
-		<input type="hidden" name="id" th:value="${category.id}"/>
-		<input type="hidden" name="createdAt" th:value="${category.createdAt}"/>
+			<form th:action="@{/store/category/update}" method="post">
+				<label for="name" class="ui label">現在のカテゴリー名</label>
+				<span th:text="${category.name}"></span>
+				<br> <br>
 
-		<div>
-			<input type="submit" value="更新" />
+				<div class="ui labeled input">
+					<label for="name" class="ui label">カテゴリー名</label>
+					<input type="text" id="name" name="name" maxlength="64" />
+				</div>
+				<br> <br>
+
+				<input type="hidden" name="id" th:value="${category.id}" />
+				<input type="hidden" name="createdAt"
+					th:value="${#temporals.format(category.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
+
+				<div>
+					<input type="submit" value="更新" />
+					<input type="submit" name="delete" value="削除" />
+				</div>
+			</form>
 		</div>
-	</form>
+	</div>
 </body>
 </html>

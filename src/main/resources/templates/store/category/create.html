@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
-<meta charset="UTF-8">
-<title>greenpay</title>
+	<title>greenpay | カテゴリー登録</title>
 </head>
 <body>
-	<form th:action="@{/store/category/create}" method="post">
-		<div>
-			<label for="name">カテゴリー名</label>
-			<input type="text" name="name" maxlength="64"/>
-		</div>
+	<div layout:fragment="contents">
+		<br>
+		<div class="ui raised segment" style="margin-left: 60px; margin-right: 60px;">
+			<div class="ui green inverted segment">
+				<h3 class="ui center aligned inverted header">カテゴリー登録</h3>
+			</div>
 
-		<div>
-			<input type="submit" value="登録"/>
+			<form class="ui fluid form" th:action="@{/store/category/create}" method="post">
+				<div class="ui labeled input">
+					<label for="name" class="ui label">カテゴリー名</label>
+					<input type="text" id="name" name="name" maxlength="64" />
+				</div>
+				<br> <br>
+
+				<div class="ui center aligned column">
+					<input class="ui green button" type="submit" value="▶︎登録" />
+				</div>
+			</form>
 		</div>
-	</form>
+	</div>
 </body>
 </html>

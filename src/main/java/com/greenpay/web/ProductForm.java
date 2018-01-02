@@ -24,6 +24,5 @@ public class ProductForm {
 	private BigDecimal price;
 
 	@NotNull
-	@Size(min = 0, max = 2)
 	private Integer activated;
 }

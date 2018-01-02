@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,7 +68,8 @@ public class CategoryController {
 
 	// カテゴリー編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	String update(@RequestParam Integer id, @RequestParam LocalDateTime createdAt,
+	String update(@RequestParam Integer id,
+			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam LocalDateTime createdAt,
 			@Validated CategoryForm categoryForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
@@ -85,7 +87,7 @@ public class CategoryController {
 	}
 
 	// カテゴリー削除
-	@RequestMapping(path = "delete", method = RequestMethod.POST)
+	@RequestMapping(path = "update", params = "delete", method = RequestMethod.POST)
 	String delete(@RequestParam Integer id) {
 		categoryService.delete(id);;
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,8 +97,8 @@ public class ProductController {
 	// 商品編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	String update(@RequestParam Integer id, @RequestParam String storeId,
-			@RequestParam LocalDateTime createdAt, @Validated ProductForm productForm,
-			BindingResult result) {
+			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam LocalDateTime createdAt,
+			@Validated ProductForm productForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
 			return updateForm(id, null, null);
