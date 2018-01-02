@@ -14,10 +14,13 @@
 				<h3 class="ui center aligned inverted header">カテゴリー登録</h3>
 			</div>
 
-			<form class="ui fluid form" th:action="@{/store/category/create}" method="post">
+			<form th:action="@{/store/category/create}" th:object="${categoryForm}" method="post">
+				<div th:if="${#fields.hasErrors('name')}" class="text-danger"
+					th:errors="*{name}">Error</div>
 				<div class="ui labeled input">
 					<label for="name" class="ui label">カテゴリー名</label>
-					<input type="text" id="name" name="name" maxlength="64" />
+					<input type="text" id="name" name="name" maxlength="64" required="required"
+						autofocus="autofocus"/>
 				</div>
 				<br> <br>
 

@@ -14,14 +14,16 @@
 				<h3 class="ui center aligned inverted header">カテゴリー編集</h3>
 			</div>
 
-			<form th:action="@{/store/category/update}" method="post">
-				<label for="name" class="ui label">現在のカテゴリー名</label>
+			<form th:action="@{/store/category/update}" th:object="${categoryForm}" method="post">
+				<label for="oldName" class="ui label">現在のカテゴリー名</label>
 				<span th:text="${category.name}"></span>
 				<br> <br>
 
+				<div th:if="${#fields.hasErrors('name')}" class="text-danger"
+					th:errors="*{name}">Error</div>
 				<div class="ui labeled input">
-					<label for="name" class="ui label">カテゴリー名</label>
-					<input type="text" id="name" name="name" maxlength="64" />
+					<label for="name" class="ui label">新しいカテゴリー名</label>
+					<input type="text" id="name" name="name" maxlength="64" autofocus="autofocus"/>
 				</div>
 				<br> <br>
 

@@ -53,6 +53,13 @@ public class CategoryController {
 		// カテゴリー登録
 		Category category = new Category();
 		BeanUtils.copyProperties(categoryForm, category);
+
+		// DBに同一カテゴリーがないかのチェック
+		if (!categoryService.isEmpty(category)) {
+			result.rejectValue("name", null , "そのカテゴリー名はすでに登録されています");
+			return createForm();
+		}
+
 		categoryService.create(category);
 
 		return "redirect:/store/category";
@@ -70,10 +77,10 @@ public class CategoryController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	String update(@RequestParam Integer id,
 			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam LocalDateTime createdAt,
-			@Validated CategoryForm categoryForm, BindingResult result) {
+			@Validated CategoryForm categoryForm, BindingResult result, Model model) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return updateForm(id, null);
+			return updateForm(id, model);
 		}
 
 		// カテゴリー編集
@@ -81,6 +88,13 @@ public class CategoryController {
 		BeanUtils.copyProperties(categoryForm, category);
 		category.setId(id);
 		category.setCreatedAt(createdAt);
+
+		// DBに同一カテゴリーがないかのチェック
+		if (!categoryService.isEmpty(category)) {
+			result.rejectValue("name", null , "そのカテゴリー名はすでに登録されています");
+			return updateForm(id, model);
+		}
+
 		categoryService.update(category);
 
 		return "redirect:/store/category";

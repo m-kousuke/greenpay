@@ -24,6 +24,14 @@ public class CategoryService {
 		categoryRepository.save(category);
 	}
 
+	public boolean isEmpty(Category category) {
+		Category rs = categoryRepository.findCategory(category.getName());
+		if (rs == null) {
+			return true;
+		}
+		return false;
+	}
+
 	public Category findOne(Integer id) {
 		return categoryRepository.findOne(id);
 	}
