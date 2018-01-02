@@ -1,12 +1,12 @@
 package com.greenpay.web;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenpay.domain.Category;
 import com.greenpay.domain.Product;
-import com.greenpay.domain.Store;
 import com.greenpay.service.CategoryService;
-import com.greenpay.service.LoginStoreUserDetails;
 import com.greenpay.service.ProductService;
 
 @Controller
@@ -38,12 +36,21 @@ public class ProductController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	String index(Model model, @AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
+	String index(Model model, Principal principal) {
 		List<Product> products = productService.findAll();
 		model.addAttribute("products", products);
-		model.addAttribute("store", storeDetails.getStore());
+		model.addAttribute("storeId", principal.getName());
 
 		return "store/product/index";
+	}
+
+	@RequestMapping(value = "otherStore", method = RequestMethod.GET)
+	String otherStore(Model model, Principal principal) {
+		List<Product> products = productService.findAll();
+		model.addAttribute("products", products);
+		model.addAttribute("storeId", principal.getName());
+
+		return "store/product/otherStore";
 	}
 
 	// 商品登録フォーム
@@ -58,8 +65,7 @@ public class ProductController {
 
 	// 商品登録
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	String create(@Validated ProductForm productForm, BindingResult result,
-			@AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
+	String create(@Validated ProductForm productForm, BindingResult result, Principal principal) {
 		// 入力チェック
 		if (result.hasErrors()) {
 			return "store/product/createForm";
@@ -68,7 +74,7 @@ public class ProductController {
 		// 商品登録
 		Product product = new Product();
 		BeanUtils.copyProperties(productForm, product);
-		productService.create(product, storeDetails.getStore());
+		productService.create(product, principal.getName());
 
 		return "redirect:/store/product";
 	}
@@ -76,12 +82,11 @@ public class ProductController {
 	// 商品編集フォーム
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	String updateForm(@RequestParam Integer id, Model model,
-			@AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
+			Principal principal) {
 		Product product = productService.findOne(id);
-		Store store = storeDetails.getStore();
 
 		// storeIdのチェック
-		if (!(product.getStoreId()).equals(store.getId())) {
+		if (!(product.getStoreId()).equals(principal.getName())) {
 			return "redirect:/store/product";
 		}
 
@@ -117,12 +122,12 @@ public class ProductController {
 
 	// 商品削除
 	// @RequestMapping(path = "delete", method = RequestMethod.POST)
-	// String delete(@RequestParam Integer id, @AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
+	// String delete(@RequestParam Integer id, Principal principal) {
 	// 	Product product = productService.findOne(id);
 	// 	Store store = storeDetails.getStore();
 
 	// 	// storeIdのチェック
-	// 	if (!(product.getStoreId()).equals(store.getId())) {
+	// 	if (!(product.getStoreId()).equals(principal.getName())) {
 	// 		return "redirect:/store/product";
 	// 	}
 

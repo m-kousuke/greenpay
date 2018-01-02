@@ -55,11 +55,15 @@ public class Product {
 	@Column(name = "updated_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	private LocalDateTime updatedAt;
-	
+
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY,mappedBy="product")
 	private List<PurchaseHistoryDetail> purchaseHistoryDetails;
-	
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="category_id",insertable=false, updatable=false)
 	private Category category;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="store_id",insertable=false, updatable=false)
+	private Store store;
 }
