@@ -1,7 +1,8 @@
 package com.greenpay.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,26 @@ public class PurchaseHistoryService {
 	PurchaseHistoryRepository purchaseHistoryRepository;
 	
 	public List<SalesVolume> GetPurchaseHistory(String storeId){
-		LocalDateTime start = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
-		LocalDateTime end = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth());
 		List<PurchaseHistory> purchaseHistory = purchaseHistoryRepository.findByStoreId(storeId);
+		List<SalesVolume> salesVolumes = new ArrayList();
+		for (int i = 0; i < purchaseHistory.size(); i++) {
+			PurchaseHistory purchaseHistoryNode = purchaseHistory.get(i);
+			List<PurchaseHistoryDetail> purchaseHistoryDetails = purchaseHistoryNode.getPurchaseHistoryDetail();
+			for (int j = 0; j < purchaseHistoryDetails.size(); j++) {
+				PurchaseHistoryDetail purchaseHistoryDetail = purchaseHistoryDetails.get(j);
+				SalesVolume salesVolume = new SalesVolume();
+				salesVolume.setPurchaseHistory(purchaseHistoryNode);
+				salesVolume.setPurchaseHistoryDetail(purchaseHistoryDetail);
+				salesVolume.setProduct(purchaseHistoryDetail.getProduct());
+				salesVolume.setCategory(purchaseHistoryDetail.getProduct().getCategory());
+				salesVolumes.add(salesVolume);
+			}
+		}
+		return salesVolumes;
+	}
+	
+	public List<SalesVolume> GetPurchaseHistory(LocalDate startDate,LocalDate endDate,String storeId){
+		List<PurchaseHistory> purchaseHistory = purchaseHistoryRepository.findByStoreIdAndCreatedAtBetween(storeId, LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX));
 		List<SalesVolume> salesVolumes = new ArrayList();
 		for (int i = 0; i < purchaseHistory.size(); i++) {
 			PurchaseHistory purchaseHistoryNode = purchaseHistory.get(i);
