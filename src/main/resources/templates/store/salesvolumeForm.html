@@ -5,7 +5,7 @@
 	layout:decorator="layout">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" th:href="@{/css/calendar.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/store/calendar.min.css}" />
 <title>売上データ</title>
 </head>
 <body>
@@ -64,9 +64,9 @@
 			<td th:text="${#temporals.format(salesVolumes.purchaseHistory.CreatedAt, 'yyyy年MM月dd日')}"></td>
 		</tr>
 	</table>
-</div>
 <!-- javascript -->
-<script th:src="@{/js/calendar.min.js}"></script>
-<script th:src="@{/js/datetimesetting.js}"></script>
+<script th:src="@{/js/store/calendar.min.js}"></script>
+<script th:src="@{/js/store/datetimesetting.js}"></script>
+</div>
 </body>
 </html>
