@@ -116,18 +116,18 @@ public class ProductController {
 	}
 
 	// 商品削除
-	@RequestMapping(path = "delete", method = RequestMethod.POST)
-	String delete(@RequestParam Integer id, @AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
-		Product product = productService.findOne(id);
-		Store store = storeDetails.getStore();
+	// @RequestMapping(path = "delete", method = RequestMethod.POST)
+	// String delete(@RequestParam Integer id, @AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
+	// 	Product product = productService.findOne(id);
+	// 	Store store = storeDetails.getStore();
 
-		// storeIdのチェック
-		if (!(product.getStoreId()).equals(store.getId())) {
-			return "redirect:/store/product";
-		}
+	// 	// storeIdのチェック
+	// 	if (!(product.getStoreId()).equals(store.getId())) {
+	// 		return "redirect:/store/product";
+	// 	}
 
-		productService.delete(id);
+	// 	productService.delete(id);
 
-		return "redirect:/store/product";
-	}
+	// 	return "redirect:/store/product";
+	// }
 }
