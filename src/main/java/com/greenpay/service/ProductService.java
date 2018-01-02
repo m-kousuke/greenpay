@@ -18,11 +18,18 @@ public class ProductService {
 
 	LocalDateTime dateTime = LocalDateTime.now();
 
-	public void create(Product product, String storeId) {
-		product.setStoreId(storeId);
+	public void create(Product product) {
 		product.setCreatedAt(dateTime);
 		product.setUpdatedAt(dateTime);
 		productRepository.save(product);
+	}
+
+	public boolean isEmpty(Product product) {
+		Product rs = productRepository.findProduct(product.getName(), product.getStoreId());
+		if (rs == null) {
+			return true;
+		}
+		return false;
 	}
 
 	public Product findOne(Integer id) {
@@ -37,8 +44,4 @@ public class ProductService {
 		product.setUpdatedAt(dateTime);
 		productRepository.save(product);
 	}
-
-	// public void delete(Integer id) {
-	// 	productRepository.delete(id);
-	// }
 }

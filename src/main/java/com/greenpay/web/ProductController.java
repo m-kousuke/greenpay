@@ -35,6 +35,7 @@ public class ProductController {
 		return new ProductForm();
 	}
 
+	// 商品一覧(topページ)
 	@RequestMapping(method = RequestMethod.GET)
 	String index(Model model, Principal principal) {
 		List<Product> products = productService.findAll();
@@ -44,6 +45,7 @@ public class ProductController {
 		return "store/product/index";
 	}
 
+	// 多店舗の商品一覧
 	@RequestMapping(value = "otherStore", method = RequestMethod.GET)
 	String otherStore(Model model, Principal principal) {
 		List<Product> products = productService.findAll();
@@ -65,16 +67,24 @@ public class ProductController {
 
 	// 商品登録
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	String create(@Validated ProductForm productForm, BindingResult result, Principal principal) {
+	String create(@Validated ProductForm productForm, BindingResult result, Model model, Principal principal) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return "store/product/createForm";
+			return createForm(model);
 		}
 
 		// 商品登録
 		Product product = new Product();
 		BeanUtils.copyProperties(productForm, product);
-		productService.create(product, principal.getName());
+		product.setStoreId(principal.getName());
+
+		// DBに同一商品がないかのチェック
+		if (!productService.isEmpty(product)) {
+			result.rejectValue("name", null , "その商品名はすでに登録されています");
+			return createForm(model);
+		}
+
+		productService.create(product);
 
 		return "redirect:/store/product";
 	}
@@ -119,20 +129,4 @@ public class ProductController {
 
 		return "redirect:/store/product";
 	}
-
-	// 商品削除
-	// @RequestMapping(path = "delete", method = RequestMethod.POST)
-	// String delete(@RequestParam Integer id, Principal principal) {
-	// 	Product product = productService.findOne(id);
-	// 	Store store = storeDetails.getStore();
-
-	// 	// storeIdのチェック
-	// 	if (!(product.getStoreId()).equals(principal.getName())) {
-	// 		return "redirect:/store/product";
-	// 	}
-
-	// 	productService.delete(id);
-
-	// 	return "redirect:/store/product";
-	// }
 }
