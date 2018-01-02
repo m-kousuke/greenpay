@@ -35,7 +35,8 @@
 					th:errors="*{price}">Error</div>
 				<div class="ui right labeled input">
 					<label for="price" class="ui label">価格</label>
-					<input type="number" name="price" th:value="${product.price}" min="1" max="20000" />
+					<input type="number" name="price" th:value="${product.price}" min="1" max="20000"
+						required="required"/>
 					<label class="ui basic label">円</label>
 				</div>
 				<br> <br>
