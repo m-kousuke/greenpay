@@ -53,7 +53,7 @@ public class ProductController {
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
 
-		return "store/product/create";
+		return "store/product/createForm";
 	}
 
 	// 商品登録
@@ -62,7 +62,7 @@ public class ProductController {
 			@AuthenticationPrincipal LoginStoreUserDetails storeDetails) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return "store/product/create";
+			return "store/product/createForm";
 		}
 
 		// 商品登録
@@ -91,7 +91,7 @@ public class ProductController {
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
 
-		return "store/product/update";
+		return "store/product/updateForm";
 	}
 
 	// 商品編集
