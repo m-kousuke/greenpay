@@ -25,7 +25,7 @@ public class CategoryController {
 	CategoryService categoryService;
 
 	@ModelAttribute
-	CategoryForm setUpForm() {
+	CategoryForm categoryForm() {
 		return new CategoryForm();
 	}
 
@@ -39,7 +39,7 @@ public class CategoryController {
 	// カテゴリー登録フォーム
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	String createForm() {
-		return "store/category/create";
+		return "store/category/createForm";
 	}
 
 	// カテゴリー登録
@@ -47,7 +47,7 @@ public class CategoryController {
 	String create(@Validated CategoryForm categoryForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return "store/category/create";
+			return "store/category/createForm";
 		}
 
 		// カテゴリー登録
@@ -63,7 +63,7 @@ public class CategoryController {
 	String updateForm(@RequestParam Integer id, Model model) {
 		Category category = categoryService.findOne(id);
 		model.addAttribute("category", category);
-		return "store/category/update";
+		return "store/category/updateForm";
 	}
 
 	// カテゴリー編集
