@@ -113,10 +113,10 @@ public class ProductController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	String update(@RequestParam Integer id, @RequestParam String storeId,
 			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam LocalDateTime createdAt,
-			@Validated ProductForm productForm, BindingResult result) {
+			@Validated ProductForm productForm, BindingResult result, Model model, Principal principal) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return updateForm(id, null, null);
+			return updateForm(id, model, principal);
 		}
 
 		// 商品編集

@@ -14,33 +14,43 @@
 				<h3 class="ui center aligned inverted header">商品編集</h3>
 			</div>
 
-			<form th:action="@{/store/product/update}" method="post">
+			<form th:action="@{/store/product/update}" th:object="${productForm}" method="post">
 				<label for="name" class="ui label">商品名</label>
 				<span th:text="${product.name}"></span>
 				<br> <br>
 
+				<div th:if="${#fields.hasErrors('activated')}" class="text-danger"
+					th:errors="*{activated}">Error</div>
 				<div class="ui labeled input">
 					<label for="activated" class="ui label">状態</label>
 					<select id="activated" name="activated">
-						<option value="2">有効</option>
-						<option value="1">現在取り扱いなし</option>
-						<option value="0">無効</option>
+						<option value="2" th:selected="${product.activated == 2}">有効</option>
+						<option value="1" th:selected="${product.activated == 1}">現在取り扱いなし</option>
+						<option value="0" th:selected="${product.activated == 0}">無効</option>
 					</select>
-				</div> <br> <br>
+				</div>
+				<br> <br>
 
+				<div th:if="${#fields.hasErrors('price')}" class="text-danger"
+					th:errors="*{price}">Error</div>
 				<div class="ui right labeled input">
 					<label for="price" class="ui label">価格</label>
-					<input type="number" name="price" value="100" min="1" max="20000" />
+					<input type="number" name="price" th:value="${product.price}" min="1" max="20000" />
 					<label class="ui basic label">円</label>
-				</div> <br> <br>
+				</div>
+				<br> <br>
 
+				<div th:if="${#fields.hasErrors('categoryId')}" class="text-danger"
+					th:errors="*{categoryId}">Error</div>
 				<div class="ui labeled input">
 					<label for="category" class="ui label">カテゴリー</label>
 					<select id="category" name="categoryId">
 						<option th:each="category : ${categories}"
-							th:value="${category.id}" th:inline="text">[[${category.name}]]</option>
+							th:value="${category.id}" th:inline="text"
+							th:selected="${category.id == product.categoryId}">[[${category.name}]]</option>
 					</select>
-				</div> <br> <br>
+				</div>
+				<br> <br>
 
 				<input type="hidden" name="name" th:value="${product.name}" />
 				<input type="hidden" name="id" th:value="${product.id}" />

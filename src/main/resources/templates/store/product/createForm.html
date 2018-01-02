@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-	<title>greenpay | 商品登録</title>
+<title>greenpay | 商品登録</title>
 </head>
 <body>
 	<div layout:fragment="contents">
@@ -14,15 +14,18 @@
 				<h3 class="ui center aligned inverted header">商品登録</h3>
 			</div>
 
-			<form class="ui fluid form" th:action="@{/store/product/create}" th:object="${productForm}" method="post">
-				<div th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}">Error</div>
+			<form th:action="@{/store/product/create}" th:object="${productForm}" method="post">
+				<div th:if="${#fields.hasErrors('name')}" class="text-danger"
+					th:errors="*{name}">Error</div>
 				<div class="ui labeled input">
 					<label for="name" class="ui label">商品名</label>
-					<input type="text" id="name" name="name" maxlength="64" required="required" autofocus="autofocus"/>
+					<input type="text" id="name" name="name" maxlength="64" required="required"
+						autofocus="autofocus" />
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('price')}" class="text-danger" th:errors="*{price}">Error</div>
+				<div th:if="${#fields.hasErrors('price')}" class="text-danger"
+					th:errors="*{price}">Error</div>
 				<div class="ui right labeled input">
 					<label for="price" class="ui label">価格</label>
 					<input type="number" name="price" value="100" min="1" max="20000" />
@@ -30,12 +33,13 @@
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('categoryId')}" class="text-danger" th:errors="*{categoryId}">Error</div>
+				<div th:if="${#fields.hasErrors('categoryId')}" class="text-danger"
+					th:errors="*{categoryId}">Error</div>
 				<div class="ui labeled input">
 					<label for="category" class="ui label">カテゴリー</label>
 					<select id="category" name="categoryId">
-						<option th:each="category : ${categories}"
-							th:value="${category.id}" th:inline="text">[[${category.name}]]</option>
+						<option th:each="category : ${categories}" th:value="${category.id}"
+							th:inline="text">[[${category.name}]]</option>
 					</select>
 				</div>
 				<br> <br>
