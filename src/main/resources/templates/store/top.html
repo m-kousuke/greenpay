@@ -1,14 +1,64 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
 <meta charset="UTF-8">
 <title>店舗トップ</title>
 </head>
 <body>
-	店舗のトップページです．
+<div layout:fragment="contents">
+	<br>
+	<br>
+	<h1 class="ui center aligned top attached header" th:text="${store.name}"></h1>
+	<div class="ui attached segment">
+	<div class="ui two cards">
+		<div class="card">
+			<div class="content">
+			<div class="header">商品の登録</div>
+			<div class="description">
+			新しく商品を登録できます．
+			</div>
+			<br>
+			<a class="ui bottom attached green button" th:href="@{/store/product/create}">登録</a>
+			</div>
+		</div>
+		<div class="card">
+			<div class="content">
+			<div class="header">商品一覧</div>
+			<div class="description">
+			商品一覧を見ることができます．すでに登録している商品の編集もこちらから．
+			</div>
+			<br>
+			<a class="ui bottom attached green button" th:href="@{/store/product}">商品一覧</a>
+			</div>
+		</div>
+		<div class="card">
+			<div class="content">
+			<div class="header">売上を見る</div>
+			<div class="description">
+			売上を確認できます．日付を指定して，期間ごとに見ることもできます．
+			</div>
+			<br>
+			<a class="ui bottom attached green button" th:href="@{/store/salesvolumeForm}">売上</a>
+			</div>
+		</div>
+		<div class="card">
+			<div class="content">
+			<div class="header">レジ画面</div>
+			<div class="description">
+			レジ画面を表示します．
+			</div>
+			<br>
+			<a class="ui bottom attached green button" href="#">レジ画面</a>
+			</div>
+		</div>
+	</div>
+	</div>
 	<form action="#" th:action="@{/store/logout}" method="POST">
-		<input type="submit" value="ログアウト" />
+	<button class="fluid ui green button" type="submit">ログアウト</button>
 	</form>
+</div>
 </body>
 </html>

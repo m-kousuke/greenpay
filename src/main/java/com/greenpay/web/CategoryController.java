@@ -1,9 +1,11 @@
 package com.greenpay.web;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +25,7 @@ public class CategoryController {
 	CategoryService categoryService;
 
 	@ModelAttribute
-	CategoryForm setUpForm() {
+	CategoryForm categoryForm() {
 		return new CategoryForm();
 	}
 
@@ -31,13 +33,13 @@ public class CategoryController {
 	String index(Model model) {
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
-		return "category/index";
+		return "store/category/index";
 	}
 
 	// カテゴリー登録フォーム
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	String createForm() {
-		return "category/create";
+		return "store/category/createForm";
 	}
 
 	// カテゴリー登録
@@ -45,15 +47,22 @@ public class CategoryController {
 	String create(@Validated CategoryForm categoryForm, BindingResult result) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return "category/create";
+			return "store/category/createForm";
 		}
 
 		// カテゴリー登録
 		Category category = new Category();
 		BeanUtils.copyProperties(categoryForm, category);
+
+		// DBに同一カテゴリーがないかのチェック
+		if (!categoryService.isEmpty(category)) {
+			result.rejectValue("name", null , "そのカテゴリー名はすでに登録されています");
+			return createForm();
+		}
+
 		categoryService.create(category);
 
-		return "redirect:/category";
+		return "redirect:/store/category";
 	}
 
 	// カテゴリー編集フォーム
@@ -61,16 +70,17 @@ public class CategoryController {
 	String updateForm(@RequestParam Integer id, Model model) {
 		Category category = categoryService.findOne(id);
 		model.addAttribute("category", category);
-		return "category/update";
+		return "store/category/updateForm";
 	}
 
 	// カテゴリー編集
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	String update(@RequestParam Integer id, @RequestParam String createdAt, @Validated CategoryForm categoryForm,
-			BindingResult result) {
+	String update(@RequestParam Integer id,
+			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam LocalDateTime createdAt,
+			@Validated CategoryForm categoryForm, BindingResult result, Model model) {
 		// 入力チェック
 		if (result.hasErrors()) {
-			return updateForm(id, null);
+			return updateForm(id, model);
 		}
 
 		// カテゴリー編集
@@ -78,16 +88,23 @@ public class CategoryController {
 		BeanUtils.copyProperties(categoryForm, category);
 		category.setId(id);
 		category.setCreatedAt(createdAt);
+
+		// DBに同一カテゴリーがないかのチェック
+		if (!categoryService.isEmpty(category)) {
+			result.rejectValue("name", null , "そのカテゴリー名はすでに登録されています");
+			return updateForm(id, model);
+		}
+
 		categoryService.update(category);
 
-		return "redirect:/category";
+		return "redirect:/store/category";
 	}
 
 	// カテゴリー削除
-	@RequestMapping(path = "delete", method = RequestMethod.POST)
+	@RequestMapping(path = "update", params = "delete", method = RequestMethod.POST)
 	String delete(@RequestParam Integer id) {
 		categoryService.delete(id);;
 
-		return "redirect:/category";
+		return "redirect:/store/category";
 	}
 }

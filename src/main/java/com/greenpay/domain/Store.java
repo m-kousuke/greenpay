@@ -1,11 +1,15 @@
 package com.greenpay.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
@@ -40,4 +44,7 @@ public class Store {
 	@Column(name = "updated_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	private LocalDateTime updatedAt;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY,mappedBy="store")
+	private List<Product> Products;
 }
