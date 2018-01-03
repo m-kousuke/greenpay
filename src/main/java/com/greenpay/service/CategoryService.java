@@ -25,7 +25,7 @@ public class CategoryService {
 	}
 
 	public boolean isEmpty(Category category) {
-		Category rs = categoryRepository.findCategory(category.getName());
+		Category rs = categoryRepository.findByName(category.getName());
 		if (rs == null) {
 			return true;
 		}

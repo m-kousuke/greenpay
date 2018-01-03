@@ -25,7 +25,7 @@ public class ProductService {
 	}
 
 	public boolean isEmpty(Product product) {
-		Product rs = productRepository.findProduct(product.getName(), product.getStoreId());
+		Product rs = productRepository.findByNameAndStoreId(product.getName(), product.getStoreId());
 		if (rs == null) {
 			return true;
 		}
