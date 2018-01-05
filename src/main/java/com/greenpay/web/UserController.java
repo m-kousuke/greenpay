@@ -67,11 +67,6 @@ public class UserController {
         return "registUserFinishForm";
     }
 
-    @RequestMapping(value = "user/top", method = RequestMethod.GET)
-    String usertop() {
-        return "user/top";
-    }
-
     // 利用履歴閲覧画面
     @RequestMapping(value = "user/history", method = RequestMethod.GET)
     String purchaseHistory(Model model, Principal principal) {
@@ -92,7 +87,7 @@ public class UserController {
   
   @RequestMapping(value="user/top" , method=RequestMethod.GET)
 	String usertop(Principal principal,Model model) {
-		User user = userservice.AuthenticatedUser(principal.getName());
+		User user = userService.AuthenticatedUser(principal.getName());
 		model.addAttribute("user", user);
 		model.addAttribute("money",user.getMoney());
 		return "user/top";
