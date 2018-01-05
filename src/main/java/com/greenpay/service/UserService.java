@@ -1,7 +1,6 @@
 package com.greenpay.service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -25,7 +24,7 @@ public class UserService {
 	PasswordEncoder passwordEncoder;
 
 	public void create(User user) {
-		String dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS").format(LocalDateTime.now());
+		LocalDateTime dateTime = LocalDateTime.now();
 		user.setCreatedAt(dateTime);
 		user.setUpdatedAt(dateTime);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
