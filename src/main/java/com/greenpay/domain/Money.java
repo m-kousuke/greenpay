@@ -31,7 +31,7 @@ public class Money {
 	@Column(name = "id", nullable = false)
 	private String id;
 
-	@Column(name = "user_id", nullable = false)
+	@Column(name = "user_email", nullable = false)
 	private String userId;
 
 	@Column(name = "credit", nullable = false)
@@ -44,11 +44,11 @@ public class Money {
 	@Column(name = "updated_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	private LocalDateTime updatedAt;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id",insertable=false, updatable=false)
+	@JoinColumn(name="user_email",insertable=false, updatable=false)
 	private User user;
-	
+
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="money")
 	private List<MoneyCharge> moneyCharges;
 }

@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
 <meta charset="UTF-8">
-<title>新規ユーザー仮登録フォーム</title>
+<title>新規ユーザー仮登録</title>
 </head>
 <body>
+	<div layout:fragment="contents">
 
-	<form th:action="@{/registuser}" method="post">
-	    姓<input type="text" name="lastName" >
-	    名<input type="text" name="firstName" >
-	    <br>
-	    姓かな<input type="text" name="lastNameKana" >
-	    名かな<input type="text" name="firstNameKana" >
+		<form th:action="@{/registuser}" method="post">
+			姓<input type="text" name="lastName"> 名<input type="text"
+				name="firstName"> <br> 姓かな<input type="text"
+				name="lastNameKana"> 名かな<input type="text"
+				name="firstNameKana"> <br> アドレス<input type="text"
+				name="email"> <br> パスワード<input type="password"
+				name="password"> <br> <input type="submit" value="登録">
+		</form>
 		<br>
-		アドレス<input type="text" name="email" >
-		<br>
-		パスワード<input type="password" name="password" >
-		<br>
-		<input type="submit" value="登録">
-	</form>
-	<BR>
+	</div>
 </body>
 </html>
