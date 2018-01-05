@@ -15,7 +15,7 @@
 			</div>
 
 			<form th:action="@{/store/product/create}" th:object="${productForm}" method="post">
-				<div th:if="${#fields.hasErrors('name')}" class="text-danger"
+				<div th:if="${#fields.hasErrors('name')}" class="ui pointing red basic label"
 					th:errors="*{name}">Error</div>
 				<div class="ui labeled input">
 					<label for="name" class="ui label">商品名</label>
@@ -24,7 +24,7 @@
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('price')}" class="text-danger"
+				<div th:if="${#fields.hasErrors('price')}" class="ui pointing red basic label"
 					th:errors="*{price}">Error</div>
 				<div class="ui right labeled input">
 					<label for="price" class="ui label">価格</label>
@@ -33,7 +33,7 @@
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('categoryId')}" class="text-danger"
+				<div th:if="${#fields.hasErrors('categoryId')}" class="ui pointing red basic label"
 					th:errors="*{categoryId}">Error</div>
 				<div class="ui labeled input">
 					<label for="category" class="ui label">カテゴリー</label>

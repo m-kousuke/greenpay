@@ -46,7 +46,7 @@ public class Money {
 	private LocalDateTime updatedAt;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_email",insertable=false, updatable=false,nullable=true)
+	@JoinColumn(name="user_email",insertable=false, updatable=false)
 	private User user;
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="money")

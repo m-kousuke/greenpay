@@ -19,7 +19,7 @@
 				<span th:text="${category.name}"></span>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('name')}" class="text-danger"
+				<div th:if="${#fields.hasErrors('name')}" class="ui pointing red basic label"
 					th:errors="*{name}">Error</div>
 				<div class="ui labeled input">
 					<label for="name" class="ui label">新しいカテゴリー名</label>
