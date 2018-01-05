@@ -22,6 +22,7 @@ public class UserController {
 	@Autowired
 	UserService userservice;
 
+		
 	// 新規ユーザー登録フォーム
 	@ModelAttribute
 	UserForm registUserForm() {
@@ -30,7 +31,8 @@ public class UserController {
 
 	//ユーザー仮登録画面
 	@GetMapping("/registuserForm")
-	String registuserForm() {
+	String registuserForm(Model model) {
+		
 		return "registuserForm";
 	}
 

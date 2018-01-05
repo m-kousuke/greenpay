@@ -1,24 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
 <meta charset="UTF-8">
 <title>新規ユーザー仮登録フォーム</title>
 </head>
 <body>
-
-	<form th:action="@{/registuser}" method="post">
-	    姓<input type="text" name="lastName" >
-	    名<input type="text" name="firstName" >
-	    <br>
-	    姓かな<input type="text" name="lastNameKana" >
-	    名かな<input type="text" name="firstNameKana" >
-		<br>
-		アドレス<input type="text" name="email" >
-		<br>
-		パスワード<input type="password" name="password" >
-		<br>
-		<input type="submit" value="登録">
+<div layout:fragment="contents">
+	<br>
+	<div class="ui container">
+	<div class="ui green inverted segment">
+	<h1 class="ui header">GreenPayサービス 新規登録(仮登録)</h1>
+	</div>
+	<div class="ui raised segment">
+	<form class="ui form" th:action="@{/registuser}" th:object="${userForm}" method="post">
+		<div class="field">
+		<label>姓</label>
+		<input type="text" name="lastName" autofocus="autofocus" required="required">
+		<div th:if="${#fields.hasErrors('lastName')}" class="ui pointing red basic label" th:errors="*{lastName}">Error</div>
+		</div>
+		<div class="field">
+		<label>名</label>
+		<input type="text" name="firstName" required="required">
+		<div th:if="${#fields.hasErrors('firstName')}" class="ui pointing red basic label" th:errors="*{firstName}">Error</div>
+		</div>
+		<div class="field">
+		<label>姓かな</label>
+		<input type="text" name="lastNameKana" required="required">
+		<div th:if="${#fields.hasErrors('lastNameKana')}" class="ui pointing red basic label" th:errors="*{lastNameKana}">Error</div>
+		</div>
+		<div class="field">
+		<label>名かな</label>
+		<input type="text" name="firstNameKana" required="required">
+		<div th:if="${#fields.hasErrors('firstNameKana')}" class="ui pointing red basic label" th:errors="*{firstNameKana}">Error</div>
+		</div>
+		<div class="field">
+		<label>メールアドレス(ログイン時のユーザーIDになります)</label>
+		<input type="text" name="email" required="required">
+		<div th:if="${#fields.hasErrors('email')}" class="ui pointing red basic label" th:errors="*{email}">Error</div>
+		</div>
+		<div class="field">
+		<label>パスワード（半角英数字８〜１６文字）</label>
+		<input type="password" name="password" required="required" pattern="^([a-zA-Z0-9]{8,16})$">
+		<div th:if="${#fields.hasErrors('password')}" class="ui pointing red basic label" th:errors="*{password}">Error</div>
+		</div>
+		<button class="ui green button" type="submit">登録</button>
 	</form>
-	<BR>
+	<h3>注意事項</h3>
+		<p>仮登録が完了すると，本登録のご案内メールが送信されます．
+		<p>※本登録を行わないと各種サービスはご利用できないのでご注意ください．
+	</div>
+	</div>
+</div>
 </body>
 </html>
