@@ -23,9 +23,9 @@ public class UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	LocalDateTime dateTime = LocalDateTime.now();
 
 	public void create(User user) {
+		LocalDateTime dateTime = LocalDateTime.now();
 		user.setCreatedAt(dateTime);
 		user.setUpdatedAt(dateTime);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -41,8 +41,8 @@ public class UserService {
 
 		this.sender.send(msg);
 	}
-
-	public User findOne(String email) {
-	    return userRepository.findOne(email);
+	
+	public User AuthenticatedUser(String userId){
+		return userRepository.findOne(userId);
 	}
 }
