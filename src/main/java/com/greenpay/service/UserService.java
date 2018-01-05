@@ -41,4 +41,8 @@ public class UserService {
 		
 		this.sender.send(msg);
 	}
+	
+	public User AuthenticatedUser(String userId){
+		return userRepository.findOne(userId);
+	}
 }

@@ -1,5 +1,7 @@
 package com.greenpay.web;
 
+import java.security.Principal;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +53,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="user/top" , method=RequestMethod.GET)
-	String usertop() {
+	String usertop(Principal principal,Model model) {
+		User user = userservice.AuthenticatedUser(principal.getName());
+		model.addAttribute("user", user);
+		model.addAttribute("money",user.getMoney());
 		return "user/top";
 	}
 }
