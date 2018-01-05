@@ -2,6 +2,9 @@ package com.greenpay.web;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Hex;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,7 +51,7 @@ public class UserController {
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
 		userservice.regist(user);
-		userservice.sendMail(user);
+		userservice.sendMail(user.getEmail());
 		return "/registuserSuccess";
 	}
 
@@ -65,13 +68,18 @@ public class UserController {
 		if (result.hasErrors()) { // エラーがおきたら返す場所
 			return "/registuserFinishForm";
 		}
+
+		//復号化
+		String salt = new String(Hex.encode("123454321".getBytes()));
+		TextEncryptor decryptor = Encryptors.queryableText("key", salt);
+		form.setUserId(decryptor.decrypt(form.getUserId()));
+
+		//パスワードの照合とユーザー情報の取得
 		User user = userservice.findOne(form.getUserId(), form.getPassword());
 		if (user != null) {
 			Money money = new Money();
 			BeanUtils.copyProperties(form, money);
-			System.out.println(money);
 			userservice.registMoney(money);
-			System.out.println(user);
 			userservice.registFinish(user);
 			return "/registuserSuccess";
 		} else {

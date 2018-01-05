@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.codec.Hex;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,21 +39,27 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	public void sendMail(User user) {
+	// メール送信
+	public void sendMail(String email) {
 		SimpleMailMessage msg = new SimpleMailMessage();
+		String encrypted = encryption(email);
 		msg.setFrom("greenpayroot@gmail.com");
-		msg.setTo(user.getEmail());
+		msg.setTo(email);
 		msg.setSubject("本登録");// タイトルの設定
-		// String salt = KeyGenerators.string().generateKey(); //
-		// SecureRandomの値をhex化
-		// TextEncryptor encryptor = Encryptors.queryableText("password", salt);
-		// String encrypted = encryptor.encrypt(user.getEmail());
-		// String encodedResult = passwordEncoder.encode(user.getPassword());
-		String url = "http://localhost:8080/greenpay/registuserFinishForm?id=" + user.getEmail();
+		String url = "http://localhost:8080/greenpay/registuserFinishForm?id=" +  encrypted;
 		msg.setText("以下のURLから本登録を行ってください\n\r" + url + ""); // 本文の設定
 		this.sender.send(msg);
 	}
 
+	// アドレスの暗号化
+	public String encryption(String email) {
+		String salt = new String(Hex.encode("123454321".getBytes()));
+		TextEncryptor encryptor = Encryptors.queryableText("key", salt);
+		String encrypted = encryptor.encrypt(email);
+		return encrypted;
+	}
+
+	// ユーザー検索
 	public User findOne(String email, String password) {
 		User user = userRepository.findOne(email);
 		if (passwordEncoder.matches(password, user.getPassword())) {
