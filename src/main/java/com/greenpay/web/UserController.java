@@ -1,5 +1,6 @@
 package com.greenpay.web;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -80,9 +81,10 @@ public class UserController {
 
     // 利用履歴閲覧画面
     @RequestMapping(value = "user/history", method = RequestMethod.POST)
-    String purchaseHistory(@RequestParam Integer id, Model model, Principal principal) {
+    String purchaseHistory(@RequestParam Integer id, @RequestParam BigDecimal amount, Model model, Principal principal) {
         List<PurchaseHistoryDetail> details = purchaseHistoryDetailService.findByPurchaseId(id);
         model.addAttribute("details", details);
+        model.addAttribute("amount", amount);
         return "user/history/detail";
     }
 }

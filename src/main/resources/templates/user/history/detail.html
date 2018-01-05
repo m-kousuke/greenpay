@@ -9,25 +9,31 @@
 </head>
 <body>
 	<div layout:fragment="contents">
-		<table class="ui celled table">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>商品名</th>
-					<th>単価</th>
-					<th>個数</th>
-				</tr>
-			</thead>
+		<br>
+		<div class="ui raised segment" style="margin-left: 60px; margin-right: 60px;">
+			<div class="ui huge green label">購入履歴詳細</div>
+			<h3 th:inline="text">支払い合計金額　　　[[${amount}]]円</h3>
 
-			<tbody>
-				<tr th:each="detail : ${details}">
-					<td th:text="${detail.id}" />
-					<td th:text="${detail.product.name}" />
-					<td th:text="${detail.product.price}" />
-					<td th:text="${detail.quantity}" />
-				</tr>
-			</tbody>
-		</table>
+			<table class="ui celled table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>商品名</th>
+						<th>単価</th>
+						<th>個数</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="detail : ${details}">
+						<td th:text="${detail.id}" />
+						<td th:text="${detail.product.name}" />
+						<td th:text="${detail.product.price}" />
+						<td th:text="${detail.quantity}" />
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </body>
 </html>
