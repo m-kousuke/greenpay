@@ -30,7 +30,7 @@
 					<td th:text="${#temporals.format(history.createdAt, 'yyyy年MM月dd日')}" />
 					<td>
 						<form th:action="@{/user/history}" method="post">
-							<input type="hidden" name="id" th:value="${history.id}" />
+								<input type="hidden" name="id" th:value="${history.id}" />
 							<input type="submit" value="詳細" />
 						</form>
 					</td>
