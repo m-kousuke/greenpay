@@ -56,17 +56,17 @@ public class UserController {
 	}
 
 	// ユーザー本登録画面
-	@GetMapping("/registuserFinishForm")
+	@GetMapping("/registuserfinishForm")
 	String registUserFinishForm(@RequestParam("id") String id, Model model) {
 		model.addAttribute("id", id);
-		return "registUserFinishForm";
+		return "registuserfinishForm";
 	}
 
 	// 本登録
-	@PostMapping("/registuserFinish")
+	@PostMapping("/registuserfinish")
 	String finish(@Validated UserFinishForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) { // エラーがおきたら返す場所
-			return "/registuserFinishForm";
+			return "/registuserfinishForm";
 		}
 
 		//復号化
@@ -81,9 +81,9 @@ public class UserController {
 			BeanUtils.copyProperties(form, money);
 			userservice.registMoney(money);
 			userservice.registFinish(user);
-			return "/registuserSuccess";
+			return "/registuserfinishSuccess";
 		} else {
-			return "/registuserFinishForm";
+			return "/registuserfinishForm";
 		}
 	}
 
