@@ -9,11 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
@@ -23,30 +22,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Entity
+@Table(name = "money")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "products")
-public class Product {
+public class Money {
 	@Id
-	@GeneratedValue
-	@Column(name = "id")
-	private int id;
+	@Column(name = "id", nullable = false)
+	private String id;
 
-	@Column(name = "name", nullable = false)
-	private String name;
+	@Column(name = "user_email", nullable = false)
+	private String userId;
 
-	@Column(name = "store_id", nullable = false)
-	private String storeId;
-
-	@Column(name = "category_id", nullable = false)
-	private int categoryId;
-
-	@Column(name = "price", nullable = false)
-	private BigDecimal price;
-
-	@Column(name = "activated", nullable = false)
-	private int activated;
+	@Column(name = "credit", nullable = false)
+	private BigDecimal credit;
 
 	@Column(name = "created_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
@@ -55,15 +44,11 @@ public class Product {
 	@Column(name = "updated_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	private LocalDateTime updatedAt;
-
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY,mappedBy="product")
-	private List<PurchaseHistoryDetail> purchaseHistoryDetails;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="category_id",insertable=false, updatable=false)
-	private Category category;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="store_id",insertable=false, updatable=false)
-	private Store store;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_email",insertable=false, updatable=false)
+	private User user;
+	
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="money")
+	private List<MoneyCharge> moneyCharges;
 }

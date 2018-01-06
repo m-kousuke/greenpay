@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<title>カテゴリー一覧</title>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<br>
+		<div class="ui raised segment" style="margin-left: 60px; margin-right: 60px;">
+			<div class="ui huge green label">カテゴリー一覧</div>
+			<br> <br>
+
+			<div>
+				<a th:href="@{/store/product}">
+					<button class="ui green basic button">商品一覧へ</button>
+				</a>
+				<a th:href="@{/store/category/create}">
+					<button class="ui green basic button">新規カテゴリー登録</button>
+				</a>
+			</div>
+
+			<div class="ui relaxed divided list">
+				<div class="item" th:each="category : ${categories}">
+					<div class="content">
+						<a class="header" th:href="@{/store/category/update__'?id='+${category.id}__}">
+							<span th:text="${category.name}"></span>
+						</a>
+						<div class="description">
+							<span th:text="${'作成日 : ' + #temporals.format(category.createdAt, 'yyyy/MM/dd HH:mm:ss') + ', '}"></span>
+							<span th:text="${'更新日 : ' + #temporals.format(category.updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>

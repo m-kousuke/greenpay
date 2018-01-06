@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>電子マネー残高確認画面</title>
+</head>
+<body>
+	残高確認
+	<br>
+	<div>
+		<p th:text="${credit}"></p>
+	</div>
+	<br>
+	<div>
+		<a th:href="@{/selectAmountOfMoney}">
+			<button class="ui green basic button">チャージする</button>
+		</a> <a th:href="@{/money}">
+			<button class="ui green basic button">戻る</button>
+		</a>
+		
+	</div>
+
+</body>
+</html>
