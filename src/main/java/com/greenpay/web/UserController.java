@@ -66,8 +66,8 @@ public class UserController {
 		}
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
-		userservice.regist(user);
-		userservice.sendMail(user.getEmail());
+		userService.regist(user);
+		userService.sendMail(user.getEmail());
 		return "/registuserSuccess";
 	}
 
@@ -91,12 +91,12 @@ public class UserController {
 		form.setUserId(decryptor.decrypt(form.getUserId()));
 
 		//パスワードの照合とユーザー情報の取得
-		User user = userservice.findOne(form.getUserId(), form.getPassword());
+		User user = userService.findOne(form.getUserId(), form.getPassword());
 		if (user != null) {
 			Money money = new Money();
 			BeanUtils.copyProperties(form, money);
-			userservice.registMoney(money);
-			userservice.registFinish(user);
+			userService.registMoney(money);
+			userService.registFinish(user);
 			return "/registuserfinishSuccess";
 		} else {
 			return "/registuserfinishForm";
@@ -120,7 +120,7 @@ public class UserController {
         model.addAttribute("amount", amount);
         return "user/history/detail";
     }
-  
+
   @RequestMapping(value="user/top" , method=RequestMethod.GET)
 	String usertop(Principal principal,Model model) {
 		User user = userService.AuthenticatedUser(principal.getName());
