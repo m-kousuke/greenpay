@@ -15,7 +15,7 @@
 	<h1 class="ui header">GreenPayサービス 新規登録(仮登録)</h1>
 	</div>
 	<div class="ui raised segment">
-	<form class="ui form" th:action="@{/registuser}" th:object="${userForm}" method="post">
+	<form class="ui form" th:action="@{/registuser}" th:object="${model1}" method="post">
 		<div class="field">
 		<label>姓</label>
 		<input type="text" name="lastName" autofocus="autofocus" required="required">
@@ -42,7 +42,7 @@
 		<div th:if="${#fields.hasErrors('email')}" class="ui pointing red basic label" th:errors="*{email}">Error</div>
 		</div>
 		<div class="field">
-		<label>パスワード（半角英数字８〜１６文字）</label>
+		<label>パスワード（半角英数字8~16文字）</label>
 		<input type="password" name="password" required="required" pattern="^([a-zA-Z0-9]{8,16})$">
 		<div th:if="${#fields.hasErrors('password')}" class="ui pointing red basic label" th:errors="*{password}">Error</div>
 		</div>
