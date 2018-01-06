@@ -85,7 +85,10 @@ public class UserService {
 	}
 
 	private BigDecimal BigDecimal() {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
+	}
+	
+	public User AuthenticatedUser(String userId){
+		return userRepository.findOne(userId);
 	}
 }
