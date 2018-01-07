@@ -1,6 +1,5 @@
 package com.greenpay.service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.greenpay.domain.Money;
 import com.greenpay.domain.User;
 import com.greenpay.repository.MoneyRepository;
 import com.greenpay.repository.UserRepository;
@@ -31,6 +29,16 @@ public class UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	//登録されているかのチェック
+	public boolean check(String email){
+		boolean rs = userRepository.exists(email);
+		if(rs == true){
+			return true;
+		}
+		return false;
+	}
+
+	//ユーザー仮登録
 	public void regist(User user) {
 		LocalDateTime dateTime = LocalDateTime.now();
 		user.setCreatedAt(dateTime);
@@ -59,7 +67,7 @@ public class UserService {
 		return encrypted;
 	}
 
-	// ユーザー検索
+	// ユーザー情報の取得
 	public User findOne(String email, String password) {
 		User user = userRepository.findOne(email);
 		if (passwordEncoder.matches(password, user.getPassword())) {
@@ -68,6 +76,7 @@ public class UserService {
 		return null;
 	}
 
+	//ユーザー本登録
 	public void registFinish(User user) {
 		LocalDateTime dateTime = LocalDateTime.now();
 		user.setActivated(1);
@@ -76,18 +85,7 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	public void registMoney(Money money) {
-		BigDecimal decimal = new BigDecimal("0");
-		money.setCredit(decimal);
-		money.setCreatedAt(LocalDateTime.now());
-		money.setUpdatedAt(LocalDateTime.now());
-		moneyRepository.save(money);
-	}
 
-	private BigDecimal BigDecimal() {
-		return null;
-	}
-	
 	public User AuthenticatedUser(String userId){
 		return userRepository.findOne(userId);
 	}
