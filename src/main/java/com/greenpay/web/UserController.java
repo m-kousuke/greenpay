@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,69 +28,107 @@ import com.greenpay.service.UserService;
 @Controller
 public class UserController {
 
-	
-    @Autowired
-    UserService userService;
+	@Autowired
+	UserService userService;
 
-    @Autowired
-    PurchaseHistoryService purchaseHistoryService;
+	@Autowired
+	PurchaseHistoryService purchaseHistoryService;
 
-    @Autowired
-    PurchaseHistoryDetailService purchaseHistoryDetailService;
+	@Autowired
+	PurchaseHistoryDetailService purchaseHistoryDetailService;
 
-    // 新規ユーザー登録フォーム
-    @ModelAttribute
-    UserForm registUserForm() {
-        return new UserForm();
-    }
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-    //ユーザー仮登録画面
-    @GetMapping("/registuserForm")
-    String registuserForm() {
-        return "registuserForm";
-    }
+	// 新規ユーザー登録フォーム
+	@ModelAttribute
+	UserForm registUserForm() {
+		return new UserForm();
+	}
 
-    @PostMapping("/registuser")
-    String create(@Validated UserForm form, BindingResult result, Model model) {
-        if (result.hasErrors()) { // エラーがおきたら返す場所
-            return "/registuserForm";
-        }
-        User user = new User();
-        BeanUtils.copyProperties(form, user);
-        userService.create(user);
-        userService.sendMail(user);
-        return "/registuserSuccess";
-    }
+	// ユーザー仮登録画面
+	@GetMapping("/registuserForm")
+	String registuserForm() {
+		return "registuserForm";
+	}
 
-    //ユーザー本登録画面
-    @GetMapping("/registuserFinishForm")
-    String registUserFinishForm() {
-        return "registUserFinishForm";
-    }
+	@PostMapping("/registuser")
+	String create(@Validated UserForm form, BindingResult result, Model model) {
+		if (result.hasErrors()) { // エラーがおきたら返す場所
+			return "/registuserForm";
+		}
+		User user = new User();
+		BeanUtils.copyProperties(form, user);
+		userService.create(user);
+		userService.sendMail(user);
+		return "/registuserSuccess";
+	}
 
-    // 利用履歴閲覧画面
-    @RequestMapping(value = "user/history", method = RequestMethod.GET)
-    String purchaseHistory(Model model, Principal principal) {
-        User user = userService.AuthenticatedUser(principal.getName());
-        List<PurchaseHistory> history = purchaseHistoryService.findByMoneyId(user);
-        model.addAttribute("history", history);
-        return "user/history/index";
-    }
+	// ユーザー本登録画面
+	@GetMapping("/registuserFinishForm")
+	String registUserFinishForm() {
+		return "registUserFinishForm";
+	}
 
-    // 利用履歴閲覧画面
-    @RequestMapping(value = "user/history", method = RequestMethod.POST)
-    String purchaseHistory(@RequestParam Integer id, @RequestParam BigDecimal amount, Model model, Principal principal) {
-        List<PurchaseHistoryDetail> details = purchaseHistoryDetailService.findByPurchaseId(id);
-        model.addAttribute("details", details);
-        model.addAttribute("amount", amount);
-        return "user/history/detail";
-    }
-  
-  @RequestMapping(value="user/top" , method=RequestMethod.GET)
-	String usertop(Principal principal,Model model) {
+	// ユーザー情報編集フォーム
+	@ModelAttribute("model3")
+	UserEditForm userEditForm() {
+		return new UserEditForm();
+	}
+
+	// ユーザー情報編集画面
+	@GetMapping("/user/edit/editForm")
+	String editForm() {
+		return "user/edit/editForm";
+	}
+
+	// ユーザー情報編集
+	@PostMapping("/user/edit/edituser")
+	String edit(@Validated UserEditForm form, BindingResult result, Model model, Principal principal) {
+		if (result.hasErrors()) { // エラーがおきたら返す場所
+			return "user/edit/editForm";
+		}
+		User user = userService.AuthenticatedUser(principal.getName());
+		System.out.println(principal.getName());
+		user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+		userService.edit(user);
+		return usertop(principal,model);
+		/*
+		if (form.getNewPassword() == form.getAgainNewPassword()) {
+			System.out.println(user);
+			user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+			userService.edit(user);
+			return "user/top";
+		} else {
+			return editForm();
+		}
+		*/
+	}
+
+	// 利用履歴閲覧画面
+	@RequestMapping(value = "user/history", method = RequestMethod.GET)
+	String purchaseHistory(Model model, Principal principal) {
+		User user = userService.AuthenticatedUser(principal.getName());
+		List<PurchaseHistory> history = purchaseHistoryService.findByMoneyId(user);
+		model.addAttribute("history", history);
+		return "user/history/index";
+	}
+
+	// 利用履歴閲覧画面
+	@RequestMapping(value = "user/history", method = RequestMethod.POST)
+	String purchaseHistory(@RequestParam Integer id, @RequestParam BigDecimal amount, Model model,
+			Principal principal) {
+		List<PurchaseHistoryDetail> details = purchaseHistoryDetailService.findByPurchaseId(id);
+		model.addAttribute("details", details);
+		model.addAttribute("amount", amount);
+		return "user/history/detail";
+	}
+
+	@RequestMapping(value = "user/top", method = RequestMethod.GET)
+	String usertop(Principal principal, Model model) {
 		User user = userService.AuthenticatedUser(principal.getName());
 		model.addAttribute("user", user);
-		model.addAttribute("money",user.getMoney());
+		model.addAttribute("money", user.getMoney());
 		return "user/top";
 	}
 }

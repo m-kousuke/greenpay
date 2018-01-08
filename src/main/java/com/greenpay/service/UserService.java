@@ -23,7 +23,6 @@ public class UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-
 	public void create(User user) {
 		LocalDateTime dateTime = LocalDateTime.now();
 		user.setCreatedAt(dateTime);
@@ -41,8 +40,23 @@ public class UserService {
 
 		this.sender.send(msg);
 	}
-	
-	public User AuthenticatedUser(String userId){
+
+	public boolean check(String password, String hash) {
+		if (passwordEncoder.matches(password, hash)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void edit(User user) {
+		LocalDateTime dateTime = LocalDateTime.now();
+		user.setUpdatedAt(dateTime);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userRepository.save(user);
+	}
+
+	public User AuthenticatedUser(String userId) {
 		return userRepository.findOne(userId);
 	}
 }
