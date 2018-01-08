@@ -71,39 +71,32 @@ public class UserController {
 	}
 
 	// ユーザー情報編集フォーム
-	@ModelAttribute("model3")
-	UserEditForm userEditForm() {
-		return new UserEditForm();
-	}
+		@ModelAttribute("model3")
+		UserEditForm userEditForm() {
+			return new UserEditForm();
+		}
 
-	// ユーザー情報編集画面
-	@GetMapping("/user/edit/editForm")
-	String editForm() {
-		return "user/edit/editForm";
-	}
-
-	// ユーザー情報編集
-	@PostMapping("/user/edit/edituser")
-	String edit(@Validated UserEditForm form, BindingResult result, Model model, Principal principal) {
-		if (result.hasErrors()) { // エラーがおきたら返す場所
+		// ユーザー情報編集画面
+		@GetMapping("/user/edit/editForm")
+		String editForm() {
 			return "user/edit/editForm";
 		}
-		User user = userService.AuthenticatedUser(principal.getName());
-		System.out.println(principal.getName());
-		user.setPassword(passwordEncoder.encode(form.getNewPassword()));
-		userService.edit(user);
-		return usertop(principal,model);
-		/*
-		if (form.getNewPassword() == form.getAgainNewPassword()) {
-			System.out.println(user);
-			user.setPassword(passwordEncoder.encode(form.getNewPassword()));
-			userService.edit(user);
-			return "user/top";
-		} else {
-			return editForm();
+
+		// ユーザー情報編集
+		@PostMapping("/user/edit/edituser")
+		String edit(@Validated UserEditForm form, BindingResult result, Model model, Principal principal) {
+			if (result.hasErrors()) { // エラーがおきたら返す場所
+				return "user/edit/editForm";
+			}
+			User user = userService.AuthenticatedUser(principal.getName());
+			boolean check = userService.check(form.getPassword(),user.getPassword());
+			if (check == true && form.getNewPassword() == form.getAgainNewPassword()) {
+				userService.edit(user);
+				return "redirect:/user/top";
+			} else {
+				return editForm();
+			}
 		}
-		*/
-	}
 
 	// 利用履歴閲覧画面
 	@RequestMapping(value = "user/history", method = RequestMethod.GET)
