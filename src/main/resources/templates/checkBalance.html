@@ -7,17 +7,23 @@
 <body>
 	残高確認
 	<br>
-	<div>
-		<p th:text="${credit}"></p>
+	<div th:if="${money} != null">
+		<div th:object="${money}">
+			<p th:text="*{credit}"></p>
+		</div>
 	</div>
+
 	<br>
 	<div>
 		<a th:href="@{/selectAmountOfMoney}">
 			<button class="ui green basic button">チャージする</button>
-		</a> <a th:href="@{/money}">
-			<button class="ui green basic button">戻る</button>
 		</a>
-		
+		<div>
+			<a th:href="@{/money}">
+				<button class="ui green basic button">戻る</button>
+			</a>
+		</div>
+
 	</div>
 
 </body>

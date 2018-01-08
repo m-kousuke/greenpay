@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>電子マネー残高検索フォーム</title>
+</head>
+<body>
+	<h1>チャージ金額を選択して下さい</h1>
+	<form method="post" th:action="@{/chargeconfirm}">
+	<input type="radio" name ="chargemoney" value=1000>1000<br>
+	<input type="radio" name ="chargemoney" value=2000>2000<br>
+	<input type="radio" name ="chargemoney" value=3000>3000<br>
+	<input type="radio" name ="chargemoney" value=5000>5000<br>
+	<input type="radio" name ="chargemoney" value=10000>10000<br>
+	<br>
+	<input type="submit" />
+	</form>
+		
+</body>
+</html>

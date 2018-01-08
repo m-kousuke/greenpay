@@ -11,9 +11,9 @@ import com.greenpay.repository.MoneyRepository;
 public class ChargeMoneyService {
 	@Autowired
 	MoneyRepository moneyrepository;
-	public Money findOne(String userId) {
-		System.out.println(userId);
-		return moneyrepository.findOne(userId);
+	public Money findOne(String user_email) {
+		Money money =moneyrepository.findOne(user_email);
+		return  money;
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.greenpay.web;
 
-import java.math.BigDecimal;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +24,28 @@ public class ChargeMoneyController {
 	}
 
 	@RequestMapping(value = "/checkBalance", method = RequestMethod.POST)
-	String search(@RequestParam String userId, Model model, Principal principal) {
-		Money money = chargemoneyservice.findOne(userId);
-		System.out.println(userId);
+	String search(@RequestParam String user_email, Model model, Principal principal) {
+		Money money = chargemoneyservice.findOne(user_email);
 		//if (money == null) {
-		//	return "redirect:/money?error";
+		//	return "redirect:/money";
 		//}
-		BigDecimal credit = money.getCredit();
-		model.addAttribute("credit", credit);
+		model.addAttribute("money", money);
+		System.out.println(user_email);
+
 		return "/checkBalance";
 	}
 	
 	@RequestMapping(value = "/selectAmountOfMoney", method = RequestMethod.GET)
 	String selectAmountOfMoney(){
+		
 		return "/selectAmountOfMoney";
+	}
+	
+	@RequestMapping(value = "/chargeconfirm", method = RequestMethod.POST)
+	String confirm(@RequestParam String chargemoney, Model model, Principal principal) {
+		model.addAttribute("money",chargemoney);
+		return "/chargeconfirm";
+
 	}
 	
 	

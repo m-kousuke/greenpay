@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
 <meta charset="UTF-8">
 <title>新規ユーザー仮登録完了</title>
 </head>
 <body>
-仮登録しました！！
+<div layout:fragment="contents">
+	<br>
+	<div class="ui centered grid container">
+	<div class="nine wide column">
+	</div>
+	<div class="ui raised segment">
+	<h1 class="ui header">仮登録が完了しました！</h1>
+	<p>入力したメールアドレスにメールを送信したので，リンクから本登録を行ってください．
+	<br>
+	<br>
+	<a class="ui green button" th:href="@{/index}">トップに戻る</a>
+	</div>
+	</div>
+</div>
 </body>
 </html>
