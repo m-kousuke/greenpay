@@ -5,19 +5,19 @@
 	layout:decorator="layout">
 <head>
 <meta charset="UTF-8">
-<title>新規ユーザー仮登録フォーム</title>
+<title>ユーザー情報編集フォーム</title>
 </head>
 <body>
 <div layout:fragment="contents">
 	<br>
 	<div class="ui container">
 	<div class="ui green inverted segment">
-	<h1 class="ui header">GreenPayサービス 新規登録(仮登録)</h1>
+	<h1 class="ui header">GreenPayサービス ユーザー情報編集</h1>
 	</div>
 	<div class="ui raised segment">
 	<form class="ui form" th:action="@{/user/edit/edituser}" th:object="${model3}" method="post">
 		<div class="field">
-		<label>パスワード現在のパスワード</label>
+		<label>パスワード(現在のパスワード)</label>
 		<input type="password" name="password" required="required" pattern="^([a-zA-Z0-9]{8,16})$">
 		<div th:if="${#fields.hasErrors('password')}" class="ui pointing red basic label" th:errors="*{password}">Error</div>
 		</div>
