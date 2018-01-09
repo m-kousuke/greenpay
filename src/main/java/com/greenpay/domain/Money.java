@@ -44,11 +44,11 @@ public class Money {
 	@Column(name = "updated_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	private LocalDateTime updatedAt;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_email",insertable=false, updatable=false)
 	private User user;
-	
+
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="money")
 	private List<MoneyCharge> moneyCharges;
 }

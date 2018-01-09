@@ -51,7 +51,7 @@ public class User {
 	@Column(name = "updated_at", nullable = false)
 	@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	private LocalDateTime updatedAt;
-	
+
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="user")
 	private Money money;
 }
