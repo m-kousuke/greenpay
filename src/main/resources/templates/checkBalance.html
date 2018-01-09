@@ -1,29 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
 <head>
-<meta charset="UTF-8" />
-<title>電子マネー残高確認画面</title>
+<meta charset="UTF-8">
+<title>電子マネー残高検索フォーム</title>
 </head>
 <body>
-	残高確認
-	<br>
-	<div th:if="${user} != null">
-		<div>
-			<p th:text="${money.credit}"></p>
-		</div>
-	</div>
-	<br>
-	<div>
-		<a th:href="@{/selectAmountOfMoney}">
-			<button class="ui green basic button">チャージする</button>
-		</a>
-		<div>
-			<a th:href="@{/money}">
-				<button class="ui green basic button">戻る</button>
-			</a>
-		</div>
+	<div layout:fragment="contents">
+		<br> <br>
+		<div class="ui centered grid container">
+			<div class="nine wide column">
+				<div class="content">
+					<div class="ui green inverted segment">
+						<div class="ui text menu">
+							<h1>残高確認</h1>
+							<div class="right menu"></div>
+						</div>
+					</div>
+					<div class="ui raised segment">
+						<label>あなたの残高は、<br>
+							<h1>
+								<p th:text="${money.credit}"></p>
+							</h1> 　　　　　　円です。
+						</label>
+					</div>
+				</div>
 
+				<br>
+
+				<div>
+					<a th:href="@{/selectAmountOfMoney}">
+						<button class="ui green button">チャージ</button></a>
+					 <a class="ui button" th:href="@{/money}">戻る </a>
+				</div>
+			</div>
+		</div>
 	</div>
+
 
 </body>
 </html>
