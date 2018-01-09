@@ -41,7 +41,6 @@ public class ProductController {
 		List<Product> products = productService.findAll();
 		model.addAttribute("products", products);
 		model.addAttribute("storeId", principal.getName());
-
 		return "store/product/index";
 	}
 
