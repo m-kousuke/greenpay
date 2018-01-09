@@ -29,7 +29,7 @@ public class ChargeMoneyController {
 	}
 
 	@RequestMapping(value = "/checkBalance", method = RequestMethod.POST)
-	String search(@RequestParam String email, Model model, Principal principal, RedirectAttributes attributes) {
+	String search(@RequestParam String email, Model model, RedirectAttributes attributes) {
 		User user = chargemoneyservice.findOne(email);
 		if (user == null) {
 			attributes.addFlashAttribute("errorMessage","登録メールアドレスを確認後もう一度入力して下さい");
@@ -41,6 +41,12 @@ public class ChargeMoneyController {
 		if(session.getAttribute("user") == null) {
 		session.setAttribute("user", user);
 		}
+		return "/checkBalance";
+	}
+	@RequestMapping(value = "/checkBalance", method = RequestMethod.GET)
+	String chackBalance(Model model) {
+		User user =(User) session.getAttribute("user");
+		model.addAttribute("money",user.getMoney());
 		return "/checkBalance";
 	}
 
