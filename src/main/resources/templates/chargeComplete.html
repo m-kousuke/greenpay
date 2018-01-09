@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>電子マネーチャージ完了フォーム</title>
+</head>
+<body>
+	<h1>あなたの残高</h1>
+
+	<div>
+		<p th:text="${money.credit}"></p>
+	</div>
+	
+	<div>
+		<a th:href="@{/index}">
+			<button class="ui green basic button">トップへ</button>
+		</a>
+	</div>
+	
+
+</body>
+</html>

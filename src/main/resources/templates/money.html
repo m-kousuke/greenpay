@@ -8,7 +8,10 @@
 <body>
 	<h1>電子マネーを入力してください</h1>
 	<form method="post" th:action="@{/checkBalance}" >
-		<input type="text" name="user_email"	placeholder="(メールアドレス)を入力して下さい" required="required" autofocus="autofocus" />
+		<input type="text" name="email" placeholder="(メールアドレス)を入力して下さい" required="required" autofocus="autofocus" />
+		<div>
+		<p th:text="${errorMessage}">
+		</div>
 		<input type="submit" />
 	</form>
 </body>

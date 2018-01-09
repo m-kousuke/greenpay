@@ -3,19 +3,29 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>電子マネー残高検索フォーム</title>
+<title>チャージ額選択フォーム</title>
 </head>
 <body>
+	<h1>あなたの残高</h1>
+
+	<div>
+		<p th:text="${money.credit}"></p>
+	</div>
+
 	<h1>チャージ金額を選択して下さい</h1>
-	<form method="post" th:action="@{/chargeconfirm}">
-	<input type="radio" name ="chargemoney" value=1000>1000<br>
-	<input type="radio" name ="chargemoney" value=2000>2000<br>
-	<input type="radio" name ="chargemoney" value=3000>3000<br>
-	<input type="radio" name ="chargemoney" value=5000>5000<br>
-	<input type="radio" name ="chargemoney" value=10000>10000<br>
-	<br>
-	<input type="submit" />
+	<form method="post" th:action="@{/chargeConfirm}">
+		<input type="radio" name="chargemoney" value=1000>1000<br>
+		<input type="radio" name="chargemoney" value=2000>2000<br>
+		<input type="radio" name="chargemoney" value=3000>3000<br>
+		<input type="radio" name="chargemoney" value=5000>5000<br>
+		<input type="radio" name="chargemoney" value=10000>10000<br>
+		<br> <input type="submit" value="決定" />
 	</form>
-		
+	<div>
+		<a th:href="@{/checkBalance}">
+			<button class="ui green basic button">戻る</button>
+		</a>
+		</div>
+
 </body>
 </html>

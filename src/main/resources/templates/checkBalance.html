@@ -7,12 +7,11 @@
 <body>
 	残高確認
 	<br>
-	<div th:if="${money} != null">
-		<div th:object="${money}">
-			<p th:text="*{credit}"></p>
+	<div th:if="${user} != null">
+		<div>
+			<p th:text="${money.credit}"></p>
 		</div>
 	</div>
-
 	<br>
 	<div>
 		<a th:href="@{/selectAmountOfMoney}">
