@@ -16,11 +16,17 @@
 			<th>商品名</th>
 			<th>カテゴリ名</th>
 			<th>価格</th>
+			<th>状態</th>
 		</tr>
 		<tr th:each="product : ${products}">
 			<td th:text="${product.Name}"></td>
 			<td th:text="${product.category.Name}"></td>
 			<td th:text="${product.price}+'円'"></td>
+			<td th:switch="${product.activated}">
+				<th:block th:case="2">有効</th:block>
+				<th:block th:case="1">現在取り扱いなし</th:block>
+				<th:block th:case="0">無効</th:block>
+			</td>
 		</tr>
 	</table>
 	<a class="ui green button" th:href="@{/user/searchproductForm}">検索画面に戻る</a>
