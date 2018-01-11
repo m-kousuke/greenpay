@@ -45,10 +45,6 @@ public class ProductService {
 		productRepository.save(product);
 	}
 	
-	public List<Product> findByStoreId(String storeId){
-		return productRepository.findByStoreId(storeId);
-	}
-	
 	public List<Product> findByNameAndStoreId(String word,String storeId){
 		return productRepository.findByNameContainingAndStoreId(word, storeId);
 	}
