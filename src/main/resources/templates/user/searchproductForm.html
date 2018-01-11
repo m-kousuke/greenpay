@@ -9,19 +9,36 @@
 </head>
 <body>
 <div layout:fragment="contents">
+<br>
+<br>
+<div class="ui centered grid container">
+<div class="nine wide column">
+<div class="content">
+<h2 class="ui icon center aligned header">
+	<i class="search icon"></i>
+	商品検索
+</h2>
+</div>
 	<form class="ui form" th:action="@{/user/search}" method="POST">
 	<div class="field">
 	<label>検索ワード</label>
-	<input type="text" name="word" autofocus="autofocus">
+	<div class="ui search">
+	<div class="ui icon input">
+	<input type="text" name="word" placeholder="商品名" autofocus="autofocus">
+	<i class="search icon"></i>
+	</div>
+	</div>
 	</div>
 	<div class="field">
 	<label>店舗</label>
-	<select name="storeId" id="storeId">
+	<select name="storeId" id="storeId" class="ui fluid dropdown">
 	<option th:each="store : ${stores}" th:value="${store.Id}" th:text="${store.Name}" th:selected="${store.id == id}"></option>
 	</select>
 	</div>
-	<input type="submit">
+	<button class="ui green button" type="submit">検索</button>
 	</form>
+</div>
+</div>
 </div>
 </body>
 </html>

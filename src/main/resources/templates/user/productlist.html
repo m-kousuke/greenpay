@@ -9,7 +9,9 @@
 </head>
 <body>
 <div layout:fragment="contents">
-	<table class="ui grenn table">
+	<br>
+	<h2 class="header">検索結果</h2>
+	<table class="ui green table">
 		<tr>
 			<th>商品名</th>
 			<th>カテゴリ名</th>
@@ -18,9 +20,10 @@
 		<tr th:each="product : ${products}">
 			<td th:text="${product.Name}"></td>
 			<td th:text="${product.category.Name}"></td>
-			<td th:text="${product.price}"></td>
+			<td th:text="${product.price}+'円'"></td>
 		</tr>
 	</table>
+	<a class="ui green button" th:href="@{/user/searchproductForm}">検索画面に戻る</a>
 </div>
 </body>
 </html>
