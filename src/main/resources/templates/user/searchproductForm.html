@@ -32,7 +32,7 @@
 	<div class="field">
 	<label>店舗</label>
 	<select name="storeId" id="storeId" class="ui fluid dropdown">
-	<option th:each="store : ${stores}" th:value="${store.Id}" th:text="${store.Name}" th:selected="${store.id == id}"></option>
+	<option th:each="store : ${stores}" th:value="${store.Id}" th:text="${store.Name}"></option>
 	</select>
 	</div>
 	<button class="ui green button" type="submit">検索</button>
