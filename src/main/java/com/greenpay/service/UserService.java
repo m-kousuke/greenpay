@@ -52,6 +52,7 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+
 	public User AuthenticatedUser(String userId) {
 		return userRepository.findOne(userId);
 	}
