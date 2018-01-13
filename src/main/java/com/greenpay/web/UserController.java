@@ -89,7 +89,7 @@ public class UserController {
 			boolean check = userService.check(form.getPassword(),user.getPassword());
 			if (check == true && form.getNewPassword().equals(form.getAgainNewPassword())) {
 				userService.edit(user,form.getNewPassword());
-				return "redirect:/user/top";
+				return "user/edit/editSuccess";
 			} else {
 				return editForm();
 			}
