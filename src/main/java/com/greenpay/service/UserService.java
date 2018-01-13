@@ -29,13 +29,6 @@ public class UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	public void create(User user) {
-  LocalDateTime dateTime = LocalDateTime.now();
-		user.setCreatedAt(dateTime);
-		user.setUpdatedAt(dateTime);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userRepository.save(user);
-}
 	//登録されているかのチェック
 	public boolean check(String email){
 		boolean rs = userRepository.exists(email);
