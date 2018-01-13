@@ -67,18 +67,6 @@ public class UserController {
 	}
 
 
-	@PostMapping("/registuser")
-	String create(@Validated UserForm form, BindingResult result, Model model) {
-		if (result.hasErrors()) { // エラーがおきたら返す場所
-			return "/registuserForm";
-		}
-		User user = new User();
-		BeanUtils.copyProperties(form, user);
-		userService.create(user);
-		userService.sendMail(user);
-		return "/registuserSuccess";
-	}
-
 	// ユーザー本登録画面
 	@GetMapping("/registuserFinishForm")
 	String registUserFinishForm() {
