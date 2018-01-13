@@ -90,8 +90,8 @@ public class UserController {
 			}
 			User user = userService.AuthenticatedUser(principal.getName());
 			boolean check = userService.check(form.getPassword(),user.getPassword());
-			if (check == true && form.getNewPassword() == form.getAgainNewPassword()) {
-				userService.edit(user);
+			if (check == true && form.getNewPassword().equals(form.getAgainNewPassword())) {
+				userService.edit(user,form.getNewPassword());
 				return "redirect:/user/top";
 			} else {
 				return editForm();

@@ -41,18 +41,14 @@ public class UserService {
 		this.sender.send(msg);
 	}
 
-	public boolean check(String password, String hash) {
-		if (passwordEncoder.matches(password, hash)) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean check(String rawPassword, String hash) {
+		return passwordEncoder.matches(rawPassword, hash);
 	}
 
-	public void edit(User user) {
+	public void edit(User user,String newPassword) {
 		LocalDateTime dateTime = LocalDateTime.now();
 		user.setUpdatedAt(dateTime);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.save(user);
 	}
 
