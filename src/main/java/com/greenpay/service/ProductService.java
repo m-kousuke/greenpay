@@ -44,4 +44,8 @@ public class ProductService {
 		product.setUpdatedAt(dateTime);
 		productRepository.save(product);
 	}
+	
+	public List<Product> findByNameAndStoreId(String word,String storeId){
+		return productRepository.findByNameContainingAndStoreId(word, storeId);
+	}
 }

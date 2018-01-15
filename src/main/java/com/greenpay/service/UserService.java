@@ -59,6 +59,18 @@ public class UserService {
 		this.sender.send(msg);
 	}
 
+
+	public boolean check(String rawPassword, String hash) {
+		return passwordEncoder.matches(rawPassword, hash);
+	}
+
+	public void edit(User user,String newPassword) {
+		LocalDateTime dateTime = LocalDateTime.now();
+		user.setUpdatedAt(dateTime);
+		user.setPassword(passwordEncoder.encode(newPassword));
+    userRepository.save(user);
+  }
+  
 	// アドレスの暗号化
 	public String encryption(String email) {
 		String salt = new String(Hex.encode("123454321".getBytes()));
@@ -86,7 +98,7 @@ public class UserService {
 	}
 
 
-	public User AuthenticatedUser(String userId){
-		return userRepository.findOne(userId);
+	public User AuthenticatedUser(String userId) {
+return userRepository.findOne(userId);
 	}
 }

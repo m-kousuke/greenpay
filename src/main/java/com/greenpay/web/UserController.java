@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -34,6 +35,7 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+
 	@Autowired
 	MoneyService moneyService;
 
@@ -43,11 +45,15 @@ public class UserController {
 	@Autowired
 	PurchaseHistoryDetailService purchaseHistoryDetailService;
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
 	// 新規ユーザー登録フォーム
 	@ModelAttribute("model1")
 	UserForm registUserForm() {
 		return new UserForm();
 	}
+
 
 	@ModelAttribute("model2")
 	UserFinishForm registUserFinishForm() {
@@ -60,6 +66,42 @@ public class UserController {
 		return "registuserForm";
 	}
 
+
+	// ユーザー本登録画面
+	@GetMapping("/registuserFinishForm")
+	String registUserFinishForm() {
+		return "registUserFinishForm";
+	}
+
+	// ユーザー情報編集フォーム
+		@ModelAttribute("model3")
+		UserEditForm userEditForm() {
+			return new UserEditForm();
+		}
+
+		// ユーザー情報編集画面
+		@GetMapping("/user/edit/editForm")
+		String editForm() {
+			return "user/edit/editForm";
+		}
+
+
+		// ユーザー情報編集
+		@PostMapping("/user/edit/edituser")
+		String edit(@Validated UserEditForm form, BindingResult result, Model model, Principal principal) {
+			if (result.hasErrors()) { // エラーがおきたら返す場所
+				return "user/edit/editForm";
+			}
+			User user = userService.AuthenticatedUser(principal.getName());
+			boolean check = userService.check(form.getPassword(),user.getPassword());
+			if (check == true && form.getNewPassword().equals(form.getAgainNewPassword())) {
+				userService.edit(user,form.getNewPassword());
+				return "redirect:/user/top";
+			} else {
+				return editForm();
+			}
+		}
+  
 	// 仮登録
 	@PostMapping("/registuser")
 	String temporary(@Validated UserForm form, BindingResult result, Model model) {
