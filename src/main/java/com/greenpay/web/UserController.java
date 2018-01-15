@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,13 +66,6 @@ public class UserController {
 		return "registuserForm";
 	}
 
-
-	// ユーザー本登録画面
-	@GetMapping("/registuserFinishForm")
-	String registUserFinishForm() {
-		return "registUserFinishForm";
-	}
-
 	// ユーザー情報編集フォーム
 		@ModelAttribute("model3")
 		UserEditForm userEditForm() {
@@ -96,12 +89,12 @@ public class UserController {
 			boolean check = userService.check(form.getPassword(),user.getPassword());
 			if (check == true && form.getNewPassword().equals(form.getAgainNewPassword())) {
 				userService.edit(user,form.getNewPassword());
-				return "redirect:/user/top";
+				return "user/edit/editSuccess";
 			} else {
 				return editForm();
 			}
 		}
-  
+
 	// 仮登録
 	@PostMapping("/registuser")
 	String temporary(@Validated UserForm form, BindingResult result, Model model) {
