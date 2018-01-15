@@ -7,4 +7,7 @@ import com.greenpay.domain.Money;
 public interface MoneyRepository extends JpaRepository<Money, String>{
 
 
+
+
+
 }

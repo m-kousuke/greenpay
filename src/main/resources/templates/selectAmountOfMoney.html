@@ -23,8 +23,8 @@
 						<label>あなたの残高は、<br>
 							<h1>
 								<p th:text="${money.credit}"></p>
-							</h1> 　　　　　　円です。
-						</label> <br> <br> 
+							</h1> 円です。
+						</label> <br> <br>
 
 						<h1>チャージ金額を選択してください</h1>
 						<form method="post" th:action="@{/chargeConfirm}">
@@ -54,13 +54,23 @@
 								<font style="vertical-align: inherit;"><font
 									style="vertical-align: inherit;">10000円</font></font>
 							</button>
-							<br> <br>
-							<a class="ui button" th:href="@{/checkBalance}"> キャンセル </a>
-						</form>
+							<br> <br> <a class="ui button"
+								th:href="@{/checkBalance}"> キャンセル </a>
+							<div th:if="${upperLimitError}" />
+							<div class="ui negative icon message">
+								<i class="warning sign icon"></i>
+								<div class="content">
+									<div class="header">問題が発生しました．</div>
+									<p>チャージ上限は20,000円です。</p>
+								</div>
+							</div>
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>
-		</div>
+	</div>
+	</div>
+	</div>
 </body>
 </html>

@@ -9,29 +9,24 @@ import org.springframework.stereotype.Service;
 
 import com.greenpay.domain.Money;
 import com.greenpay.domain.MoneyCharge;
-import com.greenpay.domain.User;
 import com.greenpay.repository.MoneyChargeRepository;
 import com.greenpay.repository.MoneyRepository;
-import com.greenpay.repository.UserRepository;
 
 @Service
 public class ChargeMoneyService {
-	@Autowired
-	UserRepository userrepository;
 	@Autowired
 	MoneyRepository moneyrepository;
 	@Autowired
 	MoneyChargeRepository moneychargerepository;
 	
-	public User findOne(String email) {
-		User user =userrepository.findOne(email);
-		return  user;
+	public Money findOne(String id) {
+		 Money money =moneyrepository.findOne(id);
+		return  money;
 	}
-	public Money update(User user, String chargemoney) {
+	public Money update(Money money, String chargemoney) {
 		BigDecimal charge = new BigDecimal(chargemoney );
-		BigDecimal credit = user.getMoney().getCredit().add(charge);
+		BigDecimal credit = money.getCredit().add(charge);
 		LocalDateTime dateTime = LocalDateTime.now();
-		Money money = user.getMoney();
 		money.setCredit(credit);
 		money.setUpdatedAt(dateTime);
 		moneyrepository.save(money);
