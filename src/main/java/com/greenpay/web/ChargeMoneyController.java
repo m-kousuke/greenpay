@@ -1,5 +1,6 @@
 package com.greenpay.web;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.greenpay.domain.Money;
-import com.greenpay.domain.User;
 import com.greenpay.service.ChargeMoneyService;
 
 @Controller
@@ -29,45 +29,49 @@ public class ChargeMoneyController {
 	}
 
 	@RequestMapping(value = "/checkBalance", method = RequestMethod.POST)
-	String search(@RequestParam String email, Model model, RedirectAttributes attributes) {
-		User user = chargemoneyservice.findOne(email);
-		if (user == null) {
-			attributes.addFlashAttribute("errorMessage","登録メールアドレスを確認後もう一度入力して下さい");
+	String search(@RequestParam String id, Model model, RedirectAttributes attributes) {
+		Money money = chargemoneyservice.findOne(id);
+		if (money == null) {
+			attributes.addFlashAttribute("errorMessage","登録電子マネーIDを確認後もう一度入力して下さい");
 			return "redirect:/money";
 		}
-		model.addAttribute("user", user);
-		model.addAttribute("money", user.getMoney());
+		model.addAttribute("money", money);
 		// セッションへ保存
-		if(session.getAttribute("user") == null) {
-		session.setAttribute("user", user);
+		if(session.getAttribute("money") == null) {
+		session.setAttribute("money", money);
 		}
 		return "/checkBalance";
 	}
 	@RequestMapping(value = "/checkBalance", method = RequestMethod.GET)
 	String chackBalance(Model model) {
-		User user =(User) session.getAttribute("user");
-		model.addAttribute("money",user.getMoney());
+		Money money =(Money) session.getAttribute("money");
+		model.addAttribute("money",money);
 		return "/checkBalance";
 	}
 
 	@RequestMapping(value = "/selectAmountOfMoney", method = RequestMethod.GET)
 	String selectAmountOfMoney(Model model) {
 		
-		if(session.getAttribute("user") == null) {
+		if(session.getAttribute("money") == null) {
 			return  "/money";
 		}
-		User user =(User) session.getAttribute("user");
-		model.addAttribute("money",user.getMoney());
+		Money money =(Money) session.getAttribute("money");
+		model.addAttribute("money",money);
 		return "/selectAmountOfMoney";
 	}
 
 	@RequestMapping(value = "/chargeConfirm", method = RequestMethod.POST)
-	String confirm(@RequestParam String chargemoney, Model model, Principal principal) {
-		if(session.getAttribute("user") == null) {
+	String confirm(@RequestParam String chargemoney, Model model,  RedirectAttributes attributes) {
+		if(session.getAttribute("money") == null) {
 			return  "/money";
 		}
-		User user =(User) session.getAttribute("user");
-		model.addAttribute("money",user.getMoney());
+		Money money =(Money) session.getAttribute("money");
+		BigDecimal charge = new BigDecimal(chargemoney );
+		model.addAttribute("money",money);
+		if(money.getCredit().add(charge).doubleValue() > 20000) {
+			attributes.addFlashAttribute("upperLimitError","チャージ上限は20,000円です。");
+			return "redirect:/selectAmountOfMoney";
+		}
 		model.addAttribute("chargemoney", chargemoney);
 		return "/chargeConfirm";
 
@@ -75,16 +79,16 @@ public class ChargeMoneyController {
 
 	@RequestMapping(value = "/chargeComplete", method = RequestMethod.POST)
 	String updete(@RequestParam String chargemoney, Model model, Principal principal) {
-		if(session.getAttribute("user") == null) {
+		if(session.getAttribute("money") == null) {
 			return  "/money";
 		}
 		
-		User user =(User) session.getAttribute("user");
-		Money money =chargemoneyservice.update(user,chargemoney);
+		Money money =(Money) session.getAttribute("money");
+		money =chargemoneyservice.update(money,chargemoney);
 		
 		model.addAttribute("money", money);
 		
-		session.removeAttribute("user");
+		session.removeAttribute("money");
 		return "/chargeComplete";
 
 	}
