@@ -78,7 +78,17 @@ public class ProductController {
 		product.setStoreId(principal.getName());
 
 		// DBに同一商品がないかのチェック
-		if (!productService.isEmpty(product)) {
+		Product rs = productService.isEmpty(product);
+		if (rs != null) {
+		    // 無効の場合、状態を有効に変更する
+		    if(rs.getActivated() == 0) {
+		        rs.setActivated(2);
+		        rs.setPrice(product.getPrice());
+		        rs.setCategoryId(product.getCategoryId());
+		        productService.update(rs);
+		        return "redirect:/store/product";
+		    }
+
 			result.rejectValue("name", null , "その商品名はすでに登録されています");
 			return createForm(model);
 		}

@@ -24,12 +24,9 @@ public class ProductService {
 		productRepository.save(product);
 	}
 
-	public boolean isEmpty(Product product) {
-		Product rs = productRepository.findByNameAndStoreId(product.getName(), product.getStoreId());
-		if (rs == null) {
-			return true;
-		}
-		return false;
+	public Product isEmpty(Product product) {
+		return productRepository.findByNameAndStoreId(product.getName(), product.getStoreId());
+
 	}
 
 	public Product findOne(Integer id) {
@@ -44,7 +41,7 @@ public class ProductService {
 		product.setUpdatedAt(dateTime);
 		productRepository.save(product);
 	}
-	
+
 	public List<Product> findByNameAndStoreId(String word,String storeId){
 		return productRepository.findByNameContainingAndStoreIdAndActivatedNot(word, storeId,0);
 	}
