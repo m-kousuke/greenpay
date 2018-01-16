@@ -4,7 +4,14 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-	<title>商品一覧</title>
+<title>商品一覧</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/common/sort.css}" />
+<script type="text/javascript" th:src="@{/js/jquery.tablesorter.min.js}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#products").tablesorter();
+});
+</script>
 </head>
 <body>
 	<div layout:fragment="contents">
@@ -23,7 +30,7 @@
 			</div>
 
 
-			<table class="ui celled table">
+			<table id="products" class="tablesorter ui celled table">
 				<thead>
 					<tr>
 						<th>商品名</th>
@@ -47,7 +54,7 @@
 					</tr>
 				</tbody>
 			</table>
+			</div>
 		</div>
-	</div>
 </body>
 </html>
