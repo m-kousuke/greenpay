@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Product findByNameAndStoreId(String name, String storeId);
-	List<Product> findByNameContainingAndStoreId(String word,String storeId);
+	List<Product> findByNameContainingAndStoreIdAndActivatedNot(String word,String storeId,int activated);
 }

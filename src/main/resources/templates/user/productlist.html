@@ -10,7 +10,20 @@
 <body>
 <div layout:fragment="contents">
 	<br>
+	<div class="ui container">
 	<h2 class="header">検索結果</h2>
+	<div th:if="${#lists.size(products)==0}">
+		<div class="ui message">
+		<div class="header">検索結果がありません．</div>
+		<p>申し訳ありませんが，お探しの商品は見つかりませんでした．</p>
+		検索のヒント
+		<ul class="ui list">
+			<li>検索したい店舗を選びます．</li>
+			<li>検索したい商品名を入力します．</li>
+		</ul>
+	</div>
+	</div>
+	<div th:if="${#lists.size(products)>0}">
 	<table class="ui green table">
 		<tr>
 			<th>商品名</th>
@@ -29,7 +42,10 @@
 			</td>
 		</tr>
 	</table>
+	</div>
+	<br>
 	<a class="ui green button" th:href="@{/user/searchproductForm}">検索画面に戻る</a>
+	</div>
 </div>
 </body>
 </html>
