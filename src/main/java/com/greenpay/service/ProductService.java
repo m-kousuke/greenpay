@@ -46,6 +46,6 @@ public class ProductService {
 	}
 	
 	public List<Product> findByNameAndStoreId(String word,String storeId){
-		return productRepository.findByNameContainingAndStoreId(word, storeId);
+		return productRepository.findByNameContainingAndStoreIdAndActivatedNot(word, storeId,0);
 	}
 }
