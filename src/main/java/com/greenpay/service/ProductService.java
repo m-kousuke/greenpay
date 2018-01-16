@@ -16,9 +16,8 @@ public class ProductService {
 	@Autowired
 	ProductRepository productRepository;
 
-	LocalDateTime dateTime = LocalDateTime.now();
-
 	public void create(Product product) {
+	    LocalDateTime dateTime = LocalDateTime.now();
 		product.setCreatedAt(dateTime);
 		product.setUpdatedAt(dateTime);
 		productRepository.save(product);
@@ -42,11 +41,18 @@ public class ProductService {
 	}
 
 	public void update(Product product) {
-		product.setUpdatedAt(dateTime);
+		product.setUpdatedAt(LocalDateTime.now());
 		productRepository.save(product);
 	}
 
 	public List<Product> findByNameAndStoreId(String word,String storeId){
 		return productRepository.findByNameContainingAndStoreIdAndActivatedNot(word, storeId,0);
+	}
+
+	public void delete(Integer id) {
+	    Product rs = this.findOne(id);
+	    rs.setActivated(0);
+	    rs.setUpdatedAt(LocalDateTime.now());
+	    productRepository.save(rs);
 	}
 }

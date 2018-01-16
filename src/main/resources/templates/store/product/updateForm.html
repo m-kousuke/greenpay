@@ -26,7 +26,6 @@
 					<select id="activated" name="activated">
 						<option value="2" th:selected="${product.activated == 2}">有効</option>
 						<option value="1" th:selected="${product.activated == 1}">現在取り扱いなし</option>
-						<option value="0" th:selected="${product.activated == 0}">無効</option>
 					</select>
 				</div>
 				<br> <br>
@@ -60,6 +59,7 @@
 					th:value="${#temporals.format(product.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
 
 				<div class="ui center aligned column">
+					<input class="ui button" type="submit" name="delete" value="▶削除" />
 					<input class="ui green button" type="submit" value="▶︎更新" />
 				</div>
 			</form>

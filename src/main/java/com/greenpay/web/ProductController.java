@@ -133,4 +133,11 @@ public class ProductController {
 
 		return "redirect:/store/product";
 	}
+
+	// 商品削除
+	@RequestMapping(value = "update", params = "delete", method = RequestMethod.POST)
+	String delete(@RequestParam Integer id) {
+	    productService.delete(id);
+        return "redirect:/store/product";
+	}
 }
