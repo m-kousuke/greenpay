@@ -19,7 +19,7 @@
 				<span th:text="${product.name}"></span>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('activated')}" class="ui pointing red basic label"
+				<div th:if="${#fields.hasErrors('activated')}" class="ui right pointing red basic label"
 					th:errors="*{activated}">Error</div>
 				<div class="ui labeled input">
 					<label for="activated" class="ui label">状態</label>
@@ -31,7 +31,7 @@
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('price')}" class="ui pointing red basic label"
+				<div th:if="${#fields.hasErrors('price')}" class="ui right pointing red basic label"
 					th:errors="*{price}">Error</div>
 				<div class="ui right labeled input">
 					<label for="price" class="ui label">価格</label>
@@ -41,7 +41,7 @@
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('categoryId')}" class="ui pointing red basic label"
+				<div th:if="${#fields.hasErrors('categoryId')}" class="ui right pointing red basic label"
 					th:errors="*{categoryId}">Error</div>
 				<div class="ui labeled input">
 					<label for="category" class="ui label">カテゴリー</label>
