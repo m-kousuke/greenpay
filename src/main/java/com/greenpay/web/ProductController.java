@@ -38,29 +38,24 @@ public class ProductController {
 	// 商品一覧(topページ)
 	@RequestMapping(method = RequestMethod.GET)
 	String index(Model model, Principal principal) {
-		List<Product> products = productService.findAll();
+		List<Product> products = productService.findByStoreIdAndActivatedNot(principal.getName());
 		model.addAttribute("products", products);
-		model.addAttribute("storeId", principal.getName());
 		return "store/product/index";
 	}
 
 	// 多店舗の商品一覧
 	@RequestMapping(value = "otherStore", method = RequestMethod.GET)
 	String otherStore(Model model, Principal principal) {
-		List<Product> products = productService.findAll();
+		List<Product> products = productService.findByStoreIdNotAndActivatedNot(principal.getName());
 		model.addAttribute("products", products);
-		model.addAttribute("storeId", principal.getName());
-
 		return "store/product/otherStore";
 	}
 
 	// 商品登録フォーム
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	String createForm(Model model) {
-		// カテゴリーリストを生成
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
-
 		return "store/product/createForm";
 	}
 

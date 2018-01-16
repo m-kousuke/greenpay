@@ -33,8 +33,12 @@ public class ProductService {
 		return productRepository.findOne(id);
 	}
 
-	public List<Product> findAll() {
-		return productRepository.findAll();
+	public List<Product> findByStoreIdAndActivatedNot(String storeId) {
+		return productRepository.findByStoreIdAndActivatedNot(storeId, 0);
+	}
+
+	public List<Product> findByStoreIdNotAndActivatedNot(String storeId) {
+	    return productRepository.findByStoreIdNotAndActivatedNot(storeId, 0);
 	}
 
 	public void update(Product product) {
