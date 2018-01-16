@@ -15,7 +15,7 @@
 				<div class="content">
 					<div class="ui green inverted segment">
 						<div class="ui text menu">
-							<h1>残高確認</h1>
+							<h1>チャージが完了しました</h1>
 							<div class="right menu"></div>
 						</div>
 					</div>
@@ -24,21 +24,18 @@
 							<h1>
 								<p th:text="${money.credit}"></p>
 							</h1> 　　　　　　　円です。
-						</label>
-					</div>
-				</div>
-
-				<br>
-
-				<div>
-					<a th:href="@{/selectAmountOfMoney}">
-						<button class="ui green button">チャージ</button></a>
-					 <a class="ui button" th:href="@{/money}">戻る </a>
-				</div>
-			</div>
-		</div>
+						</label> <br> <br> 
+	<div>
+		<a th:href="@{/index}">
+			<button class="ui green basic button">トップへ</button>
+		</a>
 	</div>
-
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	
 
 </body>
 </html>

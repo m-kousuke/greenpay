@@ -13,7 +13,8 @@ public class CalculateController {
 	CalculateService calculateservice;
 	
 	@RequestMapping(value = "/store/calculate/cashregister", method = RequestMethod.POST)
-	String () {
+	String calcurate() {
+		
 		return "/money";
 	}
 	
