@@ -4,7 +4,14 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-	<title>商品一覧</title>
+<title>商品一覧</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/common/sort.css}" />
+<script type="text/javascript" th:src="@{/js/jquery.tablesorter.min.js}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#products").tablesorter();
+});
+</script>
 </head>
 <body>
 	<div layout:fragment="contents">
@@ -23,7 +30,7 @@
 			</div>
 
 
-			<table class="ui celled table">
+			<table id="products" class="tablesorter ui celled table">
 				<thead>
 					<tr>
 						<th>商品名</th>
@@ -35,8 +42,7 @@
 				</thead>
 
 				<tbody>
-					<tr th:each="product : ${products}"
-						th:if="${product.storeId != storeId}">
+					<tr th:each="product : ${products}">
 						<td th:text="${product.name}" />
 						<td th:text="${product.category.name}" />
 						<td th:text="${product.price}" />
@@ -44,12 +50,11 @@
 						<td th:switch="${product.activated}">
 							<th:block th:case="2">有効</th:block>
 							<th:block th:case="1">現在取り扱いなし</th:block>
-							<th:block th:case="0">無効</th:block>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+			</div>
 		</div>
-	</div>
 </body>
 </html>

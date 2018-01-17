@@ -38,29 +38,24 @@ public class ProductController {
 	// 商品一覧(topページ)
 	@RequestMapping(method = RequestMethod.GET)
 	String index(Model model, Principal principal) {
-		List<Product> products = productService.findAll();
+		List<Product> products = productService.findByStoreIdAndActivatedNot(principal.getName());
 		model.addAttribute("products", products);
-		model.addAttribute("storeId", principal.getName());
 		return "store/product/index";
 	}
 
 	// 多店舗の商品一覧
 	@RequestMapping(value = "otherStore", method = RequestMethod.GET)
 	String otherStore(Model model, Principal principal) {
-		List<Product> products = productService.findAll();
+		List<Product> products = productService.findByStoreIdNotAndActivatedNot(principal.getName());
 		model.addAttribute("products", products);
-		model.addAttribute("storeId", principal.getName());
-
 		return "store/product/otherStore";
 	}
 
 	// 商品登録フォーム
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	String createForm(Model model) {
-		// カテゴリーリストを生成
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
-
 		return "store/product/createForm";
 	}
 
@@ -78,7 +73,17 @@ public class ProductController {
 		product.setStoreId(principal.getName());
 
 		// DBに同一商品がないかのチェック
-		if (!productService.isEmpty(product)) {
+		Product rs = productService.isEmpty(product);
+		if (rs != null) {
+		    // 無効の場合、状態を有効に変更する
+		    if(rs.getActivated() == 0) {
+		        rs.setActivated(2);
+		        rs.setPrice(product.getPrice());
+		        rs.setCategoryId(product.getCategoryId());
+		        productService.update(rs);
+		        return "redirect:/store/product";
+		    }
+
 			result.rejectValue("name", null , "その商品名はすでに登録されています");
 			return createForm(model);
 		}
@@ -127,5 +132,12 @@ public class ProductController {
 		productService.update(product);
 
 		return "redirect:/store/product";
+	}
+
+	// 商品削除
+	@RequestMapping(value = "update", params = "delete", method = RequestMethod.POST)
+	String delete(@RequestParam Integer id) {
+	    productService.delete(id);
+        return "redirect:/store/product";
 	}
 }
