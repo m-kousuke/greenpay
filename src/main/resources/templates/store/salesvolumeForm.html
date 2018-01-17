@@ -10,8 +10,9 @@
 </head>
 <body>
 <div layout:fragment="contents">
+<div class="ui container">
+	<br>
 	<h2 th:text="${store.name} + の売上">大生の売上</h2>
-	
 	<h3>期間指定</h3>
 	<form class="ui form" th:action="@{/store/salesvolumeForm}" th:object="${selesVolumeForm}" method="POST">
 	<div class="two fields">
@@ -48,6 +49,13 @@
 			</div>
 	</div>
 	</form>
+	<br>
+	<div th:if="${#lists.size(salesVolumes)}==0">
+	<div class="ui message">
+		<div class="header">この期間の売上情報は見つかりませんでした．</div>
+	</div>
+	</div>
+	<div th:if="${#lists.size(salesVolumes)}>0">
 	<table class="ui green table">
 		<tr>
 			<th>商品名</th>
@@ -64,6 +72,8 @@
 			<td th:text="${#temporals.format(salesVolumes.purchaseHistory.CreatedAt, 'yyyy年MM月dd日')}"></td>
 		</tr>
 	</table>
+	</div>
+</div>
 <!-- javascript -->
 <script th:src="@{/js/store/calendar.min.js}"></script>
 <script th:src="@{/js/store/datetimesetting.js}"></script>
