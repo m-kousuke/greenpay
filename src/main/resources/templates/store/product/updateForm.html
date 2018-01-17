@@ -19,19 +19,18 @@
 				<span th:text="${product.name}"></span>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('activated')}" class="ui pointing red basic label"
+				<div th:if="${#fields.hasErrors('activated')}" class="ui right pointing red basic label"
 					th:errors="*{activated}">Error</div>
 				<div class="ui labeled input">
 					<label for="activated" class="ui label">状態</label>
 					<select id="activated" name="activated">
 						<option value="2" th:selected="${product.activated == 2}">有効</option>
 						<option value="1" th:selected="${product.activated == 1}">現在取り扱いなし</option>
-						<option value="0" th:selected="${product.activated == 0}">無効</option>
 					</select>
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('price')}" class="ui pointing red basic label"
+				<div th:if="${#fields.hasErrors('price')}" class="ui right pointing red basic label"
 					th:errors="*{price}">Error</div>
 				<div class="ui right labeled input">
 					<label for="price" class="ui label">価格</label>
@@ -41,7 +40,7 @@
 				</div>
 				<br> <br>
 
-				<div th:if="${#fields.hasErrors('categoryId')}" class="ui pointing red basic label"
+				<div th:if="${#fields.hasErrors('categoryId')}" class="ui right pointing red basic label"
 					th:errors="*{categoryId}">Error</div>
 				<div class="ui labeled input">
 					<label for="category" class="ui label">カテゴリー</label>
@@ -60,6 +59,7 @@
 					th:value="${#temporals.format(product.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
 
 				<div class="ui center aligned column">
+					<input class="ui button" type="submit" name="delete" value="▶削除" />
 					<input class="ui green button" type="submit" value="▶︎更新" />
 				</div>
 			</form>
