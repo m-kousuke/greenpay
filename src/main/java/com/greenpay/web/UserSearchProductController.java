@@ -34,7 +34,9 @@ public class UserSearchProductController {
 	@RequestMapping(value="user/search",method=RequestMethod.POST)
 	String SearchProduct(@RequestParam String word,@RequestParam String storeId,Model model){
 		List<Product> products = productService.findByNameAndStoreId(word,storeId);
+		List<String> categoryList = productService.GetCategoryListForProductSerach(products);
 		model.addAttribute("products", products);
+		model.addAttribute("categoryList",categoryList);
 		return "user/productlist";
 	}
 }
