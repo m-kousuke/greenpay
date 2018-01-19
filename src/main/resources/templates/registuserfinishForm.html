@@ -17,7 +17,7 @@
 			<div class="ui raised segment">
 			<form class="ui form" th:action="@{/registuserfinish}" th:object="${model2}" method="post">
 				<div class="field">
-					<label>図書館利用番号(学生証の裏面に記載されています)</label>
+					<label>電子マネーID(学生証裏面に記載されている図書館利用番号になります)</label>
 					<input type="text" name="id"   required="required">
 					<div th:if="${#fields.hasErrors('id')}" class="ui pointing red basic label" th:errors="*{id}">Error</div>
 				</div>
