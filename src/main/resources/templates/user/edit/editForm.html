@@ -33,6 +33,19 @@
 		</div>
 		<button class="ui green button" type="submit">登録</button>
 	</form>
+
+	<div th:if="${errorMessage}" >
+		<br>
+		<div class="ui negative icon message">
+		<i class="warning sign icon"></i>
+		<div class="content">
+			<div class="header">
+			問題が発生しました．
+			</div>
+			<div th:text="${errorMessage}" ></div>
+			</div>
+			</div>
+		</div>
 	</div>
 	</div>
 </div>
