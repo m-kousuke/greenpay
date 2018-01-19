@@ -18,7 +18,7 @@
 			<form class="ui form" th:action="@{/registuserfinish}" th:object="${model2}" method="post">
 				<div class="field">
 					<label>電子マネーID(学生証裏面に記載されている図書館利用番号になります)</label>
-					<input type="text" name="id"   required="required">
+					<input type="text" name="id"   required="required" pattern="^([a-zA-Z0-9]{9})$">
 					<div th:if="${#fields.hasErrors('id')}" class="ui pointing red basic label" th:errors="*{id}">Error</div>
 				</div>
 				<div class="field">
