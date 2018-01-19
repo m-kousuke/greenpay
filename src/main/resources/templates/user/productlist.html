@@ -9,6 +9,25 @@
 </head>
 <body>
 <div layout:fragment="contents">
+<script>
+	jQuery(function ($) {
+		$('#category-select').change(function () {
+			var select_val = $('#category-select option:selected').val();
+			$.each($("#product-table tbody tr"), function (index, element) {
+				if (select_val == "") {
+					$(element).css("display", "table-row");
+					return true;
+				}
+				var row_text = $(element).text();
+				if (row_text.indexOf(select_val) != -1) {
+					$(element).css("display", "table-row");
+				} else {
+					$(element).css("display", "none");
+				}
+			});
+		});
+	});
+</script>
 	<br>
 	<div class="ui container">
 	<h2 class="header">検索結果</h2>
@@ -24,13 +43,20 @@
 	</div>
 	</div>
 	<div th:if="${#lists.size(products)>0}">
-	<table class="ui green table">
+	<label>カテゴリー絞り込み</label>
+	<select id="category-select" class="ui fluid dropdown">
+		<option th:each="categoryName : ${categoryList}" th:value="${categoryName}" th:text="${categoryName}"></option>
+	</select>
+	<table id="product-table" class="ui green table">
+		<thead>
 		<tr>
 			<th>商品名</th>
 			<th>カテゴリ名</th>
 			<th>価格</th>
 			<th>状態</th>
 		</tr>
+		</thead>
+		<tbody>
 		<tr th:each="product : ${products}">
 			<td th:text="${product.Name}"></td>
 			<td th:text="${product.category.Name}"></td>
@@ -41,6 +67,7 @@
 				<th:block th:case="0">無効</th:block>
 			</td>
 		</tr>
+		</tbody>
 	</table>
 	</div>
 	<br>

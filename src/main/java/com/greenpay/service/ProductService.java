@@ -1,6 +1,7 @@
 package com.greenpay.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,16 @@ public class ProductService {
 	    rs.setActivated(0);
 	    rs.setUpdatedAt(LocalDateTime.now());
 	    productRepository.save(rs);
+	}
+	
+	public List<String> GetCategoryListForProductSerach(List<Product> products){
+		List<String> categoryList = new ArrayList<String>();
+		String categoryName = products.get(0).getCategory().getName();
+		for(int i=0;i<products.size();i++){
+			if(!categoryList.contains(products.get(i).getCategory().getName())){
+				categoryList.add(products.get(i).getCategory().getName());
+			}
+		}
+		return categoryList;
 	}
 }
