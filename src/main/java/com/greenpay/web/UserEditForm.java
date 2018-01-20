@@ -11,16 +11,16 @@ public class UserEditForm {
 
 	@NotNull
 	@Size(min=8,max=16)
-	@Pattern(regexp="^([a-zA-Z0-9]{8,16})$")
+	@Pattern(regexp="^([a-zA-Z0-9]{8,16})$",message="半角英数字8~16文字で入力してください")
 	private String password;
 
 	@NotNull
 	@Size(min=8,max=16)
-	@Pattern(regexp="^([a-zA-Z0-9]{8,16})$")
+	@Pattern(regexp="^([a-zA-Z0-9]{8,16})$",message="半角英数字8~16文字で入力してください")
 	private String newPassword;
 
 	@NotNull
 	@Size(min=8,max=16)
-	@Pattern(regexp="^([a-zA-Z0-9]{8,16})$")
+	@Pattern(regexp="^([a-zA-Z0-9]{8,16})$",message="半角英数字8~16文字で入力してください")
 	private String againNewPassword;
 }

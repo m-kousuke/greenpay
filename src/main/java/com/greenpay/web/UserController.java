@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.greenpay.domain.Money;
 import com.greenpay.domain.User;
@@ -50,7 +51,7 @@ public class UserController {
 
 	// ユーザー仮登録画面
 	@GetMapping("/registuserForm")
-	String registuserForm() {
+	String registuserForm(Model model) {
 		return "registuserForm";
 	}
 
@@ -62,14 +63,14 @@ public class UserController {
 
 		// ユーザー情報編集画面
 		@GetMapping("/user/edit/editForm")
-		String editForm() {
+		String editForm(Model models) {
 			return "user/edit/editForm";
 		}
 
 
 		// ユーザー情報編集
 		@PostMapping("/user/edit/edituser")
-		String edit(@Validated UserEditForm form, BindingResult result, Model model, Principal principal) {
+		String edit(@Validated @ModelAttribute("model3") UserEditForm form, BindingResult result, Model model, Principal principal) {
 			if (result.hasErrors()) { // エラーがおきたら返す場所
 				return "user/edit/editForm";
 			}
@@ -79,13 +80,14 @@ public class UserController {
 				userService.edit(user,form.getNewPassword());
 				return "user/edit/editSuccess";
 			} else {
-				return editForm();
+				model.addAttribute("errorMessage","現在のパスワードが間違っているか、新規パスワードが確認用と一致していません");
+				return editForm(model);
 			}
 		}
 
 	// 仮登録
 	@PostMapping("/registuser")
-	String temporary(@Validated UserForm form, BindingResult result, Model model) {
+	String temporary(@Validated @ModelAttribute("model1") UserForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) { // エラーがおきたら返す場所
 			return "/registuserForm";
 		}
@@ -95,12 +97,13 @@ public class UserController {
 
 		//すでに登録されていないかチェック
 		boolean check = userService.check(user.getEmail());
-		if(check == false){
+		if(check == false && user.getEmail().contains("u-gakugei.ac.jp")){
 			userService.regist(user);
 			userService.sendMail(user.getEmail());
 			return "/registuserSuccess";
 		}else{
-			return registuserForm();
+			model.addAttribute("errorMessage","仮登録済みか、無効なアドレスです");
+			return registuserForm(model);
 		}
 
 	}
@@ -114,10 +117,10 @@ public class UserController {
 
 	// 本登録
 	@PostMapping("/registuserfinish")
-	String finish(@RequestParam("userId") String userId, @Validated UserFinishForm form, BindingResult result,
-			Model model) {
+	String finish(@RequestParam("userId") String userId, @ModelAttribute("model2") @Validated UserFinishForm form, BindingResult result,
+			Model model,RedirectAttributes attributes) {
 		if (result.hasErrors()) { // エラーがおきたら返す場所
-			return registUserFinishForm(userId, model);
+			return registUserFinishForm(userId,model);
 		}
 
 		// 復号化
@@ -135,6 +138,7 @@ public class UserController {
 				userService.registFinish(user);
 				return "/registuserfinishSuccess";
 		} else {
+			model.addAttribute("errorMessage","パスワードが間違っているか、すでに本登録されています");
 			return registUserFinishForm(userId, model);
 		}
 	}
