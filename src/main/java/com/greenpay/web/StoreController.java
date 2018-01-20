@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.greenpay.domain.SalesVolume;
+import com.greenpay.domain.ValueForPiChart;
 import com.greenpay.domain.Store;
+import com.greenpay.service.MakeValueForPiChartService;
 import com.greenpay.service.PurchaseHistoryService;
 import com.greenpay.service.StoreService;
 
@@ -24,6 +26,8 @@ public class StoreController {
 	StoreService storeService;
 	@Autowired
 	PurchaseHistoryService purchaseHistoryService;
+	@Autowired
+	MakeValueForPiChartService makeValueForPiChartService;
 	
 	@ModelAttribute
 	SelesVolumeForm selesVolumeForm(){
@@ -39,9 +43,15 @@ public class StoreController {
 	@RequestMapping(value="store/salesvolumeForm",method=RequestMethod.GET)
 	String SalesVolumeForm(Principal principal,Model model){
 		Store store = storeService.AuthenticatedStore(principal.getName());
-		List<SalesVolume> selesVolumes = purchaseHistoryService.GetPurchaseHistory(store.getId());
+		List<SalesVolume> salesVolumes = purchaseHistoryService.GetPurchaseHistory(store.getId());
+		if(salesVolumes!=null){
+		List<ValueForPiChart> salesVolumeForPiCharts = makeValueForPiChartService.ValueForPiChart(salesVolumes);
+		List<ValueForPiChart> valueForPiCharts = makeValueForPiChartService.ValueForPiChartByCategory(salesVolumes);
+		model.addAttribute("chartValues",salesVolumeForPiCharts);
+		model.addAttribute("chartValuesByCategory",valueForPiCharts);
+		}
 		model.addAttribute("store",store);
-		model.addAttribute("salesVolumes",selesVolumes);
+		model.addAttribute("salesVolumes",salesVolumes);
 		return "store/salesvolumeForm";
 	}
 	
@@ -53,9 +63,15 @@ public class StoreController {
 			return "redirect:/store/salesvolumeForm?error";
 		}
 		Store store = storeService.AuthenticatedStore(principal.getName());
-		List<SalesVolume> selesVolumes = purchaseHistoryService.GetPurchaseHistory(selesVolumeForm.getStartDate(),selesVolumeForm.getEndDate(),store.getId());
+		List<SalesVolume> salesVolumes = purchaseHistoryService.GetPurchaseHistory(selesVolumeForm.getStartDate(),selesVolumeForm.getEndDate(),store.getId());
+		if(salesVolumes!=null){
+		List<ValueForPiChart> salesVolumeForPiCharts = makeValueForPiChartService.ValueForPiChart(salesVolumes);
+		List<ValueForPiChart> valueForPiCharts = makeValueForPiChartService.ValueForPiChartByCategory(salesVolumes);
+		model.addAttribute("chartValues",salesVolumeForPiCharts);
+		model.addAttribute("chartValuesByCategory",valueForPiCharts);
+		}
 		model.addAttribute("store",store);
-		model.addAttribute("salesVolumes",selesVolumes);
+		model.addAttribute("salesVolumes",salesVolumes);
 		return "store/salesvolumeForm";
 	}
 }
