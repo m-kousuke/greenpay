@@ -97,12 +97,12 @@ public class UserController {
 
 		//すでに登録されていないかチェック
 		boolean check = userService.check(user.getEmail());
-		if(check == false && user.getEmail().contains("st.u-gakugei.ac.jp")){
+		if(check == false && user.getEmail().contains("u-gakugei.ac.jp")){
 			userService.regist(user);
 			userService.sendMail(user.getEmail());
 			return "/registuserSuccess";
 		}else{
-			model.addAttribute("errorMessage","すでに仮登録されているか、アドレスが無効です");
+			model.addAttribute("errorMessage","仮登録済みか、無効なアドレスです");
 			return registuserForm(model);
 		}
 
