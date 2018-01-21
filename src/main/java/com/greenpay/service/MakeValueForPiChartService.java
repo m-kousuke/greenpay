@@ -15,7 +15,7 @@ public class MakeValueForPiChartService {
 		public List<ValueForPiChart> ValueForPiChart(List<SalesVolume> salesVolumes){
 			List<ValueForPiChart> valueForPiCharts = new ArrayList<ValueForPiChart>();
 			List<String> productList = new ArrayList<String>();
-			LinkedList<String> coloer = new LinkedList<String>();
+			List<String> coloer = new ArrayList<String>();
 			coloer.add("#FF0000");
 			coloer.add("#B22222");
 			coloer.add("#8B0000");
@@ -36,7 +36,7 @@ public class MakeValueForPiChartService {
 					ValueForPiChart valueForPiChart2 = new ValueForPiChart();
 					valueForPiChart2.setLabel(salesVolumes.get(i).getProduct().getName());
 					valueForPiChart2.setValue(salesVolumes.get(i).getProduct().getPrice().intValue());
-					valueForPiChart2.setColoer(coloer.get(i));
+					valueForPiChart2.setColoer(coloer.get(i%8));
 					valueForPiCharts.add(valueForPiChart2);
 					productList.add(salesVolumes.get(i).getProduct().getName());
 				}else{
@@ -44,7 +44,7 @@ public class MakeValueForPiChartService {
 					ValueForPiChart valueForPiChart2 = new ValueForPiChart();
 					valueForPiChart2.setLabel(salesVolumes.get(i).getProduct().getName());
 					valueForPiChart2.setValue(valueForPiCharts.get(index).getValue()+salesVolumes.get(i).getProduct().getPrice().intValue()*salesVolumes.get(i).getPurchaseHistoryDetail().getQuantity());
-					valueForPiChart2.setColoer(coloer.get(i));
+					valueForPiChart2.setColoer(coloer.get(i%8));
 					valueForPiCharts.set(index, valueForPiChart2);
 				}
 			}
@@ -55,7 +55,7 @@ public class MakeValueForPiChartService {
 		public List<ValueForPiChart> ValueForPiChartByCategory(List<SalesVolume> salesVolumes){
 			List<ValueForPiChart> valueForPiCharts = new ArrayList<ValueForPiChart>();
 			List<String> categoryList = new ArrayList<String>();
-			LinkedList<String> coloer = new LinkedList<String>();
+			List<String> coloer = new ArrayList<String>();
 			coloer.add("#00CED1");
 			coloer.add("#5F9EA0");
 			coloer.add("#4682B4");
@@ -76,7 +76,7 @@ public class MakeValueForPiChartService {
 					ValueForPiChart valueForPiChart2 = new ValueForPiChart();
 					valueForPiChart2.setLabel(salesVolumes.get(i).getCategory().getName());
 					valueForPiChart2.setValue(salesVolumes.get(i).getProduct().getPrice().intValue());
-					valueForPiChart2.setColoer(coloer.get(i));
+					valueForPiChart2.setColoer(coloer.get(i%8));
 					valueForPiCharts.add(valueForPiChart2);
 					categoryList.add(salesVolumes.get(i).getProduct().getName());
 				}else{
@@ -84,7 +84,7 @@ public class MakeValueForPiChartService {
 					ValueForPiChart valueForPiChart2 = new ValueForPiChart();
 					valueForPiChart2.setLabel(salesVolumes.get(i).getCategory().getName());
 					valueForPiChart2.setValue(valueForPiCharts.get(index).getValue()+salesVolumes.get(i).getProduct().getPrice().intValue()*salesVolumes.get(i).getPurchaseHistoryDetail().getQuantity());
-					valueForPiChart2.setColoer(coloer.get(i));
+					valueForPiChart2.setColoer(coloer.get(i%8));
 					valueForPiCharts.set(index, valueForPiChart2);
 				}
 			}
