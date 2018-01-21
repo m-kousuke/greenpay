@@ -11,10 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Calculate {
 	private Integer productId;
-	
+
 	private String name;
-	
+
 	private Integer quantity;
-	
+
 	private BigDecimal price;
+
+
 }

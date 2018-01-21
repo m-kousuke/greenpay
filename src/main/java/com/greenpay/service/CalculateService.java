@@ -1,11 +1,14 @@
 package com.greenpay.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.greenpay.domain.Calculate;
+import com.greenpay.domain.Money;
 import com.greenpay.domain.Product;
 import com.greenpay.repository.MoneyRepository;
 import com.greenpay.repository.ProductRepository;
@@ -40,6 +43,15 @@ public class CalculateService {
 		calculate.setQuantity(quantity);
 		calculateList.add(calculate);
 		return calculateList;
+	}
+
+	public BigDecimal updateOfCredit(Money money, BigDecimal total) {
+		BigDecimal balance =money.getCredit().subtract(total);//残高＝残高ーお買い上げ金額
+		LocalDateTime dateTime = LocalDateTime.now();
+		money.setCredit(balance);
+		money.setUpdatedAt(dateTime);
+		moneyrepository.save(money);
+		return balance; 
 	}
 
 }

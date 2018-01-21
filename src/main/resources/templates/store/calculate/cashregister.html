@@ -14,9 +14,16 @@
 	<input type="text" name="quantity" required="required">個数
 	<input type="hidden" name="number" th:value="${number}">
 	<input type="submit" value="追加"> 
-	
 	</form>
-	
+	<form method="post" th:action="@{/store/calculate/checkBalanceForm}">
+	<input type="submit" value="確定">
+	<input type="hidden" name="calculateList" th:value="${calculateList}"/>
+	<input type="hidden" name="total" th:value="${total}"/>
+	<input type="hidden" name="number" th:value="${number}"/>
+	</form>
+	<br>
+	<br>合計額:
+	<div th:if="${total}" th:text="${total}"></div>
 	<table class="ui green table">
 		<tr>
 			<th>商品名</th>
@@ -24,21 +31,16 @@
 			<th>価格</th>
 		</tr>
 		<div th:if="${nothingError}"/>
-		<div class="ui negative icon message">
-		<i class="warning sign icon"></i>
-		<div class="content">
-			<div class="header">
+		<div class="ui negative icon message"/>
+		<i class="warning sign icon"/>
+		<div class="content"/>
+			<div class="header"/>
 			問題が発生しました．
-			</div>
 			<p>この商品は取扱っておりません</p>
-			</div>
-			</div>
-			
 		<tr th:each=" calculate : ${calculateList}">
 			<td th:text="${calculate.name}"></td>
 			<td th:text="${calculate.quantity}"></td>
 			<td th:text="${calculate.price}+'円'"></td>
-			
 		</tr>
 	</table>
 	
