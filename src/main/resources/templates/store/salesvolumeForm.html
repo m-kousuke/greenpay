@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" th:href="@{/css/store/calendar.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/store/modal-multi.css}" />
 <title>売上データ</title>
 </head>
 <body>
@@ -55,8 +56,15 @@
 		<div class="header">この期間の売上情報は見つかりませんでした．</div>
 	</div>
 	</div>
-	<div th:if="${#lists.size(salesVolumes)}>0">
+	<div th:if="${#lists.size(salesVolumes)}>0 and ${chartValues}!=null and ${chartValues}!=null">
+	<a class="modal-syncer" data-target="pieChart">
+	<button class="ui button" type="button">商品別のグラフを表示</button>
+	</a>
+	<a class="modal-syncer" data-target="pieChartByCategory">
+	<button class="ui button" type="button">カテゴリー別のグラフを表示</button>
+	</a>
 	<table class="ui green table">
+		<thead>
 		<tr>
 			<th>商品名</th>
 			<th>カテゴリ名</th>
@@ -64,6 +72,8 @@
 			<th>個数</th>
 			<th>購入日</th>
 		</tr>
+		</thead>
+		<tbody>
 		<tr th:each="salesVolumes : ${salesVolumes}">
 			<td th:text="${salesVolumes.product.Name}"></td>
 			<td th:text="${salesVolumes.product.category.Name}"></td>
@@ -71,12 +81,80 @@
 			<td th:text="${salesVolumes.purchaseHistoryDetail.Quantity}"></td>
 			<td th:text="${#temporals.format(salesVolumes.purchaseHistory.CreatedAt, 'yyyy年MM月dd日')}"></td>
 		</tr>
+		</tbody>
 	</table>
 	</div>
+</div>
+<!-- モーダルウィンドウのコンテンツ -->
+<div id="pieChart" class="modal-content">
+<h2 th:text="${store.name} + の売上"></h2>
+<canvas id="mycanvas" style="display: block; width: 160px; height: 80px;"></canvas>
+<button id="modal-close" type="button" class="ui button">閉じる</button>
+</div>
+<div id="pieChartByCategory" class="modal-content">
+<h2 th:text="${store.name} + の売上"></h2>
+<canvas id="mycanvas2" style="display: block; width: 160px; height: 80px;"></canvas>
+<button id="modal-close" type="button" class="ui button">閉じる</button>
 </div>
 <!-- javascript -->
 <script th:src="@{/js/store/calendar.min.js}"></script>
 <script th:src="@{/js/store/datetimesetting.js}"></script>
+<script th:src="@{/js/store/Chart.min.js}"></script>
+<script th:src="@{/js/store/modal-multi.js}"></script>
+<div th:if="${chartValues}!=null and ${chartValues}!=null">
+<script th:inline="javascript" charset="UTF-8">
+/*<![CDATA[*/
+	var value = [];
+	var label = [];
+	var coloer= [];
+	/*[# th:each="chartValue : ${chartValues}"]*/
+		var da=/*[[${chartValue.Value}]]*/;
+		var name =/*[[${chartValue.Label}]]*/;
+		var backcoloer =/*[[${chartValue.Coloer}]]*/;
+		value.push(da);
+		label.push(name);
+		coloer.push(backcoloer);
+	/*[/]*/
+	var ctx = document.getElementById('mycanvas').getContext('2d');
+	var mycanvas= new Chart(ctx, {
+			type:'pie',
+			data:{
+				labels:label,
+				datasets:[{
+					backgroundColor:coloer,
+					data:value
+				}]
+			}
+	});
+/*]]>*/
+</script>
+<script th:inline="javascript" charset="UTF-8">
+/*<![CDATA[*/
+	var value = [];
+	var label = [];
+	var coloer= [];
+	/*[# th:each="chartValue : ${chartValuesByCategory}"]*/
+		var da=/*[[${chartValue.Value}]]*/;
+		var name =/*[[${chartValue.Label}]]*/;
+		var backcoloer =/*[[${chartValue.Coloer}]]*/;
+		value.push(da);
+		label.push(name);
+		coloer.push(backcoloer);
+	/*[/]*/
+	var ctx = document.getElementById('mycanvas2').getContext('2d');
+	var mycanvas= new Chart(ctx, {
+			type:'pie',
+			data:{
+				labels:label,
+				datasets:[{
+					backgroundColor:coloer,
+					data:value
+				}]
+			}
+	});
+/*]]>*/
+</script>
+</div>
 </div>
 </body>
 </html>
