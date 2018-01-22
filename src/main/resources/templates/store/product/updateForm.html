@@ -59,7 +59,7 @@
 					th:value="${#temporals.format(product.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
 
 				<div class="ui center aligned column">
-					<input class="ui button" type="submit" name="delete" value="▶削除" />
+					<input class="ui button" type="submit" name="delete" value="▶削除" value="▶削除" onclick='return confirm("削除しますか?");' />
 					<input class="ui green button" type="submit" value="▶︎更新" />
 				</div>
 			</form>
