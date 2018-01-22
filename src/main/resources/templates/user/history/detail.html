@@ -20,8 +20,16 @@ $(document).ready(function() {
 	<div layout:fragment="contents">
 		<br>
 		<div class="ui raised segment" style="margin-left: 60px; margin-right: 60px;">
-			<div class="ui huge green label">購入履歴詳細</div>
-			<h3 th:inline="text">支払い合計金額　　　[[${amount}]]円</h3>
+			<div class="ui green inverted segment">
+				<h3 class="ui center aligned inverted header">商品一覧</h3>
+			</div>
+			<h2 th:inline="text">支払い合計金額　　　[[${amount}]]円</h2>
+
+			<div>
+				<a th:href="@{/user/history}">
+					<button class="ui green basic button">利用履歴一覧へ戻る</button>
+				</a>
+			</div>
 
 			<table id="detail" class="tablesorter ui celled table">
 				<thead>
