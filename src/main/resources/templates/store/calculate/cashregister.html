@@ -56,11 +56,14 @@
 					<th>商品名</th>
 					<th>個数</th>
 					<th>価格</th>
+					<th>合計</th>
 				</tr>
 				<tr th:each=" calculate : ${calculateList}">
 					<td th:text="${calculate.name}"></td>
 					<td th:text="${calculate.quantity}"></td>
 					<td th:text="${calculate.price}+'円'"></td>
+					<td th:text="${calculate.subtotal}+'円'"></td>
+					
 				</tr>
 			</table>
 		</div>

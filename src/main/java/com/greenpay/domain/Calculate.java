@@ -17,6 +17,8 @@ public class Calculate {
 	private Integer quantity;
 
 	private BigDecimal price;
+	
+	private BigDecimal subtotal;
 
 
 }

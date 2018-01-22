@@ -43,6 +43,7 @@ public class CalculateService {
 		calculate.setName(product.getName());
 		calculate.setPrice(product.getPrice());
 		calculate.setQuantity(quantity);
+		calculate.setSubtotal(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
 		calculateList.add(calculate);
 		return calculateList;
 	}
