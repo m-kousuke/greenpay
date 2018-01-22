@@ -31,10 +31,7 @@ public class CalculateController {
 	@Autowired
 	HttpSession session;
 
-	@ModelAttribute
-	CalculateForm calculateForm() {
-		return new CalculateForm();
-	}
+	
 
 	List<List<Calculate>> allList = new ArrayList<List<Calculate>>();//全売却商品リストを生成
 
