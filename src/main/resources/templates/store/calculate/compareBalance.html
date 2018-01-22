@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8">
+<title>電子マネー残高検索フォーム</title>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<br> <br>
+		<div class="ui centered grid container">
+			<div class="nine wide column">
+				<div class="content">
+					<div class="ui green inverted segment">
+						<div class="ui text menu">
+							<h1>チャージしてください</h1>
+							<div class="right menu"></div>
+						</div>
+					</div>
+					<div class="ui raised segment">
+						<label>合計金額は,
+							<h1>
+								<p th:text="${total}"></p>
+							</h1> 円です。
+						</label> <br> <br> <label>不足金額は、
+							<h1>
+								<p th:text="${shortage}"></p>
+							</h1> 円です。
+						</label>
+
+					</div>
+				</div>
+				<br>
+
+				<form th:action="@{/store/calculate/chargeAndCalculate}"
+					method="post">
+					<div class="ui labeled input">
+						<h1>¥</h1>
+						<input type="text" name="chargemoney" maxlength="5"
+							required="required" autofocus="autofocus" />
+						<input type="submit" value="チャージ"/>
+					</div>
+					<div>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+						<a class="ui button" th:href="@{/store/calculate}">購入キャンセル </a>
+					</div>
+					<div th:if="${errorMessage}" >
+					<div class="ui negative icon message">
+						<i class="warning sign icon"></i>
+						<div class="content">
+							<div class="header">問題が発生しました．</div>
+							<p>チャージ金額が不足しています</p>
+						</div>
+					</div>
+					</div>
+				</form>
+				<br>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -5,7 +5,7 @@
 	layout:decorator="layout">
 <head>
 <meta charset="UTF-8">
-<title>電子マネー残高検索フォーム</title>
+<title>電子マネーユーザー検索フォーム</title>
 </head>
 <body>
 <div layout:fragment="contents">
@@ -23,7 +23,7 @@
 		</div>
 		
 		<div class="ui raised segment">
-		<form class="ui form" method="post" th:action="@{/checkBalance}">
+		<form class="ui form" method="post" th:action="@{/store/calculate/calculateComplete}">
 		<div class="field">
 		<label>電子マネーID</label> 
 		<input type="text" name="id" placeholder="電子マネーIDを入力して下さい" required="required" autofocus="autofocus" />
@@ -31,18 +31,17 @@
 		<button class="ui green button" type="submit">
 		確認
 		</button>
-		<a class="ui button" th:href="@{/index}">
+		<a class="ui button" th:href="@{/store/calculate/cashregister}">
 		キャンセル
 		</a>
-		<div th:if="${errorMessage}" >
+		<div th:if="${errorMessage}" />
 		<div class="ui negative icon message">
 		<i class="warning sign icon"></i>
 		<div class="content">
 			<div class="header">
 			問題が発生しました．
 			</div>
-			<p>登録メールアドレスを確認後、もう一度入力して下さい</p>
-			</div>
+			<p>登録電子マネーを確認後、もう一度入力して下さい</p>
 			</div>
 			</div>
 		</form>
