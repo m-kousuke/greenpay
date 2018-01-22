@@ -6,6 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>利用履歴</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/common/sort.css}" />
+<script type="text/javascript" th:src="@{/js/jquery.tablesorter.min.js}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#history").tablesorter({
+		//左から4番目の列のソートを無効にする。
+		headers: {
+			3: {sorter:false}
+		}
+	});
+});
+</script>
 </head>
 <body>
 	<div layout:fragment="contents">
@@ -14,10 +26,9 @@
 			<div class="ui huge green label">購入履歴</div>
 			<br> <br>
 
-			<table class="ui celled table">
+			<table id="history" class="tablesorter ui celled table">
 				<thead>
 					<tr>
-						<th>電子マネーID</th>
 						<th>店舗名</th>
 						<th>購入日時</th>
 						<th>合計金額</th>
@@ -27,7 +38,6 @@
 
 				<tbody>
 					<tr th:each="history : ${history}">
-						<td th:text="${history.moneyId}" />
 						<td th:text="${history.store.name}" />
 						<td th:text="${#temporals.format(history.createdAt, 'yyyy年MM月dd日')}" />
 						<td th:text="${history.amount}" />
