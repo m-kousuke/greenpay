@@ -112,7 +112,7 @@ public class CalculateController {
 
 	//電子マネー残高検索
 	@RequestMapping(value = "calculateComplete", method = RequestMethod.POST)
-	String search(@RequestParam String id, Model model, RedirectAttributes attributes) {
+	String search(@RequestParam String id, Model model,Principal principal, RedirectAttributes attributes) {
 
 		Money money = chargemoneyservice.findOne(id);
 		if (money == null) {
@@ -124,7 +124,10 @@ public class CalculateController {
 		session.setAttribute("money", money);
 		//残高が足りてるとき
 		if (total.compareTo(money.getCredit()) <= 0) {
-			BigDecimal balance = calculateservice.updateOfCredit(money, total);
+			BigDecimal balance = calculateservice.updateOfCredit(money, total);//会計の処理
+			String storeId = principal.getName();
+			List<Calculate> calculateList = (List<Calculate>) session.getAttribute("calculateList");
+			calculateservice.registPurchaseHistory(money,storeId,total,calculateList);//購入履歴登録の処理
 			model.addAttribute("balance", balance);
 			return "/store/calculate/calculateComplete";
 		}
@@ -139,7 +142,7 @@ public class CalculateController {
 
 	//残高不足でチャージした後の清算の処理
 	@RequestMapping(value = "chargeAndCalculate", method = RequestMethod.POST)
-	String charge(@RequestParam String chargemoney, Model model) {
+	String charge(@RequestParam String chargemoney, Model model,Principal principal) {
 		Money money = (Money) session.getAttribute("money");
 		BigDecimal total = (BigDecimal) session.getAttribute("total");
 		BigDecimal charge = new BigDecimal(chargemoney);
@@ -152,6 +155,9 @@ public class CalculateController {
 		//チャージ金額が足りていた場合,以下の処理に移る
 		money = chargemoneyservice.update(money, chargemoney);//チャージの処理
 		BigDecimal balance = calculateservice.updateOfCredit(money, total);//会計の処理
+		String storeId = principal.getName();
+		List<Calculate> calculateList = (List<Calculate>) session.getAttribute("calculateList");
+		calculateservice.registPurchaseHistory(money,storeId,total,calculateList);//購入履歴登録の処理
 		model.addAttribute("balance", balance);
 		return "/store/calculate/calculateComplete";
 
