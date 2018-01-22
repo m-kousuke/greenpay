@@ -19,7 +19,7 @@
 					th:errors="*{name}">Error</div>
 				<div class="ui labeled input">
 					<label for="name" class="ui label">カテゴリー名</label>
-					<input type="text" id="name" name="name" maxlength="64" required="required"
+					<input type="text" id="name" name="name" maxlength="64" pattern="^([a-zA-Z0-9]{8,16})$" required="required"
 						autofocus="autofocus"/>
 				</div>
 				<br> <br>

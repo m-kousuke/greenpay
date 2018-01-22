@@ -7,6 +7,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -15,6 +16,7 @@ import lombok.Data;
 public class ProductForm {
 	@NotNull(message="必須項目です")
 	@Size(min = 1, max = 64, message="1~64文字で入力してください")
+	@Pattern(regexp="^([a-zA-Z0-9]{8,16})$",message="使用できない文字が使われています")
 	private String name;
 
 	@NotNull(message="必須項目です")
