@@ -1,47 +1,70 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-	<head>
-	<meta charset="UTF-8">
-	<title>
-	会計フォーム
-	</title>
-	</head>
-	<body>
-	</body>
-	<form method="post" th:action="@{/store/calculate/cashregister}">
-	<input type="text" name="productId" required="required" autofocus="autofocus">商品ID<br>
-	<input type="text" name="quantity" required="required">個数
-	<input type="hidden" name="number" th:value="${number}">
-	<input type="submit" value="追加"> 
-	</form>
-	<form method="post" th:action="@{/store/calculate/checkBalanceForm}">
-	<input type="submit" value="確定">
-	<input type="hidden" name="calculateList" th:value="${calculateList}"/>
-	<input type="hidden" name="total" th:value="${total}"/>
-	<input type="hidden" name="number" th:value="${number}"/>
-	</form>
-	<br>
-	<br>合計額:
-	<div th:if="${total}" th:text="${total}"></div>
-	<table class="ui green table">
-		<tr>
-			<th>商品名</th>
-			<th>個数</th>
-			<th>価格</th>
-		</tr>
-		<div th:if="${nothingError}"/>
-		<div class="ui negative icon message"/>
-		<i class="warning sign icon"/>
-		<div class="content"/>
-			<div class="header"/>
-			問題が発生しました．
-			<p>この商品は取扱っておりません</p>
-		<tr th:each=" calculate : ${calculateList}">
-			<td th:text="${calculate.name}"></td>
-			<td th:text="${calculate.quantity}"></td>
-			<td th:text="${calculate.price}+'円'"></td>
-		</tr>
-	</table>
-	
-	</html>
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8">
+<title>会計フォーム</title>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<br>
+		<div class="ui raised segment"
+			style="margin-left: 60px; margin-right: 60px;">
+			<div class="ui green inverted segment">
+				<h3 class="ui center aligned inverted header">商品を追加してください</h3>
+			</div>
+			<form method="post" th:action="@{/store/calculate/cashregister}">
+				<div class="ui labeled input">
+					<label for="name" class="ui label">商品ID</label> 
+					<input type="text" name="productId" required="required" autofocus="autofocus">
+					<br>
+					<label for="name" class="ui label">個数</label> 
+					<input type="text" name="quantity" required="required">
+					<input type="hidden" name="number" th:value="${number}">
+					<input type="submit" value="追加">
+				</div>
+			</form>
+			<br> 
+			<div class="ui right labeled input">
+				<label for="price" class="ui label">合計額</label>
+				<label class="ui basic label">
+					<div th:if="${total}" th:text="${total}"></div>
+				</label>
+				<label class="ui basic label">円</label>
+			</div>
+			<br>　
+			<form method="post" th:action="@{/store/calculate/checkBalanceForm}">
+				<input type="hidden" name="calculateList" th:value="${calculateList}" /> 
+				<input type="hidden" name="total" th:value="${total}" />
+				<input type="hidden" name="number" th:value="${number}" />
+				<button class="ui green button" type="submit">確定</button>
+			</form>
+			<br>
+			<div th:if="${nothingError}" >
+					<div class="ui negative icon message" >
+						<i class="warning sign icon"></i>
+							<div class="content" >
+								<div class="header">問題が発生しました．</div>
+								<p>この商品は取扱っておりません</p>
+							</div>
+					</div>
+			</div>
+			<table class="ui green table">
+				<tr>
+					<th>商品名</th>
+					<th>個数</th>
+					<th>価格</th>
+				</tr>
+				<tr th:each=" calculate : ${calculateList}">
+					<td th:text="${calculate.name}"></td>
+					<td th:text="${calculate.quantity}"></td>
+					<td th:text="${calculate.price}+'円'"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
