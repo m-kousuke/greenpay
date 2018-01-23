@@ -35,9 +35,10 @@ public class CalculateService {
 		Product product = new Product();
 		int id = Integer.parseInt(productId);
 		product=productrepository.findByIdAndStoreId(id,storeId);
-		if(product==null) {
+		if(product==null ) {
 			return calculateList;
 		}
+		if(product.getActivated()==2) {
 		Calculate calculate = new Calculate();
 		calculate.setProductId(id);
 		calculate.setName(product.getName());
@@ -45,6 +46,8 @@ public class CalculateService {
 		calculate.setQuantity(quantity);
 		calculate.setSubtotal(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
 		calculateList.add(calculate);
+		return calculateList;
+		}
 		return calculateList;
 	}
 
