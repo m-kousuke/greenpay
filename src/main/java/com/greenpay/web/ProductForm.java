@@ -16,7 +16,7 @@ import lombok.Data;
 public class ProductForm {
 	@NotNull(message="必須項目です")
 	@Size(min = 1, max = 64, message="1~64文字で入力してください")
-	@Pattern(regexp="^[\\u3040-\\u30FF]+$",message="商品名は全角文字で入力してください")
+	@Pattern(regexp="[^ |　]+$",message="空白文字は使用できません")
 	private String name;
 
 	@NotNull(message="必須項目です")
