@@ -41,9 +41,10 @@ public class CalculateService {
 		Calculate calculate = new Calculate();
 		calculate.setProductId(id);
 		calculate.setName(product.getName());
-		calculate.setPrice(product.getPrice());
+		BigDecimal discount = new BigDecimal("0.97");
+		calculate.setPrice(product.getPrice().multiply(discount).setScale(0, BigDecimal.ROUND_HALF_UP));
 		calculate.setQuantity(quantity);
-		calculate.setSubtotal(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
+		calculate.setSubtotal(calculate.getPrice().multiply(BigDecimal.valueOf(quantity)));
 		calculateList.add(calculate);
 		return calculateList;
 	}
