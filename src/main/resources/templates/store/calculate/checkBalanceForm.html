@@ -34,7 +34,7 @@
 		<a class="ui button" th:href="@{/store/calculate/cashregister}">
 		キャンセル
 		</a>
-		<div th:if="${errorMessage}" />
+		<div th:if="${errorMessage}" >
 		<div class="ui negative icon message">
 		<i class="warning sign icon"></i>
 		<div class="content">
@@ -42,6 +42,7 @@
 			問題が発生しました．
 			</div>
 			<p>登録電子マネーIDを確認後、もう一度入力して下さい</p>
+			</div>
 			</div>
 			</div>
 		</form>
