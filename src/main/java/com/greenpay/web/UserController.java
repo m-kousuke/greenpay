@@ -89,7 +89,7 @@ public class UserController {
 	@PostMapping("/registuser")
 	String temporary(@Validated @ModelAttribute("model1") UserForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) { // エラーがおきたら返す場所
-			return "/registuserForm";
+			return "registuserForm";
 		}
 
 		User user = new User();
@@ -100,7 +100,7 @@ public class UserController {
 		if(check == false && user.getEmail().contains("u-gakugei.ac.jp")){
 			userService.regist(user);
 			userService.sendMail(user.getEmail());
-			return "/registuserSuccess";
+			return "registuserSuccess";
 		}else{
 			model.addAttribute("errorMessage","仮登録済みか、無効なアドレスです");
 			return registuserForm(model);
@@ -136,7 +136,7 @@ public class UserController {
 		if (user != null && user.getActivated() == 0) {
 				moneyService.registMoney(money);
 				userService.registFinish(user);
-				return "/registuserfinishSuccess";
+				return "registuserfinishSuccess";
 		} else {
 			model.addAttribute("errorMessage","パスワードが間違っているか、すでに本登録されています");
 			return registUserFinishForm(userId, model);
