@@ -47,7 +47,7 @@ public class CalculateController {
 
 		model.addAttribute("calculateList", calculateList);
 		model.addAttribute("number", number);
-		return "/store/calculate/cashregister";
+		return "store/calculate/cashregister";
 	}
 
 	//売却商品を追加する処理
@@ -75,9 +75,9 @@ public class CalculateController {
 		if (check == calculateList.size()) {
 			String msg = "この商品は取扱っておりません";
 			model.addAttribute("nothingError", msg);
-			return "/store/calculate/cashregister";
+			return "store/calculate/cashregister";
 		}
-		return "/store/calculate/cashregister";
+		return "store/calculate/cashregister";
 	}
 
 	//売却商品を確定し,電子マネー残高確認フォームへ移る処理
@@ -87,7 +87,7 @@ public class CalculateController {
 		session.setAttribute("calculateList", calculateList);
 		session.setAttribute("number", number);
 		session.setAttribute("total", total);
-		return "/store/calculate/checkBalanceForm";
+		return "store/calculate/checkBalanceForm";
 	}
 
 	//一度売却商品を確定後,再度売却商品を追加するフォームへ移る処理
@@ -99,12 +99,12 @@ public class CalculateController {
 		model.addAttribute("calculateList", calculateList);
 		model.addAttribute("number", number);
 		model.addAttribute("total", total);
-		return "/store/calculate/cashregister";
+		return "store/calculate/cashregister";
 	}
 
 	@RequestMapping(value = "checkBalanceForm", method = RequestMethod.GET)
 	String Error() {
-		return "/store/calculate/checkBalanceForm";
+		return "store/calculate/checkBalanceForm";
 	}
 
 	//電子マネー残高検索
@@ -126,7 +126,7 @@ public class CalculateController {
 			List<Calculate> calculateList = (List<Calculate>) session.getAttribute("calculateList");
 			calculateservice.registPurchaseHistory(money,storeId,total,calculateList);//購入履歴登録の処理
 			model.addAttribute("balance", balance);
-			return "/store/calculate/calculateComplete";
+			return "store/calculate/calculateComplete";
 		}
 		//残高不足のとき
 		else if (total.compareTo(money.getCredit()) == 1) {
@@ -134,7 +134,7 @@ public class CalculateController {
 			model.addAttribute("shortage", money.getCredit().subtract(total));//"shortage"：不足金額
 			return "/store/calculate/compareBalance";
 		}
-		return "/store/calculate/checkBalanceForm";
+		return "store/calculate/checkBalanceForm";
 	}
 
 	//残高不足でチャージした後の清算の処理
@@ -156,13 +156,13 @@ public class CalculateController {
 		List<Calculate> calculateList = (List<Calculate>) session.getAttribute("calculateList");
 		calculateservice.registPurchaseHistory(money,storeId,total,calculateList);//購入履歴登録の処理
 		model.addAttribute("balance", balance);
-		return "/store/calculate/calculateComplete";
+		return "store/calculate/calculateComplete";
 
 	}
 
 	@RequestMapping(value = "compareBalance", method = RequestMethod.GET)
 	String chargeError(Model model) {
-		return "/store/calculate/calculateComplete";
+		return "store/calculate/calculateComplete";
 	}
 
 }

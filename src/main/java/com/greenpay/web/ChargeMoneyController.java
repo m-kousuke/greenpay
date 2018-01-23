@@ -25,7 +25,7 @@ public class ChargeMoneyController {
 
 	@RequestMapping(value = "/money", method = RequestMethod.GET)
 	String index() {
-		return "/money";
+		return "money";
 	}
 
 	@RequestMapping(value = "/checkBalance", method = RequestMethod.POST)
@@ -40,30 +40,30 @@ public class ChargeMoneyController {
 		if(session.getAttribute("money") == null) {
 		session.setAttribute("money", money);
 		}
-		return "/checkBalance";
+		return "checkBalance";
 	}
 	@RequestMapping(value = "/checkBalance", method = RequestMethod.GET)
 	String chackBalance(Model model) {
 		Money money =(Money) session.getAttribute("money");
 		model.addAttribute("money",money);
-		return "/checkBalance";
+		return "checkBalance";
 	}
 
 	@RequestMapping(value = "/selectAmountOfMoney", method = RequestMethod.GET)
 	String selectAmountOfMoney(Model model) {
 		
 		if(session.getAttribute("money") == null) {
-			return  "/money";
+			return  "money";
 		}
 		Money money =(Money) session.getAttribute("money");
 		model.addAttribute("money",money);
-		return "/selectAmountOfMoney";
+		return "selectAmountOfMoney";
 	}
 
 	@RequestMapping(value = "/chargeConfirm", method = RequestMethod.POST)
 	String confirm(@RequestParam String chargemoney, Model model,  RedirectAttributes attributes) {
 		if(session.getAttribute("money") == null) {
-			return  "/money";
+			return  "money";
 		}
 		Money money =(Money) session.getAttribute("money");
 		BigDecimal charge = new BigDecimal(chargemoney );
@@ -73,14 +73,14 @@ public class ChargeMoneyController {
 			return "redirect:/selectAmountOfMoney";
 		}
 		model.addAttribute("chargemoney", chargemoney);
-		return "/chargeConfirm";
+		return "chargeConfirm";
 
 	}
 
 	@RequestMapping(value = "/chargeComplete", method = RequestMethod.POST)
 	String updete(@RequestParam String chargemoney, Model model, Principal principal) {
 		if(session.getAttribute("money") == null) {
-			return  "/money";
+			return "money";
 		}
 		
 		Money money =(Money) session.getAttribute("money");
@@ -89,7 +89,7 @@ public class ChargeMoneyController {
 		model.addAttribute("money", money);
 		
 		session.removeAttribute("money");
-		return "/chargeComplete";
+		return "chargeComplete";
 
 	}
 
