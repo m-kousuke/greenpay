@@ -23,7 +23,6 @@ public class UserSearchProductController {
 	@Autowired
 	ProductService productService;
 	
-	
 	@RequestMapping(value="user/searchproductForm",method=RequestMethod.GET)
 	String SearchProductForm(Model model){
 		List<Store> stores = storeService.findAll();
@@ -34,9 +33,11 @@ public class UserSearchProductController {
 	@RequestMapping(value="user/search",method=RequestMethod.POST)
 	String SearchProduct(@RequestParam String word,@RequestParam String storeId,Model model){
 		List<Product> products = productService.findByNameAndStoreId(word,storeId);
+		if(products.size()>0){
 		List<String> categoryList = productService.GetCategoryListForProductSerach(products);
-		model.addAttribute("products", products);
 		model.addAttribute("categoryList",categoryList);
+		}
+		model.addAttribute("products", products);
 		return "user/productlist";
 	}
 }
