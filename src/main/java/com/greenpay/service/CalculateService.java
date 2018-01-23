@@ -34,11 +34,10 @@ public class CalculateService {
 	public List<Calculate> findByIdAndStoreId(String productId, Integer quantity, String storeId, List<Calculate> calculateList) {
 		Product product = new Product();
 		int id = Integer.parseInt(productId);
-		product=productrepository.findByIdAndStoreId(id,storeId);
+		product=productrepository.findByIdAndStoreIdAndActivated(id,storeId,2);
 		if(product==null ) {
 			return calculateList;
 		}
-		if(product.getActivated()==2) {
 		Calculate calculate = new Calculate();
 		calculate.setProductId(id);
 		calculate.setName(product.getName());
@@ -47,8 +46,7 @@ public class CalculateService {
 		calculate.setSubtotal(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
 		calculateList.add(calculate);
 		return calculateList;
-		}
-		return calculateList;
+
 	}
 
 	public BigDecimal updateOfCredit(Money money, BigDecimal total) {
