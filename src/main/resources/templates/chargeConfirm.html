@@ -20,28 +20,23 @@
 						</div>
 					</div>
 					<div class="ui raised segment">
-						<label>あなたの残高は、<br>
-							<h1>
-								<p th:text="${money.credit}"></p>
-							</h1> 　　　　　　　円です。
-						</label> <br> <br> 
-						チャージ金額は
-						<h1>
-							<p th:text="${chargemoney}"></p>
-						</h1>
-						　　　　　　　円でよろしいですか？
+						<label>あなたの残高は、</label><br>
+							<h1 th:text="${money.credit} "></h1>　　　　　　円です
+						<br><br>
+						<label>チャージ金額は,</label><br>
+						<h1 th:text="${chargemoney}"></h1>　　　　　　円でよろしいですか？
 						<br>
 						<br>
 						<form method="post" th:action="@{/chargeComplete}">
 							<input type="hidden" name="chargemoney" th:value="${chargemoney}"/>
 							<button class="ui green button" type="submit">確認</button>
+						</form>
 							<a class="ui button" th:href="@{/selectAmountOfMoney}"> キャンセル
 							</a>
 						</div>
-						</form>
 				</div>
 			</div>
 			</div>
-			
+	</div>
 </body>
 </html>

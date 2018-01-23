@@ -20,11 +20,9 @@
 						</div>
 					</div>
 					<div class="ui raised segment">
-						<label>あなたの残高は、<br>
-							<h1>
-								<p th:text="${money.credit}"></p>
-							</h1> 　　　　　　　円です。
-						</label> <br> <br>
+						<label>あなたの残高は、</label> 
+							<h1 th:text="${money.credit}"></h1>　　　　　　円です。
+						<br> <br>
 
 						<h1>チャージ金額を選択してください</h1>
 						<form method="post" th:action="@{/chargeConfirm}">
@@ -54,10 +52,11 @@
 								<font style="vertical-align: inherit;"><font
 									style="vertical-align: inherit;">10000円</font></font>
 							</button>
+							</form>
 							<br> <br> <a class="ui button"
 								th:href="@{/checkBalance}"> キャンセル </a>
-							<div th:if="${upperLimitError}" />
-							<div class="ui negative icon message">
+							<div th:if="${upperLimitError}" >
+								<div class="ui negative icon message">
 								<i class="warning sign icon"></i>
 								<div class="content">
 									<div class="header">問題が発生しました．</div>
@@ -66,10 +65,8 @@
 							</div>
 					</div>
 				</div>
-				</form>
 			</div>
 		</div>
-	</div>
 	</div>
 	</div>
 </body>
