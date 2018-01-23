@@ -20,19 +20,15 @@
 						</div>
 					</div>
 					<div class="ui raised segment">
-						<label>あなたの残高は、<br>
-							<h1>
-								<p th:text="${money.credit}"></p>
-							</h1> 　　　　　　　円です。
-						</label>
+						<label>あなたの残高は、</label><br>
+								<h1 th:text="${money.credit} "></h1>　　　　　　円です。
 					</div>
 				</div>
 
 				<br>
 
 				<div>
-					<a th:href="@{/selectAmountOfMoney}">
-						<button class="ui green button">チャージ</button></a>
+					<a class="ui green button" th:href="@{/selectAmountOfMoney}">チャージ</a>
 					 <a class="ui button" th:href="@{/money}">戻る </a>
 				</div>
 			</div>
