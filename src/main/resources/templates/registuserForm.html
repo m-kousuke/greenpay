@@ -48,12 +48,8 @@
 		</div>
 		<button class="ui green button" type="submit">登録</button>
 	</form>
-	<h3>注意事項</h3>
-		<p>仮登録が完了すると，本登録のご案内メールが送信されます．
-		<p>※登録できるメールアドレスはドメインがst.u-gakugei.ac.jpまたはu-gakugei.ac.jpのものに限ります．
-		<p>※本登録を行わないと各種サービスはご利用できないのでご注意ください．
-		<div th:if="${errorMessage}" >
-		<br>
+	<div th:if="${errorMessage}" >
+	<br>
 		<div class="ui negative icon message">
 		<i class="warning sign icon"></i>
 		<div class="content">
@@ -64,6 +60,10 @@
 			</div>
 			</div>
 	</div>
+	<h3>注意事項</h3>
+		<p>仮登録が完了すると，本登録のご案内メールが送信されます．
+		<p>※登録できるメールアドレスはドメインがst.u-gakugei.ac.jpまたはu-gakugei.ac.jpのものに限ります．
+		<p>※本登録を行わないと各種サービスはご利用できないのでご注意ください．
 	</div>
 	</div>
 </div>
