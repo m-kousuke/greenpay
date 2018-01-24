@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	List<Product> findByNameContainingAndStoreIdAndActivatedNot(String word,String storeId,int activated);
 
-	Product findByIdAndStoreIdAndActivated(int id, String storeId, int i);
+	Product findByIdAndStoreIdAndActivated(int id, String storeId, int activated);
 
 
 }
