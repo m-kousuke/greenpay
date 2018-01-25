@@ -31,9 +31,11 @@
 				<input type="hidden" name="createdAt"
 					th:value="${#temporals.format(category.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
 
-				<div>
-					<input type="submit" value="更新" />
-					<input type="submit" name="delete" value="削除" />
+				<div class="ui center aligned column">
+					<a th:href="@{/store/category/delete__'?id='+${category.id}__}">
+						<button class="ui button" type="button" onclick='return confirm("削除しますか?");' >▶削除</button>
+					</a>
+					<input class="ui green button" type="submit" value="▶︎更新" />
 				</div>
 			</form>
 		</div>
