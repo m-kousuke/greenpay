@@ -34,18 +34,20 @@ public class CalculateService {
 	public List<Calculate> findByIdAndStoreId(String productId, Integer quantity, String storeId, List<Calculate> calculateList) {
 		Product product = new Product();
 		int id = Integer.parseInt(productId);
-		product=productrepository.findByIdAndStoreId(id,storeId);
-		if(product==null) {
+		product=productrepository.findByIdAndStoreIdAndActivated(id,storeId,2);
+		if(product==null ) {
 			return calculateList;
 		}
 		Calculate calculate = new Calculate();
 		calculate.setProductId(id);
 		calculate.setName(product.getName());
-		calculate.setPrice(product.getPrice());
+		BigDecimal discount = new BigDecimal("0.97");
+		calculate.setPrice(product.getPrice().multiply(discount).setScale(0, BigDecimal.ROUND_HALF_UP));
 		calculate.setQuantity(quantity);
-		calculate.setSubtotal(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
+		calculate.setSubtotal(calculate.getPrice().multiply(BigDecimal.valueOf(quantity)));
 		calculateList.add(calculate);
 		return calculateList;
+
 	}
 
 	public BigDecimal updateOfCredit(Money money, BigDecimal total) {
