@@ -17,12 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.greenpay.domain.Calculate;
 import com.greenpay.domain.Money;
+import com.greenpay.domain.Product;
 import com.greenpay.service.CalculateService;
 import com.greenpay.service.ChargeMoneyService;
+import com.greenpay.service.ProductService;
 
 //@RequestMapping("store/calculate")
 @Controller
 public class CalculateController {
+	@Autowired
+	ProductService productService;
 	@Autowired
 	CalculateService calculateservice;
 	@Autowired
@@ -36,10 +40,12 @@ public class CalculateController {
 
 	//売却商品を追加するフォームへ移る処理
 	@RequestMapping(value="store/calculate/cashregister" ,method= RequestMethod.GET)
-	String index(Model model) {
+	String index(Model model ,Principal principal) {
+		List<Product> products = productService.findByStoreIdAndActivatedNot(principal.getName());
+		model.addAttribute("products", products);
 		if((BigDecimal) session.getAttribute("total")==null) {
 		List<Calculate> calculateList = new ArrayList<Calculate>();//お客さんごとの売却商品リストを生成
-
+		
 		int number = allList.size();//お客さんごとの売却商品リストに個別番号を与える
 
 		allList.add(calculateList);//全売却商品リストに生成した売却商品リストを追加
@@ -60,11 +66,15 @@ public class CalculateController {
 
 	//売却商品を追加する処理
 	@RequestMapping(value = "store/calculate/cashregister", method = RequestMethod.POST)
-	String calcurate(@RequestParam String productId, @RequestParam String quantity, @RequestParam Integer number,
-			Model model, Principal principal) {
-
+	String calcurate(@RequestParam String productId,@RequestParam String quantity, @RequestParam Integer number,
+			Model model, Principal principal,RedirectAttributes attributes) {
+		if( quantity.matches("\\D")) {
+			return "redirect:/store/calculate/cashregister";
+		}
+		List<Product> products = productService.findByStoreIdAndActivatedNot(principal.getName());
+		model.addAttribute("products", products);//商品一覧取得
 		List<Calculate> calculateList = allList.get(number);//numberに該当する売却商品リストを全売却商品リストから取り出す
-
+		
 		String storeId = principal.getName();
 		int check = calculateList.size();
 		calculateList = calculateservice.findByIdAndStoreId(productId, Integer.parseInt(quantity), storeId,

@@ -17,13 +17,25 @@
 			</div>
 			<form method="post" th:action="@{/store/calculate/cashregister}">
 				<div class="ui labeled input">
-					<label for="name" class="ui label">商品ID</label> 
-					<input type="text" name="productId" required="required" autofocus="autofocus">
+					<label for="productName" class="ui label">商品名</label> 
+					<select id="productName" name="productId" >
+						<option th:each="product : ${products}" th:value="${product.id}"
+							th:inline="text">[[${product.name}]]</option>
+					</select>
 					<br>
 					<label for="name" class="ui label">個数</label> 
 					<input type="text" name="quantity" required="required">
 					<input type="hidden" name="number" th:value="${number}">
 					<input type="submit" value="追加">
+					<div th:if="${error}">
+						<div class="ui negative icon message" >
+							<i class="warning sign icon"></i>
+								<div class="content" >
+									<div class="header">問題が発生しました．</div>
+									<p>不正な値です</p>
+								</div>
+						</div>
+					</div>
 				</div>
 			</form>
 			<br> 
