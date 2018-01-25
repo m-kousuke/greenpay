@@ -23,7 +23,7 @@
 					th:errors="*{name}">Error</div>
 				<div class="ui labeled input">
 					<label for="name" class="ui label">新しいカテゴリー名</label>
-					<input type="text" id="name" name="name" maxlength="64" required="required" autofocus="autofocus"/>
+					<input type="text" id="name" name="name" maxlength="64" autofocus="autofocus"/>
 				</div>
 				<br> <br>
 
@@ -31,9 +31,11 @@
 				<input type="hidden" name="createdAt"
 					th:value="${#temporals.format(category.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
 
-				<div>
-					<input type="submit" value="更新" />
-					<input type="submit" name="delete" value="削除" />
+				<div class="ui center aligned column">
+					<a th:href="@{/store/category/delete__'?id='+${category.id}__}">
+						<button class="ui button" type="button" onclick='return confirm("削除しますか?");' >▶削除</button>
+					</a>
+					<input class="ui green button" type="submit" value="▶︎更新" />
 				</div>
 			</form>
 		</div>

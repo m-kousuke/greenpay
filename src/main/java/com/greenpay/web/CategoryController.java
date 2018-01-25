@@ -101,7 +101,7 @@ public class CategoryController {
 	}
 
 	// カテゴリー削除
-	@RequestMapping(path = "update", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(path = "delete", method = RequestMethod.GET)
 	String delete(@RequestParam Integer id) {
 		categoryService.delete(id);;
 
