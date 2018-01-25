@@ -24,6 +24,15 @@
 					<input type="text" name="quantity" required="required">
 					<input type="hidden" name="number" th:value="${number}">
 					<input type="submit" value="追加">
+					<div th:if="${error}">
+						<div class="ui negative icon message" >
+							<i class="warning sign icon"></i>
+								<div class="content" >
+									<div class="header">問題が発生しました．</div>
+									<p>不正な値です</p>
+								</div>
+						</div>
+					</div>
 				</div>
 			</form>
 			<br> 

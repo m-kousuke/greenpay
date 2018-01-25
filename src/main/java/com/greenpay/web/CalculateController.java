@@ -60,11 +60,13 @@ public class CalculateController {
 
 	//売却商品を追加する処理
 	@RequestMapping(value = "store/calculate/cashregister", method = RequestMethod.POST)
-	String calcurate(@RequestParam String productId, @RequestParam String quantity, @RequestParam Integer number,
-			Model model, Principal principal) {
-
+	String calcurate(@RequestParam String productId,@RequestParam String quantity, @RequestParam Integer number,
+			Model model, Principal principal,RedirectAttributes attributes) {
+		if( !productId.matches("\\d") || !quantity.matches("\\d")) {
+			return "redirect:/store/calculate/cashregister";
+		}
 		List<Calculate> calculateList = allList.get(number);//numberに該当する売却商品リストを全売却商品リストから取り出す
-
+		
 		String storeId = principal.getName();
 		int check = calculateList.size();
 		calculateList = calculateservice.findByIdAndStoreId(productId, Integer.parseInt(quantity), storeId,
