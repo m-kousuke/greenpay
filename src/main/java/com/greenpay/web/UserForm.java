@@ -11,10 +11,10 @@ import lombok.Data;
 @Data
 public class UserForm {
 	@NotNull
-	@Pattern(regexp="[^[0-9] |　]+$",message="数字、空白文字は使用できません")
+	@Pattern(regexp="[^ |　]+$",message="空白文字は使用できません")
 	private String lastName;
 	@NotNull
-	@Pattern(regexp="[^[0-9] |　]+$",message="数字、空白文字は使用できません")
+	@Pattern(regexp="[^ |　]+$",message="空白文字は使用できません")
 	private String firstName;
 	@NotNull
 	@Pattern(regexp="^[\\u3040-\\u309F]+$",message="ひらがなで入力してください。また、空白文字などは使用できません")
@@ -24,6 +24,7 @@ public class UserForm {
 	private String firstNameKana;
 	@NotNull
 	@Email(message="メールアドレスを入力してください")
+	@Pattern(regexp="^.*(?=u-gakugei.ac.jp).*$",message="無効なアドレスです")
 	private String email;
 	@NotNull
 	@Size(min=8,max=16)
