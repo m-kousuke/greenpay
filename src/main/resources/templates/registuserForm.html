@@ -28,7 +28,7 @@
 		</div>
 		<div class="field">
 		<label>姓かな</label>
-		<input type="text" name="lastNameKana" required="required" th:value="*{firstName}">
+		<input type="text" name="lastNameKana" required="required" th:value="*{lastNameKana}">
 		<div th:if="${#fields.hasErrors('lastNameKana')}" class="ui pointing red basic label" th:errors="*{lastNameKana}">Error</div>
 		</div>
 		<div class="field">
