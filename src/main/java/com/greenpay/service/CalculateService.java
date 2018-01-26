@@ -66,8 +66,12 @@ public class CalculateService {
 		purchaseHistory.setStoreId(storeId);
 		purchaseHistory.setAmount(total);
 		purchaseHistory.setCreatedAt(dateTime);
-		purchaseHistoryrepository.save(purchaseHistory);//購入履歴を登録
-		purchaseHistory= purchaseHistoryrepository.findTopByMoneyId(money.getId());//購入履歴IDを取得(※改善したい箇所)
+		purchaseHistoryrepository.save(purchaseHistory);//購入履歴登録
+		//DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		//dateTime = LocalDateTime.parse(dateTime, f);		
+		purchaseHistory.setId( purchaseHistoryrepository.findTopByMoneyIdOrderByCreatedAtDesc(money.getId()).getId());
+		System.out.println(purchaseHistory.getId());
+		//purchaseHistory.setId( purchaseHistoryrepository.getId());//購入履歴IDを取得(※改善したい箇所)
 		for (Calculate calculate : calculateList) {//購入商品情報をリストから１つ１つ取り出す
 			PurchaseHistoryDetail purchaseHistoryDetail = new PurchaseHistoryDetail();
 			purchaseHistoryDetail.setPurchaseId(purchaseHistory.getId());
