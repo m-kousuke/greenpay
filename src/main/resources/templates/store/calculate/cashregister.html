@@ -40,9 +40,12 @@
 			</form>
 			<br> 
 			<div class="ui right labeled input">
-				<label for="price" class="ui label">合計額</label>
+				<label for="price" class="ui label">合計額[3%割引き価格]</label>
 				<label class="ui basic label">
-					<div th:if="${total}" ><div th:text="${total}"></div></div>
+					<div th:if="${total}" >
+						<div th:text="${total}">
+						</div>
+					</div>
 				</label>
 				<label class="ui basic label">円</label>
 			</div>
@@ -67,7 +70,7 @@
 				<tr>
 					<th>商品名</th>
 					<th>個数</th>
-					<th>価格[3%割引後]</th>
+					<th>価格</th>
 					<th>合計</th>
 				</tr>
 				<tr th:each=" calculate : ${calculateList}">

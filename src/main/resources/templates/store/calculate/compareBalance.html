@@ -20,32 +20,26 @@
 						</div>
 					</div>
 					<div class="ui raised segment">
-						<label>合計金額は,
-							<h1>
-								<p th:text="${total}"></p>
-							</h1> 円です。
-						</label> <br> <br> <label>不足金額は、
-							<h1>
-								<p th:text="${shortage}"></p>
-							</h1> 円です。
-						</label>
-
+						<label>合計金額は,</label>
+							<h1 th:text="${total} + 円です">	</h1> 
+							<br> <br> 
+						<label>不足金額は、</label>
+							<h1 th:text="${shortage} +  円です。"></h1>
 					</div>
 				</div>
 				<br>
-
 				<form th:action="@{/store/calculate/chargeAndCalculate}"
 					method="post">
-					<div class="ui labeled input">
-						<h1>¥</h1>
+				<div class="ui labeled input">
+					<h1>¥</h1>
 						<input type="text" name="chargemoney" maxlength="5"
 							required="required" autofocus="autofocus" />
 						<input type="submit" value="チャージ"/>
-					</div>
-					<div>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-						<a class="ui button" th:href="@{/store/calculate}">購入キャンセル </a>
-					</div>
-					<div th:if="${errorMessage}" >
+				</div>
+				<div>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+					<a class="ui button" th:href="@{/store/calculate}">購入キャンセル </a>
+				</div>
+				<div th:if="${errorMessage}" >
 					<div class="ui negative icon message">
 						<i class="warning sign icon"></i>
 						<div class="content">
@@ -53,12 +47,10 @@
 							<p>チャージ金額が不足しています</p>
 						</div>
 					</div>
-					</div>
+				</div>
 				</form>
-				<br>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

@@ -40,6 +40,7 @@ public class ProductService {
 	public List<Product> findByStoreIdNotAndActivatedNot(String storeId) {
 	    return productRepository.findByStoreIdNotAndActivatedNot(storeId, 0);
 	}
+	
 
 	public void update(Product product) {
 		product.setUpdatedAt(LocalDateTime.now());
@@ -66,5 +67,9 @@ public class ProductService {
 			}
 		}
 		return categoryList;
+	}
+
+	public List<Product> findByStoreIdAndActivatedYes(String storeId) {
+		 return productRepository.findByStoreIdAndActivated(storeId, 2);
 	}
 }

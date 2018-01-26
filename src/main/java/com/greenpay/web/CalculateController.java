@@ -41,7 +41,7 @@ public class CalculateController {
 	//売却商品を追加するフォームへ移る処理
 	@RequestMapping(value="store/calculate/cashregister" ,method= RequestMethod.GET)
 	String index(Model model ,Principal principal) {
-		List<Product> products = productService.findByStoreIdAndActivatedNot(principal.getName());
+		List<Product> products = productService.findByStoreIdAndActivatedYes(principal.getName());
 		model.addAttribute("products", products);
 		if((BigDecimal) session.getAttribute("total")==null) {
 		List<Calculate> calculateList = new ArrayList<Calculate>();//お客さんごとの売却商品リストを生成
@@ -68,7 +68,7 @@ public class CalculateController {
 	@RequestMapping(value = "store/calculate/cashregister", method = RequestMethod.POST)
 	String calcurate(@RequestParam String productId,@RequestParam String quantity, @RequestParam Integer number,
 			Model model, Principal principal,RedirectAttributes attributes) {
-		if( quantity.matches("\\D")) {
+		if( quantity.matches("\\D+")) {
 			return "redirect:/store/calculate/cashregister";
 		}
 		List<Product> products = productService.findByStoreIdAndActivatedNot(principal.getName());
@@ -86,6 +86,8 @@ public class CalculateController {
 				total = total.add(subtotal);
 			}
 		}
+		BigDecimal discount = new BigDecimal("0.97");
+		total = total.multiply(discount).setScale(0,BigDecimal.ROUND_HALF_UP);
 		model.addAttribute("calculateList", calculateList);
 		model.addAttribute("number", number);
 		model.addAttribute("total", total);
