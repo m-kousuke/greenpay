@@ -20,11 +20,8 @@
 						</div>
 					</div>
 					<div class="ui raised segment">
-						<label>残高は,
-							<h1>
-								<p th:text="${balance}"></p>
-							</h1> 円です。
-						</label>
+						<label>残高は,</label>
+							<h1 th:text="${balance} + 円です。"></h1>
 					</div>
 				</div>
 				<br> <a class="ui button" th:href="@{/store/calculate/cashregister}">次の会計へ
