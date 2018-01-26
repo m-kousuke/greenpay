@@ -16,6 +16,6 @@ public interface PurchaseHistoryRepository extends JpaRepository<PurchaseHistory
 	// select p from PurchseHistory p where p.moneyId = ?1
 	List<PurchaseHistory> findByMoneyId(String moneyId);
 	
-	PurchaseHistory findTopByMoneyId(String moneyId);
-
+	PurchaseHistory findTopByMoneyIdOrderByCreatedAtDesc(String moneyId);
+   
 }
