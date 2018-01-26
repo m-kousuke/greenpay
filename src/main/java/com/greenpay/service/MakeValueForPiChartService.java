@@ -78,7 +78,7 @@ public class MakeValueForPiChartService {
 					valueForPiChart2.setValue(salesVolumes.get(i).getProduct().getPrice().intValue());
 					valueForPiChart2.setColoer(coloer.get(i%8));
 					valueForPiCharts.add(valueForPiChart2);
-					categoryList.add(salesVolumes.get(i).getProduct().getName());
+					categoryList.add(salesVolumes.get(i).getCategory().getName());
 				}else{
 					int index = categoryList.indexOf(salesVolumes.get(i).getCategory().getName());
 					ValueForPiChart valueForPiChart2 = new ValueForPiChart();
