@@ -17,18 +17,18 @@
 	<div class="ui raised segment">
 	<form class="ui form" th:action="@{/user/edit/edituser}" th:object="${model3}" method="post">
 		<div class="field">
-		<label>現在のパスワード(半角英数字8~16文字）</label>
-		<input type="password" name="password" required="required" pattern="^([a-zA-Z0-9]{8,16})$">
+		<label>現在のパスワード(半角英数字8~16文字)</label>
+		<input type="password" name="password" required="required" pattern="^([a-zA-Z0-9]{8,16})$" placeholder="現在のパスワードを入力してください">
 		<div th:if="${#fields.hasErrors('password')}" class="ui pointing red basic label" th:errors="*{password}">Error</div>
 		</div>
 		<div class="field">
 		<label>新規パスワード(半角英数字8~16文字)</label>
-		<input type="password" name="newPassword" required="required" pattern="^([a-zA-Z0-9]{8,16})$">
+		<input type="password" name="newPassword" required="required" pattern="^([a-zA-Z0-9]{8,16})$" placeholder="新規パスワードを入力してください">
 		<div th:if="${#fields.hasErrors('newPassword')}" class="ui pointing red basic label" th:errors="*{newPassword}">Error</div>
 		</div>
 		<div class="field">
 		<label>新規パスワード(確認用)</label>
-		<input type="password" name="againNewPassword" required="required" pattern="^([a-zA-Z0-9]{8,16})$">
+		<input type="password" name="againNewPassword" required="required" pattern="^([a-zA-Z0-9]{8,16})$" >
 		<div th:if="${#fields.hasErrors('againNewPassword')}" class="ui pointing red basic label" th:errors="*{againNewPassword}">Error</div>
 		</div>
 		<button class="ui green button" type="submit">更新</button>
