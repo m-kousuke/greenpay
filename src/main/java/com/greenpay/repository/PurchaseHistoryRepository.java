@@ -17,6 +17,5 @@ public interface PurchaseHistoryRepository extends JpaRepository<PurchaseHistory
 	List<PurchaseHistory> findByMoneyId(String moneyId);
 	
 	PurchaseHistory findTopByMoneyIdOrderByCreatedAtDesc(String moneyId);
-    //@Query("SELECT id, created_at FROM purchase_history AS p WHERE p.created_at = (SELECT MAX(p.created_at) FROM purchase_history AS ph  WHERE p.id = ph.id")
-    //public int getId();
+   
 }
