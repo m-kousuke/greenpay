@@ -4,6 +4,8 @@ package com.greenpay.web;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.greenpay.domain.SalesVolume;
-import com.greenpay.domain.ValueForPiChart;
 import com.greenpay.domain.Store;
+import com.greenpay.domain.ValueForPiChart;
 import com.greenpay.service.MakeValueForPiChartService;
 import com.greenpay.service.PurchaseHistoryService;
 import com.greenpay.service.StoreService;
@@ -28,7 +30,8 @@ public class StoreController {
 	PurchaseHistoryService purchaseHistoryService;
 	@Autowired
 	MakeValueForPiChartService makeValueForPiChartService;
-	
+	@Autowired
+	HttpSession session;
 	@ModelAttribute
 	SelesVolumeForm selesVolumeForm(){
 		return new SelesVolumeForm();
@@ -37,6 +40,10 @@ public class StoreController {
 	@RequestMapping(value="store/top",method=RequestMethod.GET)
 	String StoreTop(Principal principal,Model model){
 		model.addAttribute("store", storeService.AuthenticatedStore(principal.getName()));
+		session.removeAttribute("money");
+		session.removeAttribute("number");
+		session.removeAttribute("calculateList");
+		session.removeAttribute("total");
 		return "store/top";
 	}
 	

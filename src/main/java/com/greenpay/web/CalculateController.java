@@ -44,6 +44,7 @@ public class CalculateController {
 		List<Product> products = productService.findByStoreIdAndActivatedYes(principal.getName());
 		model.addAttribute("products", products);
 		if((BigDecimal) session.getAttribute("total")==null) {
+			
 		List<Calculate> calculateList = new ArrayList<Calculate>();//お客さんごとの売却商品リストを生成
 		
 		int number = allList.size();//お客さんごとの売却商品リストに個別番号を与える
@@ -100,6 +101,15 @@ public class CalculateController {
 		return "store/calculate/cashregister";
 	}
 
+	@RequestMapping(value="store/calculate/cashregister/{state}" ,method= RequestMethod.GET)
+	String cancel(Model model,Principal principal){
+		session.removeAttribute("money");
+		session.removeAttribute("number");
+		session.removeAttribute("calculateList");
+		session.removeAttribute("total");
+		return index(model, principal);
+	}
+	
 	//売却商品を確定し,電子マネー残高確認フォームへ移る処理
 	@RequestMapping(value = "store/calculate/checkBalanceForm", method = RequestMethod.POST)
 	String checkBalance(@RequestParam Integer number, @RequestParam BigDecimal total, Model model) {

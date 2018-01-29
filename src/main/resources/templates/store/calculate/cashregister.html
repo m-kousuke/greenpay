@@ -42,7 +42,7 @@
 			<div class="ui right labeled input">
 				<label for="price" class="ui label">合計額[3%割引き価格]</label>
 				<label class="ui basic label">
-					<div th:if="${total}" >
+					<div th:if="${total}">
 						<div th:text="${total}">
 						</div>
 					</div>
@@ -56,6 +56,9 @@
 				<input type="hidden" name="number" th:value="${number}" />
 				<button class="ui green button" type="submit">確定</button>
 			</form>
+			<div>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+					<a class="ui button" th:href="@{/store/calculate/cashregister/{state}(id=${'cancel'})}">リセット </a>
+			</div>
 			<br>
 			<div th:if="${nothingError}" >
 					<div class="ui negative icon message" >
