@@ -21,10 +21,10 @@
 					</div>
 					<div class="ui raised segment">
 						<label>合計金額は,</label>
-							<h1 th:text="${total} + 円です">	</h1> 
+							<h1 th:text="${total}"></h1> 　　　　　　円です。
 							<br> <br> 
-						<label>不足金額は、</label>
-							<h1 th:text="${shortage} +  円です。"></h1>
+						<label>不足金額は,</label>
+							<h1 th:text="${shortage}"></h1>　　　　　　円です。
 					</div>
 				</div>
 				<br>
@@ -37,7 +37,7 @@
 						<input type="submit" value="チャージ"/>
 				</div>
 				<div>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-					<a class="ui button" th:href="@{/store/calculate}">購入キャンセル </a>
+					<a class="ui button" th:href="@{/store/calculate/cashregister/{state}(id=${'cancel'})}">購入キャンセル </a>
 				</div>
 				<div th:if="${errorMessage}" >
 					<div class="ui negative icon message">
