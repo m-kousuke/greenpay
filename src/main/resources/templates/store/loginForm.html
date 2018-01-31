@@ -27,7 +27,7 @@
 	<form class="ui form" method="post" th:action="@{/store/login}" >
 		<div class="field">
 		<label>店舗ID</label>
-		<input type="text" name="id" placeholder="ID" required="required" autofocus="autofocus" />
+		<input type="text" name="id" placeholder="ID" required="required" autofocus="autofocus" pattern="^(?!.*@).*$" title="店舗IDを入力してください．"/>
 		</div>
 		<div class="field">
 		<label>パスワード(半角英数字8-16文字)</label>
