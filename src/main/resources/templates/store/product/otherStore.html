@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>商品一覧</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/common/sort.css}" />
+<script type="text/javascript" th:src="@{/js/jquery.tablesorter.min.js}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#products").tablesorter();
+});
+</script>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<br>
+		<div class="ui raised segment" style="margin-left: 60px; margin-right: 60px;">
+			<div class="ui green inverted segment">
+				<h3 class="ui center aligned inverted header">商品一覧</h3>
+			</div>
+
+			<div>
+				<a th:href="@{/store/category}">
+					<button class="ui green basic button">カテゴリー一覧へ</button>
+				</a>
+				<a th:href="@{/store/product}">
+					<button class="ui green basic button">自店舗の商品一覧へ</button>
+				</a>
+			</div>
+
+
+			<table id="products" class="tablesorter ui celled table">
+				<thead>
+					<tr>
+						<th>商品名</th>
+						<th>カテゴリー名</th>
+						<th>価格</th>
+						<th>店舗名</th>
+						<th>状態</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="product : ${products}">
+						<td th:text="${product.name}" />
+						<td th:text="${product.category.name}" />
+						<td th:text="${product.price}" />
+						<td th:text="${product.store.name}" />
+						<td th:switch="${product.activated}">
+							<th:block th:case="2">有効</th:block>
+							<th:block th:case="1">現在取り扱いなし</th:block>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+</body>
+</html>

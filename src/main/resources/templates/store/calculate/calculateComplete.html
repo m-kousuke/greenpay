@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8">
+<title>電子マネー残高検索フォーム</title>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<br> <br>
+		<div class="ui centered grid container">
+			<div class="nine wide column">
+				<div class="content">
+					<div class="ui green inverted segment">
+						<div class="ui text menu">
+							<h1>会計完了</h1>
+							<div class="right menu"></div>
+						</div>
+					</div>
+					<div class="ui raised segment">
+						<label>残高は,</label>
+							<h1 th:text="${balance}"></h1>　　　　　　円です。
+					</div>
+				</div>
+				<br> <a class="ui button" th:href="@{/store/calculate/cashregister}">次の会計へ
+				</a>
+			</div>
+			<br>
+		</div>
+	</div>
+
+</body>
+</html>

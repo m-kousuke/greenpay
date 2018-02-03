@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8">
+<title>商品検索結果</title>
+</head>
+<body>
+<div layout:fragment="contents">
+<script>
+	jQuery(function ($) {
+		$('#category-select').change(function () {
+			var select_val = $('#category-select option:selected').val();
+			$.each($("#product-table tbody tr"), function (index, element) {
+				if (select_val == "") {
+					$(element).css("display", "table-row");
+					return true;
+				}
+				var row_text = $(element).text();
+				if (row_text.indexOf(select_val) != -1) {
+					$(element).css("display", "table-row");
+				} else {
+					$(element).css("display", "none");
+				}
+			});
+		});
+	});
+</script>
+	<br>
+	<div class="ui container">
+	<h2 class="header">検索結果</h2>
+	<div th:if="${#lists.size(products)==0}">
+		<div class="ui message">
+		<div class="header">検索結果がありません．</div>
+		<p>申し訳ありませんが，お探しの商品は見つかりませんでした．</p>
+		検索のヒント
+		<ul class="ui list">
+			<li>検索したい店舗を選びます．</li>
+			<li>検索したい商品名を入力します．</li>
+		</ul>
+	</div>
+	</div>
+	<div th:if="${#lists.size(products)>0}">
+	<label>カテゴリー絞り込み</label>
+	<select id="category-select" class="ui fluid dropdown">
+		<option th:each="categoryName : ${categoryList}" th:value="${categoryName}" th:text="${categoryName}"></option>
+	</select>
+	<table id="product-table" class="ui green table">
+		<thead>
+		<tr>
+			<th>商品名</th>
+			<th>カテゴリ名</th>
+			<th>価格</th>
+			<th>状態</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="product : ${products}">
+			<td th:text="${product.Name}"></td>
+			<td th:text="${product.category.Name}"></td>
+			<td th:text="${product.price}+'円'"></td>
+			<td th:switch="${product.activated}">
+				<th:block th:case="2">有効</th:block>
+				<th:block th:case="1">現在取り扱いなし</th:block>
+				<th:block th:case="0">無効</th:block>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+	<br>
+	<a class="ui green button" th:href="@{/user/searchproductForm}">検索画面に戻る</a>
+	</div>
+</div>
+</body>
+</html>
